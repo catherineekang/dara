@@ -1,0 +1,227 @@
+{
+  "scenario_id": "haze_real_v1",
+  "provenance": "Pre-generated model responses recorded for offline playback. Latencies are modelled, not measured.",
+  "rounds": [
+    [
+      {
+        "country": "Singapore",
+        "position": "Three hundred PSI is not a diplomatic inconvenience, it is a population-scale exposure event, and it has an identifiable cause on land whose ownership is already registered. We open at full concession disclosure to the ASEAN monitoring system and prosecution under our own Act, because for eleven years attribution has been the thing that never arrives.",
+        "concession": "None at this stage.",
+        "package": {
+          "concession_maps": "full_to_asean_hms",
+          "enforcement": "singapore_act_applied",
+          "peatland_moratorium": "full_no_exemptions",
+          "transition_funding": "none"
+        },
+        "latency_ms": 14200
+      },
+      {
+        "country": "Indonesia",
+        "position": "A foreign statute reaching onto Indonesian soil is not an environmental measure, it is a jurisdictional claim, and no government can concede it. Two and a half million smallholders clear by fire because it costs a fifteenth of mechanised clearing; ban it unfunded and the fires move rather than stop. We open at domestic enforcement, maps withheld, and a fully funded transition.",
+        "concession": "None at this stage.",
+        "package": {
+          "concession_maps": "withheld",
+          "enforcement": "indonesian_courts_only",
+          "peatland_moratorium": "existing_exempt",
+          "transition_funding": "full_donor_fund"
+        },
+        "latency_ms": 16800
+      }
+    ],
+    [
+      {
+        "country": "Singapore",
+        "position": "We accept that prosecution in our courts is the part you cannot sign, and we will drop it for a joint ASEAN panel with published findings — attribution is what we need, not the venue. We will also carry part of the transition cost. In exchange the moratorium has to close the existing-concession exemption, because that exemption is where most of the burned hectarage sat in 2015.",
+        "concession": "Drops extraterritorial prosecution for a joint panel; funds part of the transition.",
+        "package": {
+          "concession_maps": "full_to_asean_hms",
+          "enforcement": "joint_asean_panel",
+          "peatland_moratorium": "full_no_exemptions",
+          "transition_funding": "partial_donor_fund"
+        },
+        "latency_ms": 18400
+      },
+      {
+        "country": "Indonesia",
+        "position": "A joint panel we can discuss, provided its findings bind companies and not the state. Aggregated district-level maps are available immediately; parcel-level disclosure runs into our data law and into live land-tenure disputes we cannot settle by treaty. The moratorium is negotiable if the fund is not partial — a half-funded transition is an unfunded one at our scale.",
+        "concession": "Accepts a joint panel in principle; offers aggregated maps.",
+        "package": {
+          "concession_maps": "aggregated_by_district",
+          "enforcement": "joint_asean_panel",
+          "peatland_moratorium": "partial_exemptions",
+          "transition_funding": "full_donor_fund"
+        },
+        "latency_ms": 17100
+      }
+    ],
+    [
+      {
+        "country": "Singapore",
+        "position": "Then take the full fund. It is the cheapest thing on this table for us and the most valuable thing on it for you, and we would rather spend money than spend another dry season arguing. What it buys is the closed moratorium and parcel-level disclosure to the monitoring system alone — not to our courts, not to the public.",
+        "concession": "Full transition funding; disclosure confined to the monitoring system.",
+        "package": {
+          "concession_maps": "full_to_asean_hms",
+          "enforcement": "joint_asean_panel",
+          "peatland_moratorium": "full_no_exemptions",
+          "transition_funding": "full_donor_fund"
+        },
+        "latency_ms": 15600
+      },
+      {
+        "country": "Indonesia",
+        "position": "Disclosure to the monitoring system rather than to a foreign court is a different proposition, and with the fund secured we can close the exemptions. We will hold at the joint panel for enforcement. On those terms the package is one we can defend domestically, which was never true of the opening offer.",
+        "concession": "Full disclosure to the monitoring system; closes moratorium exemptions.",
+        "package": {
+          "concession_maps": "full_to_asean_hms",
+          "enforcement": "joint_asean_panel",
+          "peatland_moratorium": "full_no_exemptions",
+          "transition_funding": "full_donor_fund"
+        },
+        "latency_ms": 19300
+      }
+    ]
+  ],
+  "judge": [
+    {
+      "round_index": 1,
+      "latency_ms": 21500,
+      "unaddressed": [
+        "Whether attribution data and enforcement venue are separable at all",
+        "Who bears the cost of mechanised clearing at smallholder scale"
+      ],
+      "judgments": [
+        {
+          "country": "Singapore",
+          "scores": {
+            "feasibility": 2,
+            "specificity": 4,
+            "tradeoff_acknowledgement": 1,
+            "interest_consistency": 5,
+            "responsiveness": 1
+          },
+          "summary": "States the harm precisely but names no cost to the other side, and asserts extraterritorial prosecution without arguing why it is acceptable rather than merely desirable."
+        },
+        {
+          "country": "Indonesia",
+          "scores": {
+            "feasibility": 3,
+            "specificity": 4,
+            "tradeoff_acknowledgement": 2,
+            "interest_consistency": 5,
+            "responsiveness": 1
+          },
+          "summary": "Grounds the subsistence constraint in a specific cost ratio, but treats every disclosure option as equivalent to the jurisdictional claim it objects to."
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "latency_ms": 23800,
+      "unaddressed": [
+        "Whether panel findings can bind companies without binding the state"
+      ],
+      "judgments": [
+        {
+          "country": "Singapore",
+          "scores": {
+            "feasibility": 4,
+            "specificity": 4,
+            "tradeoff_acknowledgement": 4,
+            "interest_consistency": 4,
+            "responsiveness": 5
+          },
+          "summary": "Separates attribution from venue, which is the concession that makes the rest tractable; still treats partial funding as adequate without testing it."
+        },
+        {
+          "country": "Indonesia",
+          "scores": {
+            "feasibility": 4,
+            "specificity": 5,
+            "tradeoff_acknowledgement": 3,
+            "interest_consistency": 4,
+            "responsiveness": 4
+          },
+          "summary": "Names the specific legal obstacle to parcel-level disclosure rather than asserting sovereignty in general, and correctly identifies partial funding as the weak point."
+        }
+      ]
+    },
+    {
+      "round_index": 3,
+      "latency_ms": 20100,
+      "unaddressed": [],
+      "judgments": [
+        {
+          "country": "Singapore",
+          "scores": {
+            "feasibility": 5,
+            "specificity": 5,
+            "tradeoff_acknowledgement": 5,
+            "interest_consistency": 4,
+            "responsiveness": 5
+          },
+          "summary": "Explicitly prices its own concession as cheap to itself and valuable to the other side, which is the argument that closes the gap."
+        },
+        {
+          "country": "Indonesia",
+          "scores": {
+            "feasibility": 4,
+            "specificity": 5,
+            "tradeoff_acknowledgement": 4,
+            "interest_consistency": 4,
+            "responsiveness": 5
+          },
+          "summary": "Concedes disclosure once its destination is narrowed, showing the objection was to the recipient rather than the data."
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "latency_ms": 26400,
+    "rationale": "The judge's assessments converge on one exchange: the funding Singapore weights least is what Indonesia weights most, and the disclosure Indonesia resisted was an objection to the recipient rather than to the data itself.",
+    "package": {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+    },
+    "options": [
+      {
+        "condition": "Indonesia holds on parcel-level maps",
+        "action": "narrow the recipient to the ASEAN monitoring system with no onward transmission to national courts",
+        "priority_tag": "sovereignty"
+      },
+      {
+        "condition": "Treasury resists the full fund",
+        "action": "tie disbursement to verified hectarage reductions rather than reducing the amount",
+        "priority_tag": "cost"
+      },
+      {
+        "condition": "The joint panel stalls on binding companies",
+        "action": "accept published findings without penalties in year one, with review",
+        "priority_tag": "speed"
+      }
+    ]
+  },
+  "baseline": {
+    "latency_ms": 11200,
+    "rationale": "Without the other side's constraints the defensible play is to hold the enforcement claim and concede only partially elsewhere.",
+    "package": {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "singapore_act_applied",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+    },
+    "options": [
+      {
+        "condition": "Indonesia refuses disclosure",
+        "action": "escalate to the ASEAN ministerial and publish satellite attribution unilaterally",
+        "priority_tag": "speed"
+      },
+      {
+        "condition": "Talks stall past the dry season",
+        "action": "apply the Act to companies with Singapore-listed parents",
+        "priority_tag": "sovereignty"
+      }
+    ]
+  }
+}

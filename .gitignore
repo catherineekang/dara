@@ -1,0 +1,17 @@
+# Secrets — never commit. .env.example is the committed template.
+.env
+.env.local
+
+# Environments and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated at run time
+runs/
+outputs/
+briefs/
+
+# OS
+.DS_Store

@@ -1,0 +1,15 @@
+# Orchestration + provider. OpenAI is the only live provider wired up.
+langchain-core>=0.3
+langchain-openai>=0.2
+langgraph>=0.2
+python-dotenv>=1.0
+pydantic>=2.0
+
+# HTTP layer the console talks to.
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# The test suite is a main entry point to this repo — it runs with no API key
+# and no network — so its runner is installed by default rather than separately.
+pytest>=8.0
+httpx>=0.27          # FastAPI's TestClient
