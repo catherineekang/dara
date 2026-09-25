@@ -1,10 +1,6 @@
-<p align="center">
-  <img src="/brand/dara-logo-primary.png" alt="" height="96">
+<p>
+  <img src="/brand/dara-logo-primary.png" alt="" height="156">
 </p>
-
-<h1 align="center">DARA</h1>
-<p align="center"><b>D</b>ebate · <b>A</b>djudicate · <b>R</b>ecommend · <b>A</b>ssess</p>
-<p align="center"><i>dara</i> — dove. Crisis negotiation rehearsal.</p>
 
 ---
 
