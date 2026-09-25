@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/dara-mark-trim.png" alt="" height="96">
+  <img src="/brand/dara-logo-primary.png" alt="" height="96">
 </p>
 
 <h1 align="center">DARA</h1>
