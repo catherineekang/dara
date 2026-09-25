@@ -1,7 +1,6 @@
 <p>
   <img src="/brand/dara-logo-primary.png" alt="" height="156">
 </p>
-
 ---
 
 Before entering a negotiation, a policymaker needs to anticipate what the other
