@@ -1,0 +1,163 @@
+{
+  "scenario_id": "covid_my_2020_v1",
+  "title": "COVID-19 border and supply measures — Singapore · Malaysia (2020)",
+  "focus_country": "Singapore",
+  "description": "On 16 March 2020 Malaysia announced a Movement Control Order effective 18 March, restricting movement nationwide and closing its borders to outbound travel. Roughly 300,000 Malaysians commuted daily into Singapore for work, concentrated in healthcare, construction, manufacturing and transport; Singapore also draws a large share of its fresh food and eggs from Malaysia by road. The two governments had days to settle how cross-border work would continue, who would house and pay for workers unable to commute, whether cargo would keep moving, and what health screening would apply. Positions here are reconstructed from the public record and are not official.",
+  "source": "Malaysia Prime Minister's Office announcement of the Movement Control Order, 16 March 2020; Singapore Ministry of Manpower advisories on Malaysian employees, March 2020; joint statements on continuity of goods flow.",
+  "issues": [
+    {
+      "name": "commuter_arrangement",
+      "options": [
+        "border_closed",
+        "daily_commute_with_screening",
+        "stay_in_singapore_with_support"
+      ]
+    },
+    {
+      "name": "accommodation_cost",
+      "options": [
+        "employers_only",
+        "shared_between_states",
+        "singapore_subsidised"
+      ]
+    },
+    {
+      "name": "goods_and_food_flow",
+      "options": [
+        "export_controls",
+        "prioritised_essentials",
+        "unrestricted_cargo"
+      ]
+    },
+    {
+      "name": "health_screening",
+      "options": [
+        "self_declaration",
+        "temperature_and_declaration",
+        "testing_and_quarantine"
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Singapore",
+      "interests": [
+        "Keep essential sectors staffed through the outbreak",
+        "Keep fresh food and supplies moving by road",
+        "Avoid importing transmission through daily cross-border movement"
+      ],
+      "resources": [
+        "Fiscal capacity to subsidise accommodation at short notice",
+        "Hotel and dormitory capacity that can be requisitioned",
+        "Testing and screening infrastructure at the checkpoints"
+      ],
+      "constraints": [
+        "Cannot compel Malaysian citizens to relocate",
+        "Healthcare and construction cannot absorb a sudden loss of a third of shift staff",
+        "Public will not accept an uncontrolled daily crossing during an outbreak"
+      ],
+      "red_lines": [
+        "Will not accept an arrangement that leaves essential services unstaffed",
+        "Will not accept unscreened daily movement across the Causeway"
+      ],
+      "valuations": [
+        {
+          "issue": "commuter_arrangement",
+          "weight": 0.35,
+          "option_values": {
+            "border_closed": 0.0,
+            "daily_commute_with_screening": 0.55,
+            "stay_in_singapore_with_support": 1.0
+          }
+        },
+        {
+          "issue": "accommodation_cost",
+          "weight": 0.1,
+          "option_values": {
+            "employers_only": 1.0,
+            "shared_between_states": 0.6,
+            "singapore_subsidised": 0.3
+          }
+        },
+        {
+          "issue": "goods_and_food_flow",
+          "weight": 0.3,
+          "option_values": {
+            "export_controls": 0.0,
+            "prioritised_essentials": 0.6,
+            "unrestricted_cargo": 1.0
+          }
+        },
+        {
+          "issue": "health_screening",
+          "weight": 0.25,
+          "option_values": {
+            "self_declaration": 0.1,
+            "temperature_and_declaration": 0.55,
+            "testing_and_quarantine": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Malaysia",
+      "interests": [
+        "Stop the daily movement that the Movement Control Order exists to prevent",
+        "Ensure Malaysians working abroad are housed and paid for",
+        "Protect domestic food supply before exporting it"
+      ],
+      "resources": [
+        "Sovereign control over who leaves and returns",
+        "The Causeway and Second Link as the only land routes",
+        "Domestic food production that Singapore depends on"
+      ],
+      "constraints": [
+        "Limited fiscal room to support citizens housed in another country",
+        "Cannot be seen to exempt Singapore from a nationwide order",
+        "State governments in Johor carry the political cost either way"
+      ],
+      "red_lines": [
+        "Will not exempt daily commuting from the Movement Control Order",
+        "Will not leave Malaysian workers stranded without support"
+      ],
+      "valuations": [
+        {
+          "issue": "commuter_arrangement",
+          "weight": 0.3,
+          "option_values": {
+            "border_closed": 1.0,
+            "daily_commute_with_screening": 0.0,
+            "stay_in_singapore_with_support": 0.65
+          }
+        },
+        {
+          "issue": "accommodation_cost",
+          "weight": 0.25,
+          "option_values": {
+            "employers_only": 0.2,
+            "shared_between_states": 0.5,
+            "singapore_subsidised": 1.0
+          }
+        },
+        {
+          "issue": "goods_and_food_flow",
+          "weight": 0.15,
+          "option_values": {
+            "export_controls": 1.0,
+            "prioritised_essentials": 0.6,
+            "unrestricted_cargo": 0.3
+          }
+        },
+        {
+          "issue": "health_screening",
+          "weight": 0.3,
+          "option_values": {
+            "self_declaration": 0.0,
+            "temperature_and_declaration": 0.5,
+            "testing_and_quarantine": 1.0
+          }
+        }
+      ]
+    }
+  ]
+}

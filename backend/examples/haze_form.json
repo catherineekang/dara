@@ -1,0 +1,32 @@
+{
+  "title": "Transboundary haze (simple form)",
+  "situation": "Recurring smoke haze from peatland fires in Indonesia reaches Singapore. Singapore wants accountability for the companies responsible; Indonesia wants to protect jurisdiction and smallholders.",
+  "issues": [
+    {"name": "Concession maps",     "options": ["Withheld", "Aggregated by district", "Full to ASEAN HMS"]},
+    {"name": "Enforcement",         "options": ["Indonesian courts only", "Joint ASEAN panel", "Singapore act applied"]},
+    {"name": "Peatland moratorium", "options": ["Existing exempt", "Partial exemptions", "Full no exemptions"]},
+    {"name": "Transition funding",  "options": ["None", "Partial donor fund", "Full donor fund"]}
+  ],
+  "you": {
+    "name": "Singapore",
+    "ranking": ["Concession maps", "Enforcement", "Peatland moratorium", "Transition funding"],
+    "options": {
+      "Concession maps":     {"Withheld": "unacceptable", "Aggregated by district": "acceptable", "Full to ASEAN HMS": "good"},
+      "Enforcement":         {"Indonesian courts only": "acceptable", "Joint ASEAN panel": "acceptable", "Singapore act applied": "good"},
+      "Peatland moratorium": {"Existing exempt": "acceptable", "Partial exemptions": "acceptable", "Full no exemptions": "good"},
+      "Transition funding":  {"None": "good", "Partial donor fund": "acceptable", "Full donor fund": "acceptable"}
+    },
+    "red_lines": ["Will not accept a settlement with no attribution mechanism"]
+  },
+  "them": {
+    "name": "Indonesia",
+    "ranking": ["Enforcement", "Transition funding", "Concession maps", "Peatland moratorium"],
+    "options": {
+      "Enforcement":         {"Indonesian courts only": "good", "Joint ASEAN panel": "acceptable", "Singapore act applied": "unacceptable"},
+      "Transition funding":  {"None": "unacceptable", "Partial donor fund": "acceptable", "Full donor fund": "good"},
+      "Concession maps":     {"Withheld": "good", "Aggregated by district": "acceptable", "Full to ASEAN HMS": "acceptable"},
+      "Peatland moratorium": {"Existing exempt": "good", "Partial exemptions": "acceptable", "Full no exemptions": "acceptable"}
+    },
+    "red_lines": ["No foreign jurisdiction over acts on Indonesian soil", "No restriction that falls on smallholders without funded alternatives"]
+  }
+}

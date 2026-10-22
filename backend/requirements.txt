@@ -1,0 +1,12 @@
+# Orchestration + provider. OpenAI is the only live provider wired up.
+langchain-core>=0.3
+langchain-openai>=0.2
+python-dotenv>=1.0
+pydantic>=2.0
+
+# HTTP layer the console talks to.
+flask>=3.0
+
+# The test suite is a main entry point to this repo — it runs with no API key
+# and no network — so its runner is installed by default rather than separately.
+pytest>=8.0

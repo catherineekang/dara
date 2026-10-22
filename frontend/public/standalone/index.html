@@ -1,0 +1,2180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DARA</title>
+<style>
+:root{
+  --navy:#1D2A44; --verm-brand:#E0583A; --verm-deep:#C2411F; --gold-brand:#F2C14E;
+  --slate:#5B6478; --cream:#F6F2E8; --mist:#C9CFDC;
+
+  --bg:#FFFFFF; --soft:#F6F2E8; --soft-2:#FBF9F4;
+  --ink:#1D2A44; --ink-2:#5B6478; --ink-3:#98A0AE; --line:#C9CFDC; --line-2:#E7EAF0;
+  --accent:#E0583A; --accent-soft:#FCEDE8; --accent-ink:#C2411F;
+  --teal:#1D2A44; --verm:#E0583A; --gold-mark:#F2C14E; --gold-ink:#8A6512;
+  --bubble-a:#EFF2F7; --bubble-b:#FCEDE8;
+  --ok:#1D2A44; --wait:#F2C14E; --idle:#C9CFDC;
+  --sh:0 1px 2px rgba(29,42,68,.06), 0 6px 20px rgba(29,42,68,.06);
+  --sh-lg:0 2px 4px rgba(29,42,68,.06), 0 16px 40px rgba(29,42,68,.10);
+}
+:root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+  --bg:#111827; --soft:#1B2436; --soft-2:#151D2C;
+  --ink:#F6F2E8; --ink-2:#AEB7C6; --ink-3:#7A8496; --line:#2F3A4E; --line-2:#232D40;
+  --accent:#F0704F; --accent-soft:#33201B; --accent-ink:#FF9070;
+  --teal:#C9CFDC; --verm:#F0704F; --gold-mark:#F2C14E; --gold-ink:#F2C14E;
+  --bubble-a:#1B2436; --bubble-b:#2A1D19;
+  --ok:#C9CFDC; --wait:#F2C14E; --idle:#3A4559;
+  --sh:0 1px 2px rgba(0,0,0,.5); --sh-lg:0 16px 40px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --bg:#111827; --soft:#1B2436; --soft-2:#151D2C;
+  --ink:#F6F2E8; --ink-2:#AEB7C6; --ink-3:#7A8496; --line:#2F3A4E; --line-2:#232D40;
+  --accent:#F0704F; --accent-soft:#33201B; --accent-ink:#FF9070;
+  --teal:#C9CFDC; --verm:#F0704F; --gold-mark:#F2C14E; --gold-ink:#F2C14E;
+  --bubble-a:#1B2436; --bubble-b:#2A1D19;
+  --ok:#C9CFDC; --wait:#F2C14E; --idle:#3A4559;
+  --sh:0 1px 2px rgba(0,0,0,.5); --sh-lg:0 16px 40px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.45; letter-spacing:-.01em; padding-inline:22px; padding-block:0;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px; margin:0 auto; padding-block:36px 72px}
+.mono{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.01em}
+
+/* brand */
+.brand{display:flex; align-items:center; gap:12px; padding-bottom:18px; margin-bottom:26px;
+  border-bottom:1px solid var(--line)}
+.brand{gap:18px}
+.brand .mark{height:clamp(54px,8.5vw,76px); width:auto; display:block; flex:0 0 auto}
+.brand .lock{display:flex; flex-direction:column; gap:7px}
+/* The wordmark is set rather than imaged, so it scales with the page and stays
+   crisp at any size. Geometric, heavy, tight — matching the drawn lockup. */
+.brand .wm{font-size:clamp(40px,7vw,62px); font-weight:800; letter-spacing:-.045em;
+  line-height:.85; color:var(--ink)}
+.brand .xp{font-size:clamp(10.5px,1.5vw,13px); font-weight:500; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--ink-2); display:flex; flex-wrap:wrap; align-items:baseline}
+.brand .xp b{color:var(--accent); font-weight:700}
+.brand .xp i{font-style:normal; color:var(--line); margin:0 .5em}
+@media (max-width:560px){
+  .brand{gap:12px}
+  .brand .xp i{margin:0 .35em}
+}
+.brand .dove{font-size:11.5px; color:var(--ink-3); margin-left:auto; text-align:right; line-height:1.4}
+.brand .dove b{color:var(--teal); font-weight:600}
+@media (max-width:560px){ .brand .dove{display:none} }
+
+/* hero */
+.hero{margin-bottom:30px}
+.hero h1{font-size:clamp(32px,5.5vw,52px); font-weight:680; line-height:1.03; letter-spacing:-.035em;
+  margin:8px 0 0; text-wrap:balance}
+.lede{font-size:clamp(17px,2.2vw,20px); color:var(--ink-2); margin:12px 0 0; max-width:34ch; line-height:1.35;
+  letter-spacing:-.015em}
+details.more{margin-top:14px}
+details.more summary{font-size:13px; color:var(--ink-3); cursor:pointer; list-style:none; width:fit-content}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:" ↓"}
+details.more[open] summary::after{content:" ↑"}
+details.more p{font-size:14px; color:var(--ink-2); max-width:70ch; margin:10px 0 0; line-height:1.5}
+details.more p.src{font-size:12.5px; color:var(--ink-3)}
+
+/* stat strip */
+.stats{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+.stat{flex:1 1 150px; background:var(--soft); border-radius:14px; padding:16px 18px}
+.stat b{display:block; font-size:34px; font-weight:680; letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums}
+.stat span{display:block; font-size:12.5px; color:var(--ink-2); margin-top:7px}
+.stat.hot{background:var(--accent-soft)} .stat.hot b{color:var(--accent)}
+
+/* cards */
+.card{background:var(--bg); border-radius:16px; box-shadow:var(--sh); padding:20px; margin-bottom:16px}
+.card > h2{font-size:13px; font-weight:600; color:var(--ink-3); margin:0 0 14px; letter-spacing:0}
+.card > h2 em{font-style:normal; color:var(--ink-3); font-weight:400; float:right}
+
+/* control bar — every control is labelled, and they all share one height so
+   nothing sits taller than its neighbours */
+.bar{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; background:var(--soft);
+  border-radius:16px; padding:14px; margin-bottom:16px}
+optgroup{font-style:normal; font-weight:600}
+.f{display:flex; flex-direction:column; gap:6px; min-width:0}
+.f > .fl{font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-3); padding-left:2px; white-space:nowrap}
+.f.grow{flex:1 1 280px}
+.f.grow select{width:100%}
+.bar select{font-family:inherit; font-size:14px; font-weight:500; letter-spacing:-.01em;
+  height:38px; padding:0 10px; border-radius:10px; border:0; background:var(--bg); color:var(--ink);
+  box-shadow:var(--sh); max-width:100%}
+.bar select:disabled{opacity:.42; cursor:not-allowed}
+.f:has(select:disabled) > .fl{opacity:.42}
+.bar select:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.barend{display:flex; align-items:center; gap:12px; margin-left:auto}
+@media (max-width:620px){ .barend{width:100%; margin-left:0} }
+.go{font-family:inherit; font-size:15px; font-weight:600; letter-spacing:-.01em; height:38px; padding:0 26px;
+  border:0; border-radius:10px; background:var(--accent); color:#fff; cursor:pointer}
+.go.ghost{background:var(--bg); color:var(--ink); box-shadow:var(--sh)}
+.go:hover:not(:disabled){filter:brightness(1.07)}
+.go:disabled{opacity:.35; cursor:not-allowed}
+.go:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.meta{font-size:12.5px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+
+/* add-crisis sheet — build_plan §7.1 */
+.scrim{position:fixed; inset:0; z-index:50; background:rgba(29,42,68,.42);
+  display:flex; align-items:flex-start; justify-content:center; padding:24px 16px; overflow-y:auto}
+.sheet{background:var(--bg); border-radius:18px; box-shadow:var(--sh-lg); width:min(780px,100%);
+  padding:24px; display:flex; flex-direction:column; gap:22px; margin-block:auto}
+.sheet h3{margin:0; font-size:23px; font-weight:680; letter-spacing:-.028em}
+.sheet .sub{font-size:13.5px; line-height:1.5; color:var(--ink-2); margin:7px 0 0; max-width:62ch}
+.step{display:flex; flex-direction:column; gap:10px}
+.step > .sh{font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3)}
+.step > .sh b{color:var(--accent); font-weight:600}
+.step > .sh i{font-style:normal; text-transform:none; letter-spacing:0; font-weight:500; color:var(--ink-3)}
+.sheet input[type=text],.sheet textarea{font-family:inherit; font-size:14px; color:var(--ink); width:100%;
+  background:var(--soft-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px}
+.sheet textarea{line-height:1.45; resize:vertical; min-height:78px}
+.sheet input:focus-visible,.sheet textarea:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+@media (max-width:560px){ .two{grid-template-columns:1fr} }
+.routes{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+@media (max-width:660px){ .routes{grid-template-columns:1fr} }
+.route{font:inherit; color:inherit; text-align:left; cursor:pointer; background:var(--soft-2);
+  border:1.5px solid var(--line); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:4px}
+.route[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.route:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.route b{font-size:13.5px; font-weight:620}
+.route span{font-size:12px; line-height:1.4; color:var(--ink-2)}
+.route em{font-style:normal; font-size:11.5px; font-weight:620; color:var(--accent-ink); font-variant-numeric:tabular-nums}
+.note{font-size:12.5px; line-height:1.55; color:var(--ink-2); background:var(--soft); border-radius:10px; padding:11px 13px}
+.note b{color:var(--ink); font-weight:600}
+.note.warn{background:var(--accent-soft); color:var(--accent-ink)}
+.ised{border:1px solid var(--line-2); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px}
+.ised .top{display:grid; grid-template-columns:1fr auto auto; gap:8px; align-items:center}
+.ised .wl{font-size:11px; font-weight:600; color:var(--ink-3); text-transform:uppercase; letter-spacing:.05em}
+.orow{display:grid; grid-template-columns:1fr 66px 66px; gap:8px; align-items:center}
+.orow .hd{font-size:11px; font-weight:600; color:var(--ink-3); text-transform:uppercase; letter-spacing:.05em;
+  text-align:right; padding-right:4px}
+.sheet input.num{width:66px; text-align:right; font-variant-numeric:tabular-nums; padding:8px 9px; font-size:13px}
+.sheet .foot{display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  border-top:1px solid var(--line-2); padding-top:18px}
+.sheet .foot .msg{flex:1 1 220px; font-size:12.5px; line-height:1.45; font-weight:550; color:var(--accent)}
+
+/* pipeline */
+.rail{display:flex; overflow-x:auto; gap:0; padding-bottom:4px}
+.grp{flex:0 0 auto; padding:0 16px; border-left:1px solid var(--line-2)}
+.grp:first-child{padding-left:0; border-left:0}
+.grp > .gl{display:block; font-size:11.5px; font-weight:600; color:var(--ink-3); margin-bottom:10px}
+.nodes{display:flex; gap:8px}
+.node{display:flex; flex-direction:column; gap:7px; align-items:flex-start; min-width:104px;
+  background:none; border:0; padding:0; cursor:pointer; text-align:left; font:inherit; color:inherit}
+.node .dotrow{display:flex; align-items:center; gap:7px; width:100%}
+.dot{width:8px; height:8px; border-radius:2px; background:var(--idle); flex:0 0 auto}
+.node[data-s="run"] .dot{background:var(--wait)} .node[data-s="done"] .dot{background:var(--accent)}
+.node[data-s="fail"] .dot{background:var(--verm)}
+.node .bar2{height:3px; flex:1; border-radius:2px; background:var(--line-2)}
+.node[data-s="run"] .bar2{background:var(--wait)} .node[data-s="done"] .bar2{background:var(--accent)}
+.node .lbl{font-size:13.5px; font-weight:560; color:var(--ink-3); letter-spacing:-.012em}
+.node[data-s="done"] .lbl,.node[data-s="run"] .lbl{color:var(--ink)}
+.node .t{font-size:11.5px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.node[aria-current="true"] .lbl{color:var(--accent)}
+.node:focus-visible{outline:2px solid var(--accent); outline-offset:4px; border-radius:4px}
+@media (prefers-reduced-motion:no-preference){.node[data-s="run"] .dot{animation:p 1.2s ease-in-out infinite}}
+@keyframes p{50%{opacity:.3}}
+
+/* tooltip — floats above the scrolling rail rather than clipping inside it */
+#tip{position:fixed; z-index:50; max-width:280px; background:var(--ink); color:var(--bg);
+  font-size:12.5px; line-height:1.4; padding:9px 11px; border-radius:9px; pointer-events:none;
+  box-shadow:var(--sh-lg); opacity:0; transform:translateY(-3px); transition:opacity .12s}
+#tip.on{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){ #tip{transition:none} }
+
+/* intervention gate */
+.gate{align-self:center; width:100%; max-width:94%; display:flex; flex-wrap:wrap; gap:10px;
+  align-items:center; background:var(--accent-soft); border-radius:12px; padding:11px 14px}
+.gate .msg{font-size:13px; color:var(--accent-ink); font-weight:550; flex:1 1 220px}
+.gate .cd{font-variant-numeric:tabular-nums; font-size:12px; color:var(--accent-ink); opacity:.75}
+.gate button{font-family:inherit; font-size:13px; font-weight:590; padding:7px 14px; border:0;
+  border-radius:8px; cursor:pointer; background:var(--accent); color:#fff}
+.gate button.sec{background:var(--bg); color:var(--ink); box-shadow:var(--sh)}
+.gate button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.panel{align-self:center; width:100%; max-width:94%; background:var(--bg); border-radius:12px;
+  box-shadow:var(--sh-lg); padding:14px; display:flex; flex-direction:column; gap:10px}
+.panel h5{margin:0; font-size:12px; font-weight:650; color:var(--accent)}
+.panel textarea{font-family:inherit; font-size:13.5px; line-height:1.45; padding:10px;
+  border-radius:9px; border:1px solid var(--line); background:var(--soft); color:var(--ink);
+  resize:vertical; min-height:72px}
+.panel textarea:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.panel .row2{display:flex; gap:8px; flex-wrap:wrap}
+.flagged{font-size:12px; color:var(--accent); font-weight:600}
+
+/* layout */
+.cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.86fr); gap:16px; align-items:start}
+@media (max-width:920px){.cols{grid-template-columns:1fr}}
+
+/* inspector */
+.kv{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
+.chip{font-size:12px; font-weight:550; padding:5px 10px; border-radius:99px; background:var(--soft); color:var(--ink-2)}
+.chip.on{background:var(--accent-soft); color:var(--accent-ink)}
+.io{margin-top:12px}
+.io h4{font-size:11.5px; font-weight:600; color:var(--ink-3); margin:0 0 5px}
+.io p{margin:0 0 6px; font-size:14px; line-height:1.45; color:var(--ink-2)}
+.io p strong{color:var(--ink)}
+.withheld{color:var(--accent); font-weight:560}
+.pk{font-size:12.5px; color:var(--ink-3); font-variant-numeric:tabular-nums}
+
+/* transcript */
+.log{max-height:340px; overflow-y:auto; margin:-4px -4px 0; padding:4px}
+.ent{padding:14px 0; border-top:1px solid var(--line-2)}
+.ent:first-child{border-top:0; padding-top:2px}
+.ent .who{font-size:12px; font-weight:600; color:var(--ink-3)}
+.ent.aur .who b{color:var(--teal)} .ent.bel .who b{color:var(--verm)} .ent.jud .who b{color:var(--gold-ink)}
+.ent.rec .who b{color:var(--accent)}
+.ent .txt{margin-top:4px; font-size:14.5px; line-height:1.5}
+.ent .pk{margin-top:6px}
+.sc{display:inline-block; font-size:11.5px; font-weight:550; padding:3px 9px; border-radius:99px;
+  background:var(--soft); margin:6px 5px 0 0; color:var(--ink-2); font-variant-numeric:tabular-nums}
+
+/* board */
+.iss{padding:9px 0; border-top:1px solid var(--line-2)}
+.iss:first-child{border-top:0; padding-top:0}
+.iss .nm{font-size:12.5px; color:var(--ink-3); margin-bottom:6px}
+.opts{display:flex; gap:6px; flex-wrap:wrap}
+.opt{flex:1 1 auto; min-width:78px; font-family:inherit; font-size:12.5px; font-weight:500; padding:8px 8px;
+  border-radius:9px; text-align:center; cursor:pointer; color:var(--ink-2); background:var(--soft); border:0}
+.opt:hover{color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.opt:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* readout */
+.ro{display:grid; grid-template-columns:1fr auto; gap:0 16px; margin:0}
+.ro dt,.ro dd{padding:8px 0; border-top:1px solid var(--line-2); margin:0}
+.ro dt:first-of-type,.ro dd:first-of-type{border-top:0}
+.ro dt{font-size:13.5px; color:var(--ink-2)}
+.ro dd{font-size:14.5px; font-weight:600; text-align:right; font-variant-numeric:tabular-nums}
+.tick{font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:99px; background:var(--soft)}
+.tick.y{color:var(--teal)} .tick.n{color:var(--accent)} .tick.m{color:var(--gold-ink)}
+
+.rl{font-size:12.5px; color:var(--ink-3); margin-top:5px; display:flex; flex-direction:column; gap:3px}
+.rli{display:flex; align-items:baseline; gap:6px}
+.cite{flex:0 0 auto; font-family:inherit; font-size:10px; font-weight:700; width:15px; height:15px;
+  border-radius:50%; border:0; background:var(--soft); color:var(--ink-2); cursor:pointer; line-height:15px;
+  padding:0; text-align:center}
+.cite:hover{background:var(--accent); color:#fff}
+.cite.none{background:none; color:var(--ink-3); cursor:default; opacity:.5}
+.cite:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* parties */
+.party{padding:14px 0; border-top:1px solid var(--line-2)}
+.party:first-child{border-top:0; padding-top:0}
+.prow{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.prow .nm{font-weight:620; font-size:15.5px; letter-spacing:-.018em}
+.party.a .nm{color:var(--teal)} .party.b .nm{color:var(--verm)}
+.vrow{display:grid; grid-template-columns:minmax(0,1fr) 84px 38px; gap:10px; align-items:center;
+  font-size:12.5px; color:var(--ink-3); padding:3px 0; font-variant-numeric:tabular-nums}
+.meter{height:5px; background:var(--soft); border-radius:3px; position:relative; overflow:hidden}
+.meter i{position:absolute; inset:0 auto 0 0; background:currentColor; border-radius:3px}
+.sealed{font-size:13px; color:var(--ink-3); padding:5px 0}
+.mini{font-family:inherit; font-size:12px; font-weight:500; padding:6px 12px; border-radius:99px;
+  background:var(--soft); border:0; color:var(--ink-2); cursor:pointer}
+.mini:hover{color:var(--ink)}
+.mini:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+
+/* tabs */
+.tabs{display:flex; gap:4px; background:var(--soft); border-radius:12px; padding:4px; margin-bottom:16px; width:fit-content}
+.tab{font-family:inherit; font-size:13.5px; font-weight:560; letter-spacing:-.01em; padding:8px 18px;
+  border:0; border-radius:9px; background:none; color:var(--ink-2); cursor:pointer}
+.tab.on{background:var(--bg); color:var(--ink); box-shadow:var(--sh)}
+.tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.tab .n{font-size:11.5px; color:var(--ink-3); margin-left:6px; font-variant-numeric:tabular-nums}
+
+/* chat */
+.chatwrap{max-width:820px; margin:0 auto}
+.chat{min-height:340px; max-height:min(66vh,620px); overflow-y:auto; padding:4px 2px 8px;
+  display:flex; flex-direction:column; gap:14px}
+.chat:empty::after{content:"Press Run to replay the negotiation."; color:var(--ink-3); font-size:14px; margin:auto}
+.div{display:flex; align-items:center; gap:10px; margin:6px 0 2px; color:var(--ink-3); font-size:11.5px; font-weight:600}
+.div::before,.div::after{content:""; flex:1; height:1px; background:var(--line-2)}
+.msg{display:flex; gap:9px; max-width:86%; align-items:flex-end}
+.msg.right{align-self:flex-end; flex-direction:row-reverse}
+.msg.left{align-self:flex-start}
+.av{width:30px; height:30px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;
+  font-size:11.5px; font-weight:680; color:#fff; letter-spacing:-.02em}
+.msg.left .av{background:var(--teal)} .msg.right .av{background:var(--verm)}
+.bub{background:var(--bubble-a); border-radius:16px; padding:11px 14px; position:relative}
+.msg.left .bub{border-bottom-left-radius:5px}
+.msg.right .bub{background:var(--bubble-b); border-bottom-right-radius:5px}
+.bub .nm{font-size:12px; font-weight:650; margin-bottom:3px}
+.msg.left .bub .nm{color:var(--teal)} .msg.right .bub .nm{color:var(--verm)}
+.bub .bd{font-size:14.5px; line-height:1.48; white-space:pre-wrap}
+.bub .tm{font-size:10.5px; color:var(--ink-3); margin-top:6px; text-align:right; font-variant-numeric:tabular-nums}
+.attach{margin-top:9px; background:var(--bg); border-radius:10px; padding:9px 11px; font-size:12px;
+  color:var(--ink-2); line-height:1.5}
+.attach b{display:block; font-size:10.5px; font-weight:650; color:var(--ink-3); margin-bottom:3px}
+.attach .cede{color:var(--accent-ink); margin-top:5px; display:block}
+
+/* judge + recommender sit centred, like system notices */
+.sys{align-self:center; max-width:94%; width:100%; background:var(--bg); border-radius:14px;
+  box-shadow:var(--sh); padding:13px 15px}
+.sys .hd{font-size:11.5px; font-weight:650; color:var(--gold-ink); margin-bottom:7px}
+.sys .row{display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; justify-content:space-between;
+  padding:7px 0; border-top:1px solid var(--line-2)}
+.sys .row:first-of-type{border-top:0}
+.sys .row .who2{font-size:13px; font-weight:600}
+.sys .row .sm{font-size:13.5px; color:var(--ink-2); flex:1 1 100%; line-height:1.45}
+.sys .un{margin-top:8px; font-size:12.5px; color:var(--ink-3)}
+.sys.final{box-shadow:var(--sh-lg); border-top:3px solid var(--accent)}
+.sys.final .hd{color:var(--accent)}
+.sys.final .bd{font-size:14.5px; line-height:1.5; margin-bottom:9px}
+.opt2{font-size:13px; color:var(--ink-2); padding:6px 0; border-top:1px solid var(--line-2); line-height:1.45}
+.opt2 em{font-style:normal; color:var(--accent-ink); font-weight:600}
+
+/* tailored recommendations — two of them, told apart at a glance */
+.sys.final .headline{font-size:16.5px; font-weight:650; letter-spacing:-.02em; line-height:1.3;
+  margin:0 0 8px; text-wrap:balance}
+.sc.prio{background:var(--accent-soft); color:var(--accent-ink); font-weight:620}
+.reccols{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; align-items:start}
+/* The comparison block is the one thing in the chat that must not be bubble-width:
+   two columns of advice need the room, so it takes the full column. */
+.sys.final.reccompare{max-width:100%}
+.reccompare .reccard{background:var(--soft-2)}
+.reccompare .reccard .bd{font-size:14px; line-height:1.5; white-space:pre-wrap}
+.reccompare .reccard .attach{background:var(--bg)}
+@media (max-width:640px){ .reccols{grid-template-columns:1fr} }
+.reccard{border:1px solid var(--line-2); border-radius:12px; padding:14px;
+  display:flex; flex-direction:column; gap:8px}
+.reccard .top{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.reccard h4{margin:0; font-size:15.5px; font-weight:640; letter-spacing:-.02em; line-height:1.3}
+.reccard .ro dt,.reccard .ro dd{padding:5px 0}
+.diverge{font-size:13px; line-height:1.5; color:var(--ink-2); margin:12px 0 0}
+.diverge b{color:var(--ink)}
+
+/* typing indicator */
+.typing{display:flex; gap:4px; padding:4px 2px}
+.typing i{width:6px; height:6px; border-radius:50%; background:var(--ink-3); opacity:.4}
+@media (prefers-reduced-motion:no-preference){
+  .typing i{animation:bl 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.15s} .typing i:nth-child(3){animation-delay:.3s}
+}
+@keyframes bl{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:.9;transform:translateY(-3px)}}
+
+/* plot + table */
+svg{display:block; width:100%; height:auto; max-width:100%}
+.tw{overflow-x:auto; margin:0 -4px}
+table{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+th,td{text-align:right; padding:10px 10px; border-top:1px solid var(--line-2); white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:12px; color:var(--ink-3); font-weight:500; border-top:0}
+td{font-weight:550}
+tr.base td{color:var(--ink-3); font-weight:400}
+.status{font-size:13.5px; color:var(--ink-2); margin-top:14px; line-height:1.45}
+.status b{color:var(--accent); font-weight:600}
+
+/* ---- two audiences: policymaker (default) vs research ----
+   .px shows only to policymakers, .rx only in research view. These only ever
+   hide, so an element the script has [hidden] stays hidden in both. */
+body:not(.research) .rx{display:none!important}
+body.research .px{display:none!important}
+[hidden]{display:none!important}
+.brand .right{margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:10px}
+.brand .right .dove{margin-left:0}
+@media (max-width:560px){ .brand{flex-wrap:wrap} .brand .right{margin-left:0; width:100%; align-items:flex-start} }
+body:not(.research) .chat:empty::after{content:"Press “Hear them argue it” to replay the negotiation."}
+
+/* segmented buttons: the view switch and the Good / OK / No marks */
+.seg{display:inline-flex; background:var(--soft); border-radius:10px; padding:3px; gap:2px}
+.seg button{font:inherit; font-size:12.5px; font-weight:600; min-width:44px; height:30px; padding:0 10px;
+  border:0; border-radius:8px; background:transparent; color:var(--ink-2); cursor:pointer}
+.seg button:hover{color:var(--ink)}
+.seg button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.modeseg button{height:28px; font-size:12px}
+.modeseg button[aria-checked="true"]{background:var(--bg); color:var(--ink); box-shadow:var(--sh)}
+.seg button[aria-checked="true"].m-good{background:var(--ink); color:var(--bg)}
+.seg button[aria-checked="true"].m-acceptable{background:var(--gold-brand); color:var(--navy)}
+.seg button[aria-checked="true"].m-unacceptable{background:var(--accent); color:#fff}
+
+/* the plain-language form */
+#addForm,#addReview{display:flex; flex-direction:column; gap:22px}
+.lab{display:flex; flex-direction:column; gap:6px; font-size:12.5px; font-weight:600; color:var(--ink-2)}
+.lab i,.ogrid .hd i{font-style:normal; font-weight:500; color:var(--ink-3); text-transform:none; letter-spacing:0}
+.note .mini{margin-left:8px}
+.icard{border:1px solid var(--line-2); border-radius:12px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.ihead{display:flex; gap:8px; align-items:center}
+.sheet .ihead .iname{font-weight:600}
+.ogrid{display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px 12px; align-items:center}
+.ogrid .hd,.irow .hd{font-size:11px; font-weight:600; color:var(--ink-3); text-transform:uppercase; letter-spacing:.05em}
+.ocell{display:flex; gap:6px; align-items:center; min-width:0}
+.x{font:inherit; font-size:16px; line-height:1; width:28px; height:28px; flex:none; border:0; border-radius:99px;
+  background:transparent; color:var(--ink-3); cursor:pointer}
+.x:hover{color:var(--accent); background:var(--soft)}
+.irow{display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; border-top:1px solid var(--line-2); padding-top:10px}
+.irow label{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--ink-2)}
+.irow select,.wigrid select{font:inherit; font-size:13px; color:var(--ink); background:var(--soft-2);
+  border:1px solid var(--line); border-radius:8px; padding:6px 8px}
+@media (max-width:640px){
+  .ogrid{grid-template-columns:1fr 1fr}
+  .ogrid .hd:first-child{display:none}
+  .ogrid .ocell{grid-column:1 / -1; margin-top:6px}
+  .ogrid .seg{width:100%}
+  .ogrid .seg button{flex:1; min-width:0; padding:0 4px}
+}
+
+/* the read-back, then the rehearsed openings */
+.rcard{display:flex; flex-direction:column; gap:12px}
+.rcard h4{margin:0; font-size:16px; font-weight:650; letter-spacing:-.015em}
+.rcard h4 em{display:block; font-style:normal; font-weight:500; font-size:12.5px; color:var(--ink-3); margin-top:3px}
+.rcard.gate{border-left:3px solid var(--gold-brand); padding-left:14px}
+.readback{margin:0; padding-left:18px; font-size:14px; line-height:1.6; color:var(--ink)}
+.readback li.sub{list-style:none; margin-left:-2px; font-size:13px; color:var(--ink-2)}
+.opening{border:1px solid var(--line-2); border-radius:14px; padding:16px; margin-bottom:12px}
+.opening.best{border:1.5px solid var(--accent)}
+.otitle{font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:10px}
+.ochips{display:flex; flex-wrap:wrap; gap:6px}
+.ochip{font-size:13px; font-weight:560; background:var(--soft); border-radius:99px; padding:5px 11px}
+.ochip i{font-style:normal; font-weight:500; color:var(--ink-3); margin-right:4px}
+.opening .stats,.sys .stats{margin-top:14px}
+.opening .stat b,.sys .stat b{font-size:24px}
+.said{margin:14px 0 0; padding-left:18px; font-size:13.5px; line-height:1.55; color:var(--ink-2)}
+.said li.warnline{color:var(--accent-ink); font-weight:560}
+.whatif{margin-top:6px; border-top:1px solid var(--line-2); padding-top:14px}
+.whatif summary{cursor:pointer; font-size:14px; font-weight:600; color:var(--accent-ink)}
+.whatif[open] summary{margin-bottom:12px}
+.wigrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-bottom:12px}
+.wigrid select{font-size:13.5px; padding:8px}
+#whatIfOut{margin-top:14px}
+@media (max-width:600px){
+  .opening .stats .stat,.sys .stats .stat{flex:1 1 calc(50% - 8px); padding:12px 14px}
+  .opening .stat b,.sys .stat b{font-size:21px}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <div class="brand">
+    <img class="mark" src="mark.png" alt="" width="990" height="735">
+    <div class="lock">
+      <div class="wm">dara</div>
+      <div class="xp"><b>D</b>ebate<i>·</i><b>A</b>djudicate<i>·</i><b>R</b>ecommend<i>·</i><b>A</b>ssess</div>
+    </div>
+    <div class="right">
+      <div class="seg modeseg" role="radiogroup" aria-label="View">
+        <button type="button" role="radio" data-mode="policy" aria-checked="true">Policymaker</button>
+        <button type="button" role="radio" data-mode="research" aria-checked="false">Research</button>
+      </div>
+      <div class="dove"><b>dara</b> — dove<br>crisis negotiation rehearsal</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <span class="eyebrow" id="caseMeta">—</span>
+    <h1 id="caseTitle">—</h1>
+    <p class="lede" id="caseLede">—</p>
+    <details class="more">
+      <summary>Background</summary>
+      <p id="caseCtx"></p>
+      <p class="src" id="caseSrcP"></p>
+    </details>
+    <div class="stats rx">
+      <div class="stat"><b id="fSet">—</b><span>possible settlements</span></div>
+      <div class="stat"><b id="fPar">—</b><span>on the frontier</span></div>
+      <div class="stat hot"><b id="fGap">—</b><span>joint value at stake</span></div>
+    </div>
+  </div>
+
+  <div class="bar">
+    <label class="f grow"><span class="fl">Case</span>
+      <select id="caseSel"></select>
+    </label>
+    <label class="f rx"><span class="fl">Condition</span>
+      <select id="cond">
+        <option value="B2">B2 · debate + judge</option>
+        <option value="B1">B1 · debate, no judge</option>
+        <option value="B0">B0 · single call</option>
+      </select>
+    </label>
+    <label class="f rx"><span class="fl">Rounds</span>
+      <select id="rounds">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+      </select>
+    </label>
+    <label class="f grow"><span class="fl">Protect</span>
+      <select id="priority"></select>
+    </label>
+    <label class="f rx"><span class="fl">Playback</span>
+      <select id="speed">
+        <option value="4">4× faster</option>
+        <option value="1">Real time</option>
+        <option value="0">Instant</option>
+      </select>
+    </label>
+    <label class="f rx"><span class="fl">Human review</span>
+      <select id="gate">
+        <option value="10" selected>10s window</option>
+        <option value="3">3s window</option>
+        <option value="0">Off</option>
+        <option value="-1">Pause each round</option>
+      </select>
+    </label>
+    <div class="barend">
+      <span class="meta rx" id="caseCount"></span>
+      <span class="meta rx" id="cost"></span>
+      <button class="go ghost" type="button" id="newBtn">New crisis</button>
+      <button class="go" type="button" id="runBtn"><span class="px">Hear them argue it</span><span class="rx">Run</span></button>
+      <button class="go ghost" type="button" id="stopBtn" hidden>Stop</button>
+    </div>
+  </div>
+  <div id="tip" hidden></div>
+
+  <!-- the world model: rehearse openings in imagination, before anything is said aloud -->
+  <div class="card px" id="imagineCard">
+    <h2>Rehearse it first <em id="imagineWho"></em></h2>
+    <div id="imagineBody"></div>
+    <details class="whatif">
+      <summary>What if I open with…</summary>
+      <div class="wigrid" id="whatIfPick"></div>
+      <button class="go" type="button" id="whatIfBtn">Imagine it</button>
+      <div id="whatIfOut"></div>
+    </details>
+  </div>
+
+  <!-- add-crisis flow — build_plan §7.1 -->
+  <div class="scrim" id="addWrap" hidden role="dialog" aria-modal="true" aria-labelledby="addTitle">
+    <div class="sheet">
+      <div>
+        <h3 id="addTitle">Add a crisis</h3>
+        <p class="sub">Bring a negotiation DARA has never seen — in words and rankings, not numbers.
+          Everything here is yours to state and yours to correct.</p>
+      </div>
+      <div id="addForm" class="form"></div>
+      <div id="addReview" hidden></div>
+    </div>
+  </div>
+
+  <div class="card rx">
+    <h2>Pipeline <em id="runMeta">idle</em></h2>
+    <div class="rail" id="rail"></div>
+  </div>
+
+  <nav class="tabs rx" role="tablist">
+    <button class="tab on" id="tabDebate" data-tab="debate" role="tab" aria-selected="true">Debate<span class="n" id="msgCount"></span></button>
+    <button class="tab" id="tabAnalysis" data-tab="analysis" role="tab" aria-selected="false">Analysis</button>
+  </nav>
+
+  <section id="pane-debate">
+    <div class="card"><div class="chatwrap"><div class="chat" id="chat"></div></div></div>
+  </section>
+
+  <section id="pane-analysis" hidden>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <h2>Outcome space</h2>
+          <svg id="plot" viewBox="0 0 520 380" role="img" aria-label="Settlements plotted by utility to each party, with the frontier and the path the debate walked"></svg>
+        </div>
+        <div class="card">
+          <h2>Stage <em id="inspTag">—</em></h2>
+          <div id="insp"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card"><h2>Payoff</h2><dl class="ro" id="ro"></dl></div>
+        <div class="card"><h2>Parties <em>valuations are private</em></h2><div id="parties"></div></div>
+        <div class="card"><h2>Settlement board</h2><div id="board"></div></div>
+      </div>
+    </div>
+  <div class="card">
+    <h2>Recommendations <em>one per priority — no single answer is "the" answer</em></h2>
+    <div id="tailored"></div>
+  </div>
+  <div class="card">
+    <h2>Results <em>joint value and Nash can disagree</em></h2>
+    <div class="tw"><table><thead id="resHead"></thead><tbody id="res"></tbody></table></div>
+    <div class="status" id="status"></div>
+  </div>
+  </section>
+</div>
+
+<script>
+/* ============================================================================
+   CASES — real, documented negotiations.
+
+   Positions are reconstructed from the public record (press statements,
+   ministry releases, reporting). They are NOT official positions and no
+   government reviewed them. Valuation weights are the modelling assumption:
+   they encode which issues each side is documented to have fought hardest
+   over, and they are the one thing here that is inferred rather than sourced.
+   ========================================================================= */
+const CASES=[
+{
+ id:"haze",
+ title:"Transboundary haze",
+ parties_short:"Singapore · Indonesia",
+ when:"2015–16",
+ lede:"The worst haze on record. One country is choking; the other can't stop the burning without paying for it.",
+ context:"Between June and October 2015 fires on Indonesian peatland produced the worst haze episode on record. Singapore's 24-hour PSI passed 300 — the hazardous band — schools closed, and regional economic losses ran into the tens of billions of dollars. Singapore had passed the Transboundary Haze Pollution Act in 2014, asserting liability over companies whose activities caused haze in Singapore regardless of where they operated. Indonesia objected to its extraterritorial reach and declined to release plantation concession maps to the ASEAN Haze Monitoring System, citing sovereignty and domestic data law. Indonesia announced a peatland moratorium in late 2015 and established the Peatland Restoration Agency in January 2016.",
+ source:"ASEAN Agreement on Transboundary Haze Pollution (2002); Singapore Transboundary Haze Pollution Act (2014); Indonesian Presidential Regulation 1/2016 (BRG).",
+ cutoff:"2015-09-01",
+ sources:{
+  asean2002:{title:"ASEAN Agreement on Transboundary Haze Pollution",publisher:"ASEAN",published:"2002-06-10",
+    url:"https://haze.asean.org/",
+    basis:"Establishes the regional framework and the monitoring system that concession data would be shared into. Indonesia ratified in 2014, twelve years after signature."},
+  sgact2014:{title:"Transboundary Haze Pollution Act 2014",publisher:"Parliament of Singapore",published:"2014-09-25",
+    url:"https://sso.agc.gov.sg/Act/THPA2014",
+    basis:"Asserts liability over entities whose conduct causes haze in Singapore regardless of where they operate — the basis for Singapore's enforcement position and for Indonesia's jurisdictional objection."},
+  perpres2016:{title:"Presidential Regulation 1/2016 establishing the Peatland Restoration Agency (BRG)",publisher:"Government of Indonesia",published:"2016-01-06",
+    url:"https://brg.go.id/",
+    basis:"Creates the agency charged with peatland restoration. Dated AFTER this case's evidence cutoff — see the contamination note."}
+ },
+ issues:[
+  {name:"concession_maps",label:"Concession maps",options:["withheld","aggregated_by_district","full_to_asean_hms"]},
+  {name:"enforcement",label:"Enforcement route",options:["indonesian_courts_only","joint_asean_panel","singapore_act_applied"]},
+  {name:"peatland_moratorium",label:"Peatland moratorium",options:["existing_exempt","partial_exemptions","full_no_exemptions"]},
+  {name:"transition_funding",label:"Transition funding",options:["none","partial_donor_fund","full_donor_fund"]}],
+ parties:[
+  {key:"a",name:"Singapore",
+   stance:"Treats the haze as a public-health emergency with an identifiable corporate cause, and wants attribution data and enforcement teeth.",
+   redLines:[{t:"Will not accept a settlement with no attribution mechanism",src:"sgact2014"},
+            {t:"Will not fund transition without measurable reductions",src:"asean2002"}],
+   vals:{concession_maps:[0.35,{withheld:0.0,aggregated_by_district:0.45,full_to_asean_hms:1.0}],
+         enforcement:[0.30,{indonesian_courts_only:0.10,joint_asean_panel:0.60,singapore_act_applied:1.0}],
+         peatland_moratorium:[0.25,{existing_exempt:0.10,partial_exemptions:0.55,full_no_exemptions:1.0}],
+         transition_funding:[0.10,{none:1.0,partial_donor_fund:0.55,full_donor_fund:0.15}]}},
+  {key:"b",name:"Indonesia",
+   stance:"Treats enforcement and land data as sovereign matters, and will not restrict smallholder burning without funding the alternative.",
+   redLines:[{t:"No foreign jurisdiction over acts on Indonesian soil",src:"sgact2014"},
+            {t:"No restriction that falls on smallholders without funded alternatives",src:"perpres2016"}],
+   vals:{concession_maps:[0.25,{withheld:1.0,aggregated_by_district:0.60,full_to_asean_hms:0.15}],
+         enforcement:[0.35,{indonesian_courts_only:1.0,joint_asean_panel:0.45,singapore_act_applied:0.0}],
+         peatland_moratorium:[0.10,{existing_exempt:1.0,partial_exemptions:0.60,full_no_exemptions:0.25}],
+         transition_funding:[0.30,{none:0.0,partial_donor_fund:0.50,full_donor_fund:1.0}]}}],
+ cached:{
+  rounds:[
+   [{who:"a",ms:14200,position:"Three hundred PSI is not a diplomatic inconvenience, it is a population-scale exposure event, and it has an identifiable cause on land whose ownership is already registered. We open at full concession disclosure to the ASEAN monitoring system and prosecution under our own Act, because for eleven years attribution has been the thing that never arrives.",
+     concession:"None at this stage.",
+     pkg:{concession_maps:"full_to_asean_hms",enforcement:"singapore_act_applied",peatland_moratorium:"full_no_exemptions",transition_funding:"none"}},
+    {who:"b",ms:16800,position:"A foreign statute reaching onto Indonesian soil is not an environmental measure, it is a jurisdictional claim, and no government can concede it. Two and a half million smallholders clear by fire because it costs a fifteenth of mechanised clearing; ban it unfunded and the fires move rather than stop. We open at domestic enforcement, maps withheld, and a fully funded transition.",
+     concession:"None at this stage.",
+     pkg:{concession_maps:"withheld",enforcement:"indonesian_courts_only",peatland_moratorium:"existing_exempt",transition_funding:"full_donor_fund"}}],
+   [{who:"a",ms:18400,position:"We accept that prosecution in our courts is the part you cannot sign, and we will drop it for a joint ASEAN panel with published findings — attribution is what we need, not the venue. We will also carry part of the transition cost. In exchange the moratorium has to close the existing-concession exemption, because that exemption is where most of the burned hectarage sat in 2015.",
+     concession:"Drops extraterritorial prosecution for a joint panel; funds part of the transition.",
+     pkg:{concession_maps:"full_to_asean_hms",enforcement:"joint_asean_panel",peatland_moratorium:"full_no_exemptions",transition_funding:"partial_donor_fund"}},
+    {who:"b",ms:17100,position:"A joint panel we can discuss, provided its findings bind companies and not the state. Aggregated district-level maps are available immediately; parcel-level disclosure runs into our data law and into live land-tenure disputes we cannot settle by treaty. The moratorium is negotiable if the fund is not partial — a half-funded transition is an unfunded one at our scale.",
+     concession:"Accepts a joint panel in principle; offers aggregated maps.",
+     pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",peatland_moratorium:"partial_exemptions",transition_funding:"full_donor_fund"}}],
+   [{who:"a",ms:15600,position:"Then take the full fund. It is the cheapest thing on this table for us and the most valuable thing on it for you, and we would rather spend money than spend another dry season arguing. What it buys is the closed moratorium and parcel-level disclosure to the monitoring system alone — not to our courts, not to the public.",
+     concession:"Full transition funding; disclosure confined to the monitoring system.",
+     pkg:{concession_maps:"full_to_asean_hms",enforcement:"joint_asean_panel",peatland_moratorium:"full_no_exemptions",transition_funding:"full_donor_fund"}},
+    {who:"b",ms:19300,position:"Disclosure to the monitoring system rather than to a foreign court is a different proposition, and with the fund secured we can close the exemptions. We will hold at the joint panel for enforcement. On those terms the package is one we can defend domestically, which was never true of the opening offer.",
+     concession:"Full disclosure to the monitoring system; closes moratorium exemptions.",
+     pkg:{concession_maps:"full_to_asean_hms",enforcement:"joint_asean_panel",peatland_moratorium:"full_no_exemptions",transition_funding:"full_donor_fund"}}]],
+  judge:[
+   {ms:21500,a:{feasibility:2,specificity:4,tradeoff_acknowledgement:1,interest_consistency:5,responsiveness:1},
+    b:{feasibility:3,specificity:4,tradeoff_acknowledgement:2,interest_consistency:5,responsiveness:1},
+    sa:"States the harm precisely but names no cost to the other side, and asserts extraterritorial prosecution without arguing why it is acceptable rather than merely desirable.",
+    sb:"Grounds the subsistence constraint in a specific cost ratio, but treats every disclosure option as equivalent to the jurisdictional claim it objects to.",
+    un:["Whether attribution data and enforcement venue are separable at all","Who bears the cost of mechanised clearing at smallholder scale"]},
+   {ms:23800,a:{feasibility:4,specificity:4,tradeoff_acknowledgement:4,interest_consistency:4,responsiveness:5},
+    b:{feasibility:4,specificity:5,tradeoff_acknowledgement:3,interest_consistency:4,responsiveness:4},
+    sa:"Separates attribution from venue, which is the concession that makes the rest tractable; still treats partial funding as adequate without testing it.",
+    sb:"Names the specific legal obstacle to parcel-level disclosure rather than asserting sovereignty in general, and correctly identifies partial funding as the weak point.",
+    un:["Whether panel findings can bind companies without binding the state"]},
+   {ms:20100,a:{feasibility:5,specificity:5,tradeoff_acknowledgement:5,interest_consistency:4,responsiveness:5},
+    b:{feasibility:4,specificity:5,tradeoff_acknowledgement:4,interest_consistency:4,responsiveness:5},
+    sa:"Explicitly prices its own concession as cheap to itself and valuable to the other side, which is the argument that closes the gap.",
+    sb:"Concedes disclosure once its destination is narrowed, showing the objection was to the recipient rather than the data.",
+    un:[]}],
+  rec:{ms:26400,
+   rationale:"The judge's assessments converge on one exchange: the funding Singapore weights least is what Indonesia weights most, and the disclosure Indonesia resisted was an objection to the recipient rather than to the data itself.",
+   opts:[{c:"Indonesia holds on parcel-level maps",a:"narrow the recipient to the ASEAN monitoring system with no onward transmission to national courts",p:"sovereignty"},
+         {c:"Treasury resists the full fund",a:"tie disbursement to verified hectarage reductions rather than reducing the amount",p:"cost"},
+         {c:"The joint panel stalls on binding companies",a:"accept published findings without penalties in year one, with review",p:"speed"}],
+   pkg:{concession_maps:"full_to_asean_hms",enforcement:"joint_asean_panel",peatland_moratorium:"full_no_exemptions",transition_funding:"full_donor_fund"}},
+  base:{ms:11200,
+   rationale:"Without the other side's constraints the defensible play is to hold the enforcement claim and concede only partially elsewhere.",
+   opts:[{c:"Indonesia refuses disclosure",a:"escalate to the ASEAN ministerial and publish satellite attribution unilaterally",p:"speed"},
+         {c:"Talks stall past the dry season",a:"apply the Act to companies with Singapore-listed parents",p:"sovereignty"}],
+   pkg:{concession_maps:"aggregated_by_district",enforcement:"singapore_act_applied",peatland_moratorium:"partial_exemptions",transition_funding:"partial_donor_fund"}}}
+},
+{
+ id:"covid_my",
+ title:"COVID-19 border and supply measures",
+ parties_short:"Singapore · Malaysia",
+ when:"2020",
+ lede:"Three hundred thousand people crossed for work each day. On Wednesday they could not.",
+ context:"On 16 March 2020 Malaysia announced a Movement Control Order effective 18 March, restricting movement nationwide and closing its borders to outbound travel. Roughly 300,000 Malaysians commuted daily into Singapore for work, concentrated in healthcare, construction, manufacturing and transport; Singapore also draws a large share of its fresh food and eggs from Malaysia by road. The two governments had days to settle how cross-border work would continue, who would house and pay for workers unable to commute, whether cargo would keep moving, and what health screening would apply. Positions here are reconstructed from the public record and are not official.",
+ source:"Malaysia Prime Minister's Office announcement of the Movement Control Order, 16 March 2020; Singapore Ministry of Manpower advisories on Malaysian employees, March 2020; joint statements on continuity of goods flow.",
+ cutoff:"2020-03-16",
+ sources:{},
+ issues:[
+  {name:"commuter_arrangement",label:"Commuter arrangement",options:["border_closed", "daily_commute_with_screening", "stay_in_singapore_with_support"]},
+  {name:"accommodation_cost",label:"Accommodation cost",options:["employers_only", "shared_between_states", "singapore_subsidised"]},
+  {name:"goods_and_food_flow",label:"Goods and food flow",options:["export_controls", "prioritised_essentials", "unrestricted_cargo"]},
+  {name:"health_screening",label:"Health screening",options:["self_declaration", "temperature_and_declaration", "testing_and_quarantine"]}],
+ parties:[
+  {key:"a",name:"Singapore",
+   stance:"Keep essential sectors staffed through the outbreak",
+   redLines:[{t:"Will not accept an arrangement that leaves essential services unstaffed",src:null},{t:"Will not accept unscreened daily movement across the Causeway",src:null}],
+   vals:{commuter_arrangement:[0.35,{"border_closed": 0.0, "daily_commute_with_screening": 0.55, "stay_in_singapore_with_support": 1.0}],accommodation_cost:[0.1,{"employers_only": 1.0, "shared_between_states": 0.6, "singapore_subsidised": 0.3}],goods_and_food_flow:[0.3,{"export_controls": 0.0, "prioritised_essentials": 0.6, "unrestricted_cargo": 1.0}],health_screening:[0.25,{"self_declaration": 0.1, "temperature_and_declaration": 0.55, "testing_and_quarantine": 1.0}]}},
+  {key:"b",name:"Malaysia",
+   stance:"Stop the daily movement that the Movement Control Order exists to prevent",
+   redLines:[{t:"Will not exempt daily commuting from the Movement Control Order",src:null},{t:"Will not leave Malaysian workers stranded without support",src:null}],
+   vals:{commuter_arrangement:[0.3,{"border_closed": 1.0, "daily_commute_with_screening": 0.0, "stay_in_singapore_with_support": 0.65}],accommodation_cost:[0.25,{"employers_only": 0.2, "shared_between_states": 0.5, "singapore_subsidised": 1.0}],goods_and_food_flow:[0.15,{"export_controls": 1.0, "prioritised_essentials": 0.6, "unrestricted_cargo": 0.3}],health_screening:[0.3,{"self_declaration": 0.0, "temperature_and_declaration": 0.5, "testing_and_quarantine": 1.0}]}}],
+ cached:{rounds:[
+  [{who:"a",ms:15100,position:"A third of our healthcare and construction shift staff live in Johor, and on Wednesday they will not be able to reach work. We propose they remain in Singapore for the duration, screened on entry and tested, with employers housing them. Cargo must keep moving on the same terms as before — our fresh food arrives by road and there is no second route.",concession:"None at this stage.",pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "employers_only", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "testing_and_quarantine"}},{who:"b",ms:16700,position:"The Movement Control Order is a nationwide instrument and we will not carve an exemption out of it for one border. Our position is that the crossing closes. Whatever is agreed, Malaysians who end up on the wrong side of it must be housed and supported, and that cost cannot fall on them or on us; and our own food supply is secured before it is exported.",concession:"None at this stage.",pkg:{"commuter_arrangement": "border_closed", "accommodation_cost": "singapore_subsidised", "goods_and_food_flow": "export_controls", "health_screening": "testing_and_quarantine"}}],
+  [{who:"a",ms:18200,position:"We hear that the objection is to daily movement rather than to the workers themselves, and an arrangement where they stay put creates no daily crossings at all — it does what your order is for. We will carry part of the accommodation cost rather than leave it with employers. Cargo has to stay unrestricted; a food export control would hit us within days and would not help your domestic supply.",concession:"Shares the accommodation cost rather than leaving it with employers.",pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "shared_between_states", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "testing_and_quarantine"}},{who:"b",ms:17400,position:"That distinction is the right one. If they stay in place and do not cross daily, the order's purpose is met, and we can accept that rather than a closed border. In exchange the accommodation cost has to sit with Singapore — these are workers in your economy, housed for your continuity, and our fiscal room this quarter is committed elsewhere. We can move to prioritised essentials on cargo rather than controls.",concession:"Accepts workers remaining in Singapore instead of a closed border; moves from export controls to prioritised essentials.",pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "singapore_subsidised", "goods_and_food_flow": "prioritised_essentials", "health_screening": "testing_and_quarantine"}}],
+  [{who:"a",ms:15800,position:"Then take the full subsidy. It is the cheapest item on this table for us and plainly the most valuable one for you, and we would rather pay than spend a week negotiating while wards go unstaffed. What it buys is cargo left unrestricted — not prioritised, unrestricted — because a queue at the Causeway is a shortage in our shops three days later.",concession:"Funds accommodation in full.",pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "singapore_subsidised", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "testing_and_quarantine"}},{who:"b",ms:19100,position:"With the subsidy settled we can leave cargo unrestricted; our concern was never the lorries, it was the people. Screening and testing on entry we have wanted throughout. On those terms this is a package we can defend at home, which the closed border never quite was — it would have stranded our own citizens without an answer.",concession:"Leaves cargo unrestricted.",pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "singapore_subsidised", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "testing_and_quarantine"}}]],judge:[
+  {ms:21900,a:{"feasibility": 3, "specificity": 5, "tradeoff_acknowledgement": 1, "interest_consistency": 5, "responsiveness": 1},b:{"feasibility": 4, "specificity": 3, "tradeoff_acknowledgement": 2, "interest_consistency": 5, "responsiveness": 1},sa:"Quantifies the staffing exposure precisely and names the single-route dependency, but asks the other side to absorb every cost and does not engage the purpose of the order it wants an exemption from.",sb:"States the sovereignty objection clearly and raises the welfare of its own citizens, but treats closure as the only instrument that serves the order's purpose.",un:["Whether the order's aim is to stop movement or to stop the people moving", "Who bears the cost if workers are stranded on either side"]},
+  {ms:23600,a:{"feasibility": 5, "specificity": 4, "tradeoff_acknowledgement": 4, "interest_consistency": 4, "responsiveness": 5},b:{"feasibility": 4, "specificity": 4, "tradeoff_acknowledgement": 4, "interest_consistency": 4, "responsiveness": 5},sa:"Separates daily movement from the workers themselves, which reframes the dispute and answers the objection rather than restating the request; still argues cargo on assertion.",sb:"Accepts the reframing and prices its own concession honestly, naming fiscal commitment rather than invoking sovereignty a second time.",un:["Whether prioritised essentials is materially different from unrestricted cargo at this volume"]},
+  {ms:20400,a:{"feasibility": 5, "specificity": 5, "tradeoff_acknowledgement": 5, "interest_consistency": 4, "responsiveness": 5},b:{"feasibility": 5, "specificity": 4, "tradeoff_acknowledgement": 4, "interest_consistency": 5, "responsiveness": 5},sa:"Prices its own concession explicitly as cheap to itself and valuable to the other side — the argument that closes the gap — and ties the cargo ask to a concrete three-day consequence.",sb:"Concedes the issue it weights least once the one it weights most is secured, and states plainly why the closed border was worse for its own position.",un:[]}],rec:{ms:26100,rationale:"The judge's assessments converge on one exchange: the accommodation subsidy Singapore weights least is what Malaysia weights most, and Malaysia's objection was to daily crossings rather than to the workers — so an arrangement where they stay in place serves the order's purpose and Singapore's continuity at once.",opts:[{c:"Malaysia holds that no exemption can be made to the order",a:"frame the arrangement as ending daily crossings rather than exempting them",p:"sovereignty"},{c:"Treasury resists funding accommodation in full",a:"tie disbursement to verified headcount in essential sectors rather than reducing the amount",p:"cost"},{c:"Johor pushes for export controls on food",a:"offer a standing supply review in exchange for cargo staying unrestricted",p:"speed"}],pkg:{"commuter_arrangement": "stay_in_singapore_with_support", "accommodation_cost": "singapore_subsidised", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "testing_and_quarantine"}},base:{ms:11800,rationale:"Without the other side's constraints the defensible play is to seek an exemption for cross-border workers and concede little else.",opts:[{c:"Malaysia refuses an exemption",a:"escalate to the bilateral ministerial channel",p:"speed"},{c:"Staffing falls below safe levels",a:"invoke emergency manpower provisions domestically",p:"casualty_minimisation"}],pkg:{"commuter_arrangement": "daily_commute_with_screening", "accommodation_cost": "employers_only", "goods_and_food_flow": "unrestricted_cargo", "health_screening": "temperature_and_declaration"}}}
+}
+];
+
+
+/* The ten cases in planner.md §3. Only those with a recorded run can be played;
+   the rest are listed and disabled rather than hidden, so the selector shows the
+   programme rather than implying the tool has one case. Cases 2-10 are built
+   from the evidence layer, not hand-authored, so they arrive with extraction. */
+const ROSTER=[
+ {id:"haze",       n:1, title:"Transboundary haze",                      who:"Singapore · Indonesia", when:"2015–16", kind:"historical"},
+ {id:"covid_my",   n:2, title:"COVID-19 border and supply measures",     who:"Singapore · Malaysia",  when:"2020",    kind:"historical"},
+ {id:"chicken",    n:3, title:"Chicken export ban",                      who:"Singapore · Malaysia",  when:"2022",    kind:"historical"},
+ {id:"water",      n:4, title:"Johor River water pricing",               who:"Singapore · Malaysia",  when:"2018–19", kind:"historical"},
+ {id:"fir",        n:5, title:"FIR, extradition and defence package",    who:"Singapore · Indonesia", when:"2022",    kind:"historical"},
+ {id:"covid_in",   n:6, title:"COVID-19 travel corridor and vaccines",   who:"Singapore · India",     when:"2021",    kind:"historical"},
+ {id:"power_vn",   n:7, title:"Low-carbon electricity import",           who:"Singapore · Vietnam",   when:"present", kind:"prospective"},
+ {id:"carbon_gh",  n:8, title:"Article 6 carbon credit agreement",       who:"Singapore · Ghana",     when:"present", kind:"prospective"},
+ {id:"minerals_au",n:9, title:"Critical minerals licensing",             who:"Singapore · Australia", when:"present", kind:"prospective"},
+ {id:"drought_my", n:10,title:"Johor River drought shortfall",           who:"Singapore · Malaysia",  when:"present", kind:"prospective"},
+];
+const built = id => CASES.some(c=>c.id===id);
+
+/* ===== derived model for the active case ===== */
+let CASE=null, C=null;
+function derive(k){
+  const ISSUES=k.issues, P=k.parties;
+  const util=(p,pkg)=>ISSUES.reduce((s,i)=>{const[w,v]=p.vals[i.name];const o=pkg?.[i.name];return s+(o?w*(v[o]??0):0)},0);
+  const vec=pkg=>P.map(p=>util(p,pkg));
+  let ALL=[{}]; for(const i of ISSUES){const n=[];for(const p of ALL)for(const o of i.options)n.push({...p,[i.name]:o});ALL=n;}
+  const VECS=ALL.map(vec), dom=(a,b)=>a.every((x,i)=>x>=b[i])&&a.some((x,i)=>x>b[i]);
+  const PARETO=VECS.map((v,i)=>VECS.every((o,j)=>j===i||!dom(o,v))?i:-1).filter(i=>i>=0);
+  const MAXJ=Math.max(...VECS.map(v=>v[0]+v[1])), MAXN=Math.max(...VECS.map(v=>v[0]*v[1]));
+  const SPLIT=Object.fromEntries(ISSUES.map(i=>[i.name,i.options[i.options.length>>1]]));
+  const SPLITJ=vec(SPLIT).reduce((a,b)=>a+b,0);
+  const score=pkg=>{const v=vec(pkg),j=v[0]+v[1],h=MAXJ-SPLITJ;
+    return{v,joint:j,recovered:j/MAXJ,nash:MAXN>1e-12?v[0]*v[1]/MAXN:0,pareto:!VECS.some(o=>dom(o,v)),
+      gap:Math.max(0,MAXJ-j),integrative:h>1e-9?(j-SPLITJ)/h:0,ineq:Math.abs(v[0]-v[1])};};
+  const legal=pkg=>ISSUES.every(i=>i.options.includes(pkg?.[i.name]));
+  const pkgLine=pkg=>ISSUES.map(i=>`${i.label.toLowerCase()}=${String(pkg?.[i.name]??"—").replace(/_/g," ")}`).join(" · ");
+  return {k,ISSUES,P,util,vec,ALL,VECS,PARETO,MAXJ,SPLIT,SPLITJ,score,legal,pkgLine};
+}
+
+/* ===== state ===== */
+let sel={}, reveal={}, runs=[], stages=[], curStage=null, abort=null, calls=0, t0=0;
+/* Each party's judge summary from the round just finished, keyed by party.
+   The next round's inspector shows it, which is what makes the claim that an
+   agent saw "the judge's note on its own last turn" checkable rather than
+   asserted. */
+let fb={};
+const $=id=>document.getElementById(id), fmt=(n,d=3)=>n.toFixed(d);
+const esc=s=>String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const speed=()=>({"1":1,"4":4,"0":0}[$("speed").value]??4);
+function wait(ms){
+  const f=speed(); const d=(f===0||reduced)?0:ms/f;
+  return new Promise((res,rej)=>{
+    if(abort?.signal.aborted) return rej({code:"cancelled"});
+    const t=setTimeout(res,d);
+    abort?.signal.addEventListener("abort",()=>{clearTimeout(t);rej({code:"cancelled"});},{once:true});
+  });
+}
+
+/* ===== tailored recommendations =====
+   A crisis has no single right settlement, because "right" depends on what you
+   are protecting. The settlement that minimises harm is usually not the one that
+   minimises cost, so a run produces one recommendation per priority and lets the
+   reader make that trade themselves rather than making it for them silently.
+
+   The recorded runs hold the harm-first advice as `rec`/`base`; the cost-first
+   entries below are recorded alongside them. Both are model-written, like every
+   other turn in this console. */
+/* What the READER is protecting. Deliberately not the tags on individual
+   conditional options: nobody walks into a negotiation trying to maximise
+   "sovereignty" — that is a constraint they operate under, not an objective.
+   These are objectives, and each should be able to select a different
+   settlement from the others. `none` is the control the rest are measured
+   against. */
+const PRIORITIES=[
+  {id:"casualty_minimisation", label:"Lives and health", blurb:"Fewest deaths, illness and displacement, soonest."},
+  {id:"cost",                  label:"Public money",     blurb:"Least spending, liability and open-ended commitment."},
+  {id:"continuity",            label:"Continuity",       blurb:"Keep essential services and supply running."},
+  {id:"speed",                 label:"Speed of agreement", blurb:"Something operating before the binding deadline."},
+  {id:"precedent",             label:"Precedent",        blurb:"Least conceded that binds you in future negotiations."},
+  {id:"none",                  label:"No stated priority", blurb:"The untailored reading — the baseline the others are compared against."},
+];
+/* The two recommendations are one per READER. Both are produced on every run:
+   a national policymaker and a multilateral official answer to different people,
+   so the same crisis under the same priority yields different advice, and
+   showing them side by side is the comparison that matters. */
+const AUDIENCES=[
+  {id:"policymaker", label:"National policymaker", blurb:"Answers to a treasury, a cabinet and an electorate."},
+  {id:"international_organisation", label:"International organisation",
+   blurb:"Answers to a mandate and to member states; cannot concede sovereignty."},
+];
+/* Which priorities these recordings actually cover. The rest are listed in the
+   picker but disabled, the same way unbuilt cases are — the vocabulary is real
+   and a live run serves any of them; this recording only holds two. */
+const RECORDED_PRIORITIES=["casualty_minimisation","cost"];
+const HEADLINES={
+  haze:{casualty_minimisation:"Fund the transition in full to close the exemptions fastest.",
+        base:"Hold the enforcement claim and concede only partially."},
+  covid_my:{casualty_minimisation:"Fund accommodation in full to keep essential sectors staffed.",
+            base:"Seek an exemption for cross-border workers."},
+};
+const COST_ADVICE={
+  haze:{
+    rec:{ms:24800, headline:"Hold the fund at partial and buy attribution rather than abatement.",
+      rationale:"Under a finance-first mandate the full donor fund is the line item to resist, and the judge's assessments show why that is affordable: Indonesia's objection to disclosure was to the recipient rather than to the data, so attribution can be bought with a narrowed recipient instead of with money. Open at a partial fund and district-level maps. This is a worse public-health settlement than funding the transition outright — the exemptions stay open and the peat keeps burning through at least one more dry season — and that cost should be stated to ministers rather than discovered by them.",
+      opts:[{c:"Indonesia refuses district-level maps without the full fund",a:"offer the full fund only in exchange for closing the exemptions, and cost that swap explicitly",p:"cost"},
+            {c:"Treasury will not carry even a partial fund",a:"seek ASEAN co-financing so the transition is not a bilateral line item",p:"cost"},
+            {c:"A second hazardous-band episode occurs during talks",a:"move to the full fund immediately — the health cost then exceeds the fiscal saving",p:"casualty_minimisation"}],
+      pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",
+           peatland_moratorium:"partial_exemptions",transition_funding:"partial_donor_fund"}},
+    base:{ms:11400, headline:"Spend nothing and rely on the Act.",
+      rationale:"Without the other side's constraints the cheapest defensible position is to fund nothing and lean on domestic law for attribution. It protects the budget completely and concedes nothing, which is why it is the obvious answer when the subsistence economics of smallholder clearing are not on the table.",
+      opts:[{c:"Indonesia objects to extraterritorial reach",a:"proceed against Singapore-listed parents only",p:"sovereignty"},
+            {c:"Talks stall past the dry season",a:"publish satellite attribution unilaterally",p:"speed"}],
+      pkg:{concession_maps:"aggregated_by_district",enforcement:"singapore_act_applied",
+           peatland_moratorium:"partial_exemptions",transition_funding:"none"}}},
+  covid_my:{
+    rec:{ms:24300, headline:"Split the accommodation bill and accept a slower yes.",
+      rationale:"The judge's assessments identify the accommodation subsidy as the item Malaysia weights most and Singapore weights least, which is exactly why a finance-first mandate should not concede it in full at the opening. Table a shared cost: it keeps the workers in place, which is the part that actually protects continuity, while leaving the larger fiscal commitment as the concession held in reserve. The cost of this choice is time — Malaysia moved on the commuter arrangement only once the subsidy was settled — and days spent negotiating are days of understaffed wards.",
+      opts:[{c:"Malaysia holds out for the full subsidy",a:"concede it against cargo staying unrestricted rather than against the commuter arrangement",p:"cost"},
+            {c:"Essential-sector staffing falls below safe levels during talks",a:"concede the full subsidy at once — the fiscal saving no longer justifies the delay",p:"casualty_minimisation"},
+            {c:"Employers resist carrying any share",a:"underwrite the employer share only for essential sectors, by verified headcount",p:"cost"}],
+      pkg:{commuter_arrangement:"stay_in_singapore_with_support",accommodation_cost:"shared_between_states",
+           goods_and_food_flow:"unrestricted_cargo",health_screening:"testing_and_quarantine"}},
+    base:{ms:11200, headline:"Seek an exemption and pay for nothing.",
+      rationale:"Absent Malaysia's constraints the cheapest position is to request an exemption for cross-border workers, leave housing with employers and screen on entry. It commits no public money at all, which is the whole of its appeal.",
+      opts:[{c:"Malaysia refuses an exemption",a:"escalate to the bilateral ministerial channel",p:"speed"},
+            {c:"Employers cannot house workers at short notice",a:"open public facilities on a cost-recovery basis",p:"cost"}],
+      pkg:{commuter_arrangement:"daily_commute_with_screening",accommodation_cost:"employers_only",
+           goods_and_food_flow:"unrestricted_cargo",health_screening:"temperature_and_declaration"}}},
+};
+/* The multilateral reading of the same crisis. A mediator holds no country's
+   brief, cannot commit another state's treasury and cannot compel disclosure —
+   its instruments are convening, monitoring and syndicated finance. That is a
+   different set of levers, not a different tone, so the packages differ. */
+const IO_ADVICE={
+  haze:{
+    rec:{
+      casualty_minimisation:{ms:25600, headline:"Convene the panel and syndicate the fund — neither capital pays the other.",
+        rationale:"A mediator cannot apply Singapore's Act and cannot compel parcel-level disclosure, so the fastest route to less smoke is not attribution but abatement. Take district-level maps, which are available immediately and sufficient to target restoration, and spend the remaining leverage on closing the exemptions and on financing the transition from a donor pool rather than from Singapore. Framed as multilateral finance the fund loses its bilateral sting, which is what made it hard to sign. The trade is real: parcel-level attribution is deferred, and with it the ability to name a company.",
+        opts:[{c:"Indonesia treats the monitoring system as a route to foreign courts",a:"bind the panel's findings to companies only, with no onward transmission to national courts",p:"sovereignty"},
+              {c:"Donors will not commit before the moratorium is closed",a:"stage disbursement against verified hectarage rather than against the announcement",p:"cost"},
+              {c:"Singapore objects that attribution has been dropped",a:"hold parcel-level disclosure open as a year-two review clause",p:"equity"}],
+        pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",
+             peatland_moratorium:"full_no_exemptions",transition_funding:"full_donor_fund"}},
+      cost:{ms:23100, headline:"Spend regulation, not money — close the exemptions and fund only partially.",
+        rationale:"Donor capital is the scarcest thing a mediator controls, and the moratorium costs it nothing. Press for the exemptions to close, which is regulatory rather than fiscal, and hold the pool at partial. This asks Indonesia to absorb more of the transition than it said it could, so it is the weaker offer on feasibility and should be opened with a clear statement of what a partial fund does and does not buy.",
+        opts:[{c:"Indonesia refuses to close exemptions on a partial fund",a:"convert the remainder into in-kind mechanised clearing rather than cash",p:"cost"},
+              {c:"Smallholder displacement follows the closure",a:"ring-fence a share of the partial pool for affected households",p:"equity"}],
+        pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",
+             peatland_moratorium:"full_no_exemptions",transition_funding:"partial_donor_fund"}}},
+    base:{
+      casualty_minimisation:{ms:11900, headline:"Call the ministerial and put donor money on the table.",
+        rationale:"With no debate to draw on, a mediator's default is the instrument it always has: convene, and arrive with financing so the meeting has something to decide.",
+        opts:[{c:"Either party declines to attend",a:"publish the monitoring data and let the record do the convening",p:"speed"}],
+        pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",
+             peatland_moratorium:"full_no_exemptions",transition_funding:"full_donor_fund"}},
+      cost:{ms:10800, headline:"Convene, but commit nothing.",
+        rationale:"The cheapest multilateral position is to host the process and leave the financing to the parties. It costs nothing and, for that reason, moves nothing.",
+        opts:[{c:"Talks stall without money",a:"seek a third-party donor before tabling any figure",p:"cost"}],
+        pkg:{concession_maps:"aggregated_by_district",enforcement:"joint_asean_panel",
+             peatland_moratorium:"partial_exemptions",transition_funding:"none"}}}},
+  covid_my:{
+    rec:{
+      casualty_minimisation:{ms:25200, headline:"Keep the workers in place and split the cost between the states.",
+        rationale:"The judge's assessments show the dispute turned on daily crossings rather than on the workers themselves, and a mediator can say that more cheaply than either party can: an arrangement where they stay put satisfies the order's purpose without anyone conceding that the order has been breached. On cost, a multilateral body cannot ask one member to fund another's continuity, so the defensible position is a shared bill rather than a subsidy. That is slower to agree than Singapore simply paying, and in an outbreak days matter — so table it with a deadline attached.",
+        opts:[{c:"Malaysia reads any exemption as a breach of the order",a:"describe the arrangement as ending daily crossings, not exempting them",p:"sovereignty"},
+              {c:"Neither treasury will move first on accommodation",a:"underwrite the first month from a regional facility and settle shares afterwards",p:"speed"},
+              {c:"Cargo screening slows the Causeway",a:"pre-clear essential consignments rather than restricting them",p:"casualty_minimisation"}],
+        pkg:{commuter_arrangement:"stay_in_singapore_with_support",accommodation_cost:"shared_between_states",
+             goods_and_food_flow:"unrestricted_cargo",health_screening:"testing_and_quarantine"}},
+      cost:{ms:22700, headline:"Put housing on the employers and prioritise essential cargo.",
+        rationale:"Under a finance-first mandate the mediator's job is to find the party that already carries the obligation, and these are employees in employers' hands. Leaving accommodation with employers commits no public money on either side; prioritising essentials rather than opening cargo wholesale keeps the screening burden down. It is the thinnest offer on the table for Malaysia, whose stated concern was precisely that the cost would fall on its citizens, and it should not be tabled without an answer to that.",
+        opts:[{c:"Employers cannot house workers at short notice",a:"open public facilities on cost recovery rather than subsidy",p:"cost"},
+              {c:"Malaysia holds that its citizens are being left exposed",a:"add a welfare floor funded regionally rather than bilaterally",p:"equity"}],
+        pkg:{commuter_arrangement:"stay_in_singapore_with_support",accommodation_cost:"employers_only",
+             goods_and_food_flow:"prioritised_essentials",health_screening:"testing_and_quarantine"}}},
+    base:{
+      casualty_minimisation:{ms:11600, headline:"Screen the crossing and share the welfare cost.",
+        rationale:"Without the debate, a mediator defaults to keeping movement legal and screened, and to splitting whatever welfare cost arises rather than assigning it.",
+        opts:[{c:"Either side closes the crossing unilaterally",a:"seek a 72-hour standstill while the arrangement is settled",p:"speed"}],
+        pkg:{commuter_arrangement:"daily_commute_with_screening",accommodation_cost:"shared_between_states",
+             goods_and_food_flow:"unrestricted_cargo",health_screening:"testing_and_quarantine"}},
+      cost:{ms:10400, headline:"Keep the crossing open and assign no costs.",
+        rationale:"The cheapest position commits nothing: keep people moving with light screening and leave housing where it already sits.",
+        opts:[{c:"Case numbers rise among commuters",a:"escalate screening before restricting movement",p:"casualty_minimisation"}],
+        pkg:{commuter_arrangement:"daily_commute_with_screening",accommodation_cost:"employers_only",
+             goods_and_food_flow:"prioritised_essentials",health_screening:"temperature_and_declaration"}}}},
+};
+
+/* Assemble advice[slot][priority][audience] without duplicating the text that
+   already sits in the case literals. The existing recorded entries were written
+   from the focus country's side, which is exactly the policymaker reading. */
+CASES.forEach(c=>{
+  if(!c.cached) return;
+  const cost=COST_ADVICE[c.id], head=HEADLINES[c.id]||{}, io=IO_ADVICE[c.id]||{rec:{},base:{}};
+  c.cached.advice={
+    rec:{
+      casualty_minimisation:{policymaker:{...c.cached.rec, headline:head.casualty_minimisation},
+                             international_organisation:io.rec.casualty_minimisation},
+      cost:{policymaker:cost&&cost.rec, international_organisation:io.rec.cost},
+    },
+    base:{
+      casualty_minimisation:{policymaker:{...c.cached.base, headline:head.base},
+                             international_organisation:io.base.casualty_minimisation},
+      cost:{policymaker:cost&&cost.base, international_organisation:io.base.cost},
+    },
+  };
+});
+const selectedPriority=()=>$("priority")?.value||"casualty_minimisation";
+const priorityLabel=id=>PRIORITIES.find(p=>p.id===id)?.label||id;
+const audienceLabelOf=id=>AUDIENCES.find(a=>a.id===id)?.label||id;
+
+/* ===== pipeline definition ===== */
+function buildStages(cond,rounds,priorities){
+  const s=[
+   {id:"setup",grp:"Setup",lbl:"case + briefs",
+    desc:`Loads both briefs and their private valuation tables.`},
+   {id:"front",grp:"Setup",lbl:"frontier",
+    desc:"Scores every possible settlement before any agent runs, so the yardstick can't move to fit the result."}];
+  const prio = priorities || "casualty_minimisation";
+  if(cond==="B0"){
+    AUDIENCES.forEach(a=>s.push({id:`draft1.${a.id}`,grp:"Baseline",lbl:a.label.toLowerCase(),call:1,
+      desc:`One model call, no debate and no judge, written for ${a.label.toLowerCase()}: ${a.blurb}`}));
+  }else{
+    for(let r=1;r<=rounds;r++){
+      C.P.forEach(p=>s.push({id:`r${r}.${p.key}`,grp:`Round ${r}`,lbl:p.name.toLowerCase(),call:1,
+        desc:`${p.name} argues and commits to a package. Sees its own valuations only.`}));
+      if(cond==="B2") s.push({id:`r${r}.judge`,grp:`Round ${r}`,lbl:"judge",call:1,
+        desc:"Scores both arguments 1–5 on five criteria. Holds no brief, sees no valuations."});
+    }
+    // One recommender call per reader. The debate is shared — only the advice
+    // built from it is tailored — so a difference between the two is
+    // attributable to who is asking, not to the parties having argued
+    // differently.
+    AUDIENCES.forEach(a=>s.push({id:`rec.${a.id}`,grp:"Synthesis",lbl:a.label.toLowerCase(),call:1,
+      desc:(cond==="B2"?"Reads the judge's scores only — the transcript is withheld. ":"No judge in B1, so it reads the raw transcript. ")
+        +`Written for ${a.label.toLowerCase()} protecting ${priorityLabel(prio).toLowerCase()}. ${a.blurb}`}));
+  }
+  s.push({id:"score",grp:"Scoring",lbl:"scoring",
+    desc:"Scores the final package against the frontier. Illegal packages are recorded, never coerced."});
+  return s.map(x=>({...x,status:"idle",ms:0,inp:null,res:null}));
+}
+function drawRail(){
+  const gs=[]; stages.forEach(s=>{const g=gs.find(g=>g.name===s.grp); g?g.items.push(s):gs.push({name:s.grp,items:[s]});});
+  $("rail").innerHTML=gs.map(g=>`<div class="grp"><span class="gl">${g.name}</span><div class="nodes">${
+    g.items.map(s=>`<button class="node" data-s="${s.status}" data-id="${s.id}" aria-current="${curStage===s.id}" title="" aria-label="${esc(s.lbl)} — ${esc(s.desc)}" data-tip="${esc(s.desc)}">
+      <span class="dotrow"><i class="dot"></i><i class="bar2"></i></span>
+      <span class="lbl">${s.lbl}</span>
+      <span class="t">${s.status==="done"?(s.ms/1000).toFixed(1)+"s":s.status==="run"?"running":s.call?"1 call":"local"}</span>
+    </button>`).join("")}</div></div>`).join("");
+  $("rail").querySelectorAll(".node").forEach(b=>{
+    b.onclick=()=>{curStage=b.dataset.id;drawRail();drawInsp();};
+    b.onmouseenter=e=>showTip(b, b.dataset.tip);
+    b.onmouseleave=hideTip;
+    b.onfocus=()=>showTip(b, b.dataset.tip);
+    b.onblur=hideTip;
+  });
+}
+function drawInsp(){
+  const s=stages.find(x=>x.id===curStage);
+  if(!s){ $("inspTag").textContent="no stage selected";
+    $("insp").innerHTML=`<div class="io"><p>Run the pipeline, then pick a stage to see what it received and produced.</p></div>`; return; }
+  $("inspTag").textContent=s.status==="done"?`${(s.ms/1000).toFixed(2)}s`:s.status;
+  const io=[];
+  if(s.inp) io.push(`<div class="io"><h4>Received</h4>${s.inp}</div>`);
+  if(s.res) io.push(`<div class="io"><h4>Produced</h4>${s.res}</div>`);
+  $("insp").innerHTML=`<div class="kv">
+      <span class="chip on">${s.grp} · ${s.lbl}</span>
+      <span class="chip">${s.status}</span>
+      <span class="chip">${s.call?"model call":"computed locally"}</span>
+    </div>
+    <div class="io"><p>${s.desc}</p></div>${io.join("")}`;
+}
+function setStage(id,status,patch={}){
+  const s=stages.find(x=>x.id===id); if(!s)return;
+  Object.assign(s,{status},patch);
+  if(status==="run") curStage=id;
+  drawRail(); if(curStage===id) drawInsp();
+  $("runMeta").textContent=`${stages.filter(x=>x.status==="done").length}/${stages.length} stages · ${calls} calls · ${((performance.now()-t0)/1000).toFixed(1)}s elapsed`;
+}
+
+/* ===== citations — planner.md §10 =====
+   What a source establishes, in paraphrase. Deliberately NOT a verbatim quote:
+   the case data was assembled from the public record rather than by extracting
+   spans, and inventing quotation marks would misrepresent that. When the
+   extraction layer lands, `basis` becomes the extracted span and gains quotes.
+   A source published after the case's evidence cutoff is flagged, which is how
+   the contamination finding surfaces where a reader can see it. */
+function showCite(el, id){
+  const src=C.k.sources?.[id];
+  const t=$("tip");
+  if(!src){ showTip(el, "No source recorded for this element."); return; }
+  const late = C.k.cutoff && src.published > C.k.cutoff;
+  t.innerHTML=`<div style="font-weight:650;margin-bottom:4px">${esc(src.title)}</div>`
+    +`<div style="opacity:.8;margin-bottom:6px">${esc(src.publisher)} · ${esc(src.published)}</div>`
+    +`<div style="margin-bottom:6px">${esc(src.basis)}</div>`
+    +(late?`<div style="color:var(--gold-mark);font-weight:600">Published after this case's evidence cutoff of ${esc(C.k.cutoff)}.</div>`:"")
+    +`<div style="opacity:.65;margin-top:6px;word-break:break-all">${esc(src.url)}</div>`;
+  t.hidden=false;
+  const r=el.getBoundingClientRect();
+  t.style.left="0px"; t.style.top="0px";
+  const w=t.offsetWidth,h=t.offsetHeight,pad=10;
+  let x=Math.max(pad,Math.min(r.left+r.width/2-w/2, innerWidth-w-pad));
+  let y=r.bottom+8; if(y+h>innerHeight-pad) y=r.top-h-8;
+  t.style.left=x+"px"; t.style.top=y+"px";
+  requestAnimationFrame(()=>t.classList.add("on"));
+}
+
+/* ===== tooltip ===== */
+function showTip(el, text){
+  if(!text) return;
+  const t=$("tip"); t.textContent=text; t.hidden=false;
+  const r=el.getBoundingClientRect();
+  t.style.left="0px"; t.style.top="0px";           // measure at origin first
+  const w=t.offsetWidth, h=t.offsetHeight, pad=10;
+  let x=r.left+r.width/2-w/2;
+  x=Math.max(pad, Math.min(x, innerWidth-w-pad)); // never off-screen
+  let y=r.bottom+8;
+  if(y+h>innerHeight-pad) y=r.top-h-8;            // flip above when it would overflow
+  t.style.left=x+"px"; t.style.top=y+"px";
+  requestAnimationFrame(()=>t.classList.add("on"));
+}
+function hideTip(){ const t=$("tip"); t.classList.remove("on"); t.hidden=true; }
+addEventListener("scroll", hideTip, true);
+
+/* ===== panels ===== */
+function drawCaseInfo(){
+  const k=C.k;
+  $("caseTitle").textContent=k.title;
+  $("caseMeta").textContent=`${k.parties_short} · ${k.when}`;
+  $("caseLede").textContent=k.lede;
+  $("caseCtx").textContent=k.context;
+  $("caseSrcP").innerHTML = k.userMade
+    ? `Entered by you. Every element is attributed to you rather than to a source; the weights come from `
+      + `your rankings and Good / OK / No marks, and the other side's are your guess.`
+    : `Reconstructed from the public record — ${esc(k.source)} Not official positions.`;
+  $("fSet").textContent=C.ALL.length;
+  $("fPar").textContent=C.PARETO.length;
+  $("fGap").textContent=fmt(C.MAXJ-C.SPLITJ,2);
+}
+function drawBoard(){
+  $("board").innerHTML=C.ISSUES.map(i=>`<div class="iss"><div class="nm">${i.label}</div><div class="opts">${
+    i.options.map(o=>`<button class="opt" aria-pressed="${sel[i.name]===o}" data-i="${i.name}" data-o="${o}">${o.replace(/_/g," ")}</button>`).join("")}</div></div>`).join("");
+  $("board").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{sel[b.dataset.i]=b.dataset.o;drawBoard();drawRO();drawParties();drawPlot();});
+}
+function drawRO(){
+  const s=C.score(sel), g=s.integrative;
+  $("ro").innerHTML=`
+   <dt>Utility · ${C.P[0].name}</dt><dd style="color:var(--teal)">${fmt(s.v[0])}</dd>
+   <dt>Utility · ${C.P[1].name}</dt><dd style="color:var(--verm)">${fmt(s.v[1])}</dd>
+   <dt>Joint utility</dt><dd>${fmt(s.joint)} <span style="color:var(--ink-3);font-weight:400">/ ${fmt(C.MAXJ)}</span></dd>
+   <dt>Joint value recovered</dt><dd>${(s.recovered*100).toFixed(1)}%</dd>
+   <dt>Left unclaimed</dt><dd>${fmt(s.gap)}</dd>
+   <dt>Nash ratio</dt><dd>${fmt(s.nash,2)}</dd>
+   <dt>Inequality</dt><dd>${fmt(s.ineq,2)}</dd>
+   <dt>Pareto-optimal</dt><dd>${s.pareto?'<span class="tick y">yes</span>':'<span class="tick n">no</span>'}</dd>
+   <dt>Integrative gain</dt><dd>${fmt(g,2)} ${g>=.98?'<span class="tick y">max</span>':g<=.01?'<span class="tick n">none</span>':'<span class="tick m">partial</span>'}</dd>`;
+}
+function drawParties(){
+  $("parties").innerHTML=C.P.map((p,ix)=>{
+    const shown=reveal[p.key];
+    const rows=C.ISSUES.map(i=>{const[w,v]=p.vals[i.name],now=v[sel[i.name]]??0;
+      return `<div class="vrow"><span>${i.label}</span><span class="meter" style="color:${ix?'var(--verm)':'var(--teal)'}"><i style="width:${(now*100).toFixed(0)}%"></i></span><span>${w.toFixed(2)}w</span></div>`;}).join("");
+    return `<div class="party ${ix?'b':'a'}">
+      <div class="prow"><span class="nm">${p.name}</span><button class="mini" data-r="${p.key}">${shown?"seal":"reveal"}</button></div>
+      <div style="font-size:13.5px;color:var(--ink-2);margin-top:4px">${p.stance}</div>
+      <div class="rl">${p.redLines.map((r,ri)=>{
+          const txt=typeof r==="string"?r:r.t, src=typeof r==="string"?null:r.src;
+          return `<span class="rli">${esc(txt)}${src?`<button class="cite" data-src="${src}" title="" aria-label="Show source for: ${esc(txt)}">i</button>`:
+            `<span class="cite none" title="" aria-label="No source recorded">–</span>`}</span>`;}).join("")}</div>
+      <div style="margin-top:9px">${shown?rows:'<div class="sealed">Valuations sealed — this is exactly what the opposing agent sees.</div>'}</div></div>`;}).join("");
+  $("parties").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{reveal[b.dataset.r]=!reveal[b.dataset.r];drawParties();});
+  $("parties").querySelectorAll(".cite[data-src]").forEach(b=>{
+    b.onclick=e=>{e.stopPropagation(); showCite(b, b.dataset.src);};
+    b.onmouseenter=()=>showCite(b, b.dataset.src);
+    b.onmouseleave=hideTip;
+  });
+}
+const PW=520,PH=380,M={l:44,r:22,t:30,b:38};
+const sx=u=>M.l+u*(PW-M.l-M.r), sy=u=>PH-M.b-u*(PH-M.t-M.b);
+const SYSF="-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif";
+function drawPlot(){
+  const g=[];
+  [0,.5,1].forEach(u=>{
+    g.push(`<line x1="${sx(0)}" y1="${sy(u)}" x2="${sx(1)}" y2="${sy(u)}" stroke="var(--line-2)" stroke-width="1"/>`,
+           `<line x1="${sx(u)}" y1="${sy(0)}" x2="${sx(u)}" y2="${sy(1)}" stroke="var(--line-2)" stroke-width="1"/>`);});
+  // Interior settlements sit at 16% — they imply the space without crowding it.
+  C.VECS.forEach((v,i)=>{if(!C.PARETO.includes(i))
+    g.push(`<circle cx="${sx(v[0])}" cy="${sy(v[1])}" r="1.7" fill="var(--ink-3)" opacity="0.16"/>`);});
+  const pf=C.PARETO.map(i=>C.VECS[i]).sort((a,b)=>a[0]-b[0]);
+  const edge=pf.map(v=>sx(v[0])+","+sy(v[1])).join(" ");
+  g.push(`<polygon points="${edge} ${sx(pf[pf.length-1][0])},${sy(0)} ${sx(pf[0][0])},${sy(0)}" fill="var(--gold-mark)" opacity="0.08"/>`);
+  g.push(`<polyline points="${edge}" fill="none" stroke="var(--gold-mark)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`);
+  const mid=pf[Math.floor(pf.length/2)];
+  g.push(`<text x="${sx(mid[0])}" y="${sy(mid[1])-15}" text-anchor="middle" fill="var(--gold-ink)" font-family="${SYSF}" font-size="12" font-weight="600">best available</text>`);
+  const sv=C.vec(C.SPLIT);
+  g.push(`<circle cx="${sx(sv[0])}" cy="${sy(sv[1])}" r="5" fill="var(--bg)" stroke="var(--ink-3)" stroke-width="2"/>`,
+         `<text x="${sx(sv[0])}" y="${sy(sv[1])+21}" text-anchor="middle" fill="var(--ink-3)" font-family="${SYSF}" font-size="11">split</text>`);
+  if(trail.length>1){
+    g.push(`<polyline points="${trail.map(v=>sx(v[0])+","+sy(v[1])).join(" ")}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" opacity="0.25"/>`);
+    trail.forEach((v,i)=>{ if(i%2) return;
+      g.push(`<circle cx="${sx(v[0])}" cy="${sy(v[1])}" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5" opacity="0.55"/>`,
+             `<text x="${sx(v[0])}" y="${sy(v[1])+4}" text-anchor="middle" fill="var(--ink-2)" font-family="${SYSF}" font-size="10" font-weight="600">${i/2+1}</text>`);});
+  }
+  runs.filter(r=>r.caseId===C.k.id).forEach(r=>{
+    g.push(`<circle cx="${sx(r.v[0])}" cy="${sy(r.v[1])}" r="13" fill="var(--accent)" opacity="0.13"/>`,
+           `<circle cx="${sx(r.v[0])}" cy="${sy(r.v[1])}" r="6" fill="var(--accent)"/>`,
+           `<text x="${sx(r.v[0])}" y="${sy(r.v[1])-17}" text-anchor="middle" fill="var(--accent)" font-family="${SYSF}" font-size="12" font-weight="650">${r.cond}</text>`);});
+  const cv=C.vec(sel);
+  g.push(`<circle cx="${sx(cv[0])}" cy="${sy(cv[1])}" r="4" fill="none" stroke="var(--ink)" stroke-width="2"/>`);
+  g.push(`<text x="${sx(1)}" y="${sy(0)+25}" text-anchor="end" fill="var(--teal)" font-family="${SYSF}" font-size="12" font-weight="600">${C.P[0].name} →</text>`,
+         `<text transform="translate(${sx(0)-26},${sy(1)+6}) rotate(-90)" text-anchor="end" fill="var(--verm)" font-family="${SYSF}" font-size="12" font-weight="600">${C.P[1].name} →</text>`);
+  $("plot").innerHTML=g.join("");
+}
+function drawRes(){
+  const mine=runs.filter(r=>r.caseId===C.k.id);
+  const rows=[{cond:"split-the-difference",pkg:C.SPLIT,calls:"—",base:1},...mine];
+  $("res").innerHTML=rows.map(r=>{const s=C.score(r.pkg);
+    return `<tr class="${r.base?'base':''}"><td>${r.cond}</td><td>${fmt(s.v[0],2)}</td><td>${fmt(s.v[1],2)}</td>
+      <td>${fmt(s.joint,3)}</td><td>${(s.recovered*100).toFixed(1)}%</td><td>${fmt(s.nash,2)}</td>
+      <td>${fmt(s.ineq,2)}</td><td>${fmt(s.integrative,2)}</td><td>${s.pareto?"yes":"no"}</td><td>${r.calls}</td></tr>`;}).join("");
+  $("resHead").innerHTML=`<tr><th>Run</th><th>${C.P[0].name}</th><th>${C.P[1].name}</th><th>Joint</th><th>Recovered</th><th>Nash</th><th>Inequality</th><th>Integrative</th><th>Pareto</th><th>Calls</th></tr>`;
+}
+
+/* ===== chat ===== */
+let trail=[], msgs=0, clock=0;
+const chat=()=>$("chat");
+const initials=n=>n.split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+const at=()=>{const m=Math.floor(clock/60), sec=Math.floor(clock%60);
+  return `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;};
+function bump(){ msgs++; $("msgCount").textContent=msgs; }
+function scroll(){ chat().scrollTop=chat().scrollHeight; }
+
+function divider(text){
+  const d=document.createElement("div"); d.className="div"; d.textContent=text;
+  chat().appendChild(d); scroll();
+}
+/* A typing bubble stands in while the recorded call's latency plays out, then
+   is replaced by the real message — the same beat a chat app has. */
+function typing(side,name){
+  const w=document.createElement("div"); w.className="msg "+side;
+  w.innerHTML=`<div class="av">${initials(name)}</div><div class="bub"><div class="typing"><i></i><i></i><i></i></div></div>`;
+  chat().appendChild(w); scroll(); return w;
+}
+function sysTyping(){
+  const w=document.createElement("div"); w.className="sys";
+  w.innerHTML=`<div class="typing"><i></i><i></i><i></i></div>`;
+  chat().appendChild(w); scroll(); return w;
+}
+function bubble(node,side,name,attach){
+  node.className="msg "+side;
+  node.innerHTML=`<div class="av">${initials(name)}</div><div class="bub">
+      <div class="nm">${name}</div><div class="bd"></div>
+      ${attach||""}<div class="tm">${at()}</div></div>`;
+  bump(); scroll(); return node.querySelector(".bd");
+}
+function attachment(label,pkg,cede){
+  return `<div class="attach"><b>${label}</b>${C.pkgLine(pkg)}${cede?`<span class="cede">concedes: ${esc(cede)}</span>`:""}</div>`;
+}
+function judgeCard(node,round,rows,unaddressed){
+  node.className="sys";
+  node.innerHTML=`<div class="hd">Judge · round ${round}</div>`+
+    rows.map(([name,sc,sum])=>{
+      const chips=Object.entries(sc).map(([k,v])=>`<span class="sc">${k.replace(/_/g," ")} ${v}</span>`).join("");
+      const tot=Object.values(sc).reduce((a,b)=>a+b,0);
+      return `<div class="row"><span class="who2">${name}</span><span class="pk rx">${tot}/25</span>
+              <span class="sm">${esc(sum)}</span><span class="rx">${chips}</span></div>`;}).join("")+
+    (unaddressed.length?`<div class="un">Neither side addressed: ${esc(unaddressed.join(" · "))}</div>`:"");
+  bump(); scroll();
+}
+/* The two recommendations belong beside each other, not one after the other:
+   the whole point is the comparison, and a reader scrolling past box one has
+   already lost it. One wide container, two columns, filled as each arrives. */
+function recCompare(){
+  const wrap=document.createElement("div");
+  wrap.className="sys final reccompare";
+  wrap.innerHTML=`<div class="hd">Recommendations — one per reader, same crisis, same priority</div>
+    <div class="reccols"></div>`;
+  chat().appendChild(wrap); bump(); scroll();
+  return wrap.querySelector(".reccols");
+}
+function recBox(cols,label,headline,opts,pkg){
+  const box=document.createElement("div");
+  box.className="reccard";
+  box.innerHTML=`<div class="top"><span class="sc prio">${esc(label)}</span></div>`
+    +(headline?`<h4>${esc(headline)}</h4>`:"")
+    +`<div class="bd"></div>`
+    +opts.map(o=>`<div class="opt2">If ${esc(o.c)} → ${esc(o.a)} <em>${esc(o.p)}</em></div>`).join("")
+    +attachment("Opening package",pkg);
+  cols.appendChild(box); scroll();
+  return box.querySelector(".bd");
+}
+
+function finalCard(node,title,rationale,opts,pkg,headline){
+  node.className="sys final";
+  node.innerHTML=`<div class="hd">${title}</div>`+
+    (headline?`<div class="headline">${esc(headline)}</div>`:"")+`<div class="bd"></div>`+
+    opts.map(o=>`<div class="opt2">If ${esc(o.c)} → ${esc(o.a)} <em>${esc(o.p)}</em></div>`).join("")+
+    attachment("Opening package",pkg);
+  bump(); scroll(); return node.querySelector(".bd");
+}
+/* Type the cached text out, so a played-back call reads like a streamed one. */
+async function stream(el,text){
+  const f=speed();
+  if(f===0||reduced){ el.textContent=text; scroll(); return; }
+  const step=Math.max(2,Math.round(text.length/(38*Math.max(1,f/2))));
+  for(let i=0;i<text.length;i+=step){
+    if(abort?.signal.aborted) throw {code:"cancelled"};
+    el.textContent=text.slice(0,i+step); scroll();
+    await new Promise(r=>setTimeout(r,16));
+  }
+  el.textContent=text; scroll();
+}
+
+/* ===== human intervention — planner.md §9 =====
+   A window after every judge output. Not pressed, it auto-advances; pressed, it
+   pauses indefinitely so the human can read, correct or flag. Three seconds is
+   not long enough to read a judge summary, so the default here is ten with 3s,
+   0s and pause-every-round all available. Every intervention is recorded and the
+   run is tagged; a tagged run is reported separately rather than mixed in. */
+let interventions=[];
+/* Facts the reviewer establishes mid-run. Each is {round, text}: `round` is the
+   round it was supplied after, so it enters the record from the next one. The
+   agents are told to treat these as settled rather than argue with them — the
+   point is to correct the world, not to take a side. */
+let corrections=[];
+
+/** Everything established before `round`, as the agents would be shown it. */
+function establishedBefore(round){
+  return corrections.filter(c=>c.round < round).map(c=>c.text);
+}
+function gateSeconds(){ return parseInt($("gate").value,10); }
+
+function interventionGate(round, judgeNode, summaries){
+  const secs=gateSeconds();
+  if(secs===0) return Promise.resolve(null);
+  return new Promise(resolve=>{
+    const always = secs < 0;
+    let left = always ? 0 : secs, settled=false, timer=null, onAbort=null;
+
+    const bar=document.createElement("div"); bar.className="gate";
+    bar.innerHTML=`<span class="msg">Round ${round} judged. Review it before it feeds the next round?</span>
+      <span class="cd">${always?"waiting":left+"s"}</span>
+      <button type="button" data-a="open">Intervene</button>
+      <button type="button" class="sec" data-a="go">Continue</button>`;
+    chat().appendChild(bar); scroll();
+
+    // One settle, whatever happens: a second call is a no-op rather than a
+    // dangling promise or a double-advance.
+    const finish=(result)=>{
+      if(settled) return;
+      settled=true;
+      if(timer) clearInterval(timer);
+      if(onAbort) abort?.signal.removeEventListener("abort", onAbort);
+      bar.remove();
+      resolve(result);
+    };
+
+    if(!always){
+      timer=setInterval(()=>{
+        if(settled) return;
+        if(abort?.signal.aborted) return finish(null);
+        left--;
+        const cd=bar.querySelector(".cd"); if(cd) cd.textContent=left+"s";
+        if(left<=0) finish(null);
+      },1000);
+    }
+    onAbort=()=>finish(null);
+    abort?.signal.addEventListener("abort", onAbort, {once:true});
+
+    bar.querySelector('[data-a="go"]').onclick=()=>finish(null);   // advance now
+    bar.querySelector('[data-a="open"]').onclick=()=>{
+      if(settled) return;
+      settled=true;
+      if(timer) clearInterval(timer);
+      if(onAbort) abort?.signal.removeEventListener("abort", onAbort);
+      bar.remove();
+      openPanel(round, judgeNode, summaries, resolve);
+    };
+  });
+}
+
+/* The reviewer's box. Deliberately blank and unstructured: the whole reason a
+   human is in the loop is that the thing they need to say was not anticipated by
+   a form. Whatever they type is handed to both sides from the next round as an
+   established fact, not as an argument — neither agent gets to dispute it, and
+   neither gets to treat it as the other side's claim. */
+function openPanel(round, judgeNode, summaries, resolve){
+  const panel=document.createElement("div"); panel.className="panel";
+  panel.innerHTML=`<h5>Intervene — round ${round}</h5>
+    <p style="margin:0;font-size:13px;color:var(--ink-2)">
+      Correct the record. Whatever you write here is given to <b>both</b> sides from
+      round ${round+1} as settled fact — they are told to build on it, not to argue
+      with it.</p>`;
+
+  const fact=document.createElement("textarea");
+  fact.placeholder = "e.g. Singapore does have other islands that could host the facility — "
+    + "the debate has been assuming it does not.";
+  fact.setAttribute("aria-label", `Correction to establish before round ${round+1}`);
+  panel.appendChild(fact);
+
+  // Editing the judge's wording is the narrower, second thing a reviewer may
+  // want. Folded away so it does not compete with the blank box.
+  const more=document.createElement("details");
+  more.innerHTML=`<summary style="font-size:12.5px;color:var(--ink-3);cursor:pointer">
+    Also edit the judge's summaries</summary>`;
+  const boxes = summaries.map(([name, text])=>{
+    const wrap=document.createElement("div"); wrap.style.marginTop="8px";
+    wrap.innerHTML=`<div style="font-size:12px;font-weight:600;margin-bottom:5px">${esc(name)}</div>`;
+    const ta=document.createElement("textarea"); ta.value=text; wrap.appendChild(ta);
+    more.appendChild(wrap); return [name, ta];
+  });
+  panel.appendChild(more);
+
+  const row=document.createElement("div"); row.className="row2";
+  row.innerHTML=`<button class="go" data-a="save">Establish and continue</button>
+                 <button class="go ghost" data-a="flag">Flag as misinformation</button>
+                 <button class="go ghost" data-a="cancel">Continue unchanged</button>`;
+  panel.appendChild(row); chat().appendChild(panel); scroll();
+  fact.focus();
+
+  const done=(result)=>{ panel.remove(); if(result) recordIntervention(round, result); resolve(result); };
+  row.querySelector('[data-a="cancel"]').onclick=()=>done(null);
+  row.querySelector('[data-a="save"]').onclick=()=>{
+    const text=fact.value.trim();
+    const edited=boxes.filter(([n,ta],i)=>ta.value!==summaries[i][1])
+                      .map(([n,ta])=>[n,ta.value]);
+    if(!text && !edited.length) return done(null);   // nothing typed is not an intervention
+    done({action: text ? "corrected" : "edited",
+          text: text || undefined,
+          edits: edited.length ? Object.fromEntries(edited) : undefined});
+  };
+  row.querySelector('[data-a="flag"]').onclick=()=>done({action:"flagged"});
+}
+
+function recordIntervention(round, result){
+  interventions.push({round, ...result, at:new Date().toISOString()});
+
+  if(result.text){
+    corrections.push({round, text:result.text});
+    // Shown in full, as a card rather than a one-line divider: this is now part
+    // of the case record and the reader should be able to see exactly what was
+    // put in and judge it.
+    const card=document.createElement("div"); card.className="sys";
+    card.innerHTML=`<div class="hd" style="color:var(--accent)">Reviewer established a fact — round ${round+1} onward</div>
+      <div style="font-size:14.5px;line-height:1.5">${esc(result.text)}</div>
+      <div class="un">Both sides are given this as settled. These turns are a recording,
+        so they cannot answer it — a live run would. The run is tagged either way.</div>`;
+    chat().appendChild(card); scroll();
+  }
+
+  if(result.action==="flagged" || result.edits){
+    const n=document.createElement("div"); n.className="div";
+    n.textContent = result.action==="flagged"
+      ? `Round ${round} flagged as misinformation — run tagged`
+      : `Round ${round} judge summary edited by reviewer`;
+    chat().appendChild(n); scroll();
+  }
+}
+
+/* Side-by-side comparison of what each priority chose. The gap between the rows
+   IS the advice: which one to take is a political judgement, and it belongs to
+   the reader rather than to the model. */
+function drawTailored(results){
+  const box=$("tailored");
+  if(!results || results.length<1){ box.innerHTML=""; return; }
+  const cards=results.map(r=>{
+    const s=C.score(r.pkg);
+    return `<div class="reccard">
+      <div class="top"><span class="sc prio">${esc(audienceLabelOf(r.audience))}</span></div>
+      <h4>${esc(r.headline||"—")}</h4>
+      <dl class="ro">
+        <dt>Joint value recovered</dt><dd>${(s.recovered*100).toFixed(1)}%</dd>
+        <dt>Nash ratio</dt><dd>${fmt(s.nash,2)}</dd>
+        <dt>Inequality</dt><dd>${fmt(s.ineq,2)}</dd>
+        <dt>Integrative gain</dt><dd>${fmt(s.integrative,2)}</dd>
+        <dt>Pareto-optimal</dt><dd>${s.pareto?'<span class="tick y">yes</span>':'<span class="tick n">no</span>'}</dd>
+      </dl>
+      <div class="pk">${C.pkgLine(r.pkg)}</div>
+      <button class="mini" data-pkg='${esc(JSON.stringify(r.pkg))}'>put on the board</button>
+    </div>`;
+  }).join("");
+  const distinct=new Set(results.map(r=>JSON.stringify(Object.entries(r.pkg).sort())));
+  const prio=priorityLabel(selectedPriority()).toLowerCase();
+  const verdict = results.length<2
+    ? `<p class="diverge">Only one reader's advice is in this recording, so there is nothing to compare.</p>`
+    : distinct.size>1
+      ? `<p class="diverge"><b>The two readers open differently</b> on the same crisis, protecting the same
+         thing — ${esc(prio)}. A national policymaker can commit money and be held to account at home; a
+         mediator cannot commit another state's treasury and cannot compel disclosure. The gap between
+         these two boxes is what the difference in mandate costs.</p>`
+      : `<p class="diverge"><b>Both readers open the same way</b> on this crisis, protecting ${esc(prio)}.
+         That is a finding rather than a fault — here the difference in mandate does not bite.</p>`;
+  box.innerHTML=`<div class="reccols">${cards}</div>${verdict}`;
+  box.querySelectorAll("[data-pkg]").forEach(b=>b.onclick=()=>{
+    sel=JSON.parse(b.dataset.pkg); drawBoard();drawRO();drawParties();drawPlot();
+  });
+}
+
+/* ===== the run ===== */
+function busy(b){ ["runBtn","newBtn","caseSel","cond","rounds","speed","gate","priority"]
+  .forEach(i=>$(i).disabled=b); $("stopBtn").hidden=!b; }
+async function run(){
+  if(!C.k.cached){   // nothing recorded — never fabricate a debate to fill the gap
+    show("analysis");
+    $("status").textContent=`${C.k.title} has no recorded run. Its payoff structure is scored in full above; `
+      +`the debate itself needs the backend and an API key.`;
+    return;
+  }
+  const cond=$("cond").value, R=Math.max(1,Math.min(3,+$("rounds").value||3));
+  const PRIO=selectedPriority();
+  abort=new AbortController(); calls=0; t0=performance.now(); trail=[]; msgs=0; clock=0; fb={};
+  chat().innerHTML=""; $("msgCount").textContent=""; interventions=[]; corrections=[]; show("debate"); busy(true);
+  stages=buildStages(cond,R,PRIO); curStage=null; drawRail(); drawInsp();
+  $("tailored").innerHTML="";
+  const cache=C.k.cached;
+  try{
+    setStage("setup","run"); await wait(500);
+    setStage("setup","done",{ms:500,res:`<p>${C.P.map(p=>p.name).join(" · ")} · ${C.ISSUES.length} issues · ${C.ALL.length} possible settlements</p>`});
+    setStage("front","run"); await wait(700);
+    setStage("front","done",{ms:700,res:`<p>${C.PARETO.length} Pareto-optimal settlements · maximum joint utility ${fmt(C.MAXJ,3)} · split-the-difference ${fmt(C.SPLITJ,3)} · <strong>${fmt(C.MAXJ-C.SPLITJ,3)} of joint value at stake</strong></p>`});
+
+    let pkg=null, results=[];
+    if(cond==="B0"){
+      const cols=recCompare();
+      for(const a of AUDIENCES){
+        const d=cache.advice.base[PRIO]?.[a.id];
+        const id=`draft1.${a.id}`;
+        if(!d){ setStage(id,"fail",{ms:0,res:`<p class="withheld">Not in this recording — a live run writes it.</p>`}); continue; }
+        setStage(id,"run",{inp:`<p>Case record and ${C.P[0].name}'s brief only. No opposing argument, no judge.<br>Written for <strong>${esc(a.label)}</strong> protecting <strong>${esc(priorityLabel(PRIO))}</strong>.<br><span class="pk">${esc(a.blurb)}</span></p>`});
+        await wait(d.ms); calls++; clock+=d.ms/1000;
+        const bd=recBox(cols,a.label,d.headline,d.opts,d.pkg);
+        await stream(bd,d.rationale);
+        setStage(id,"done",{ms:d.ms,res:`<p>${esc(d.rationale)}</p><p class="pk">${C.pkgLine(d.pkg)}</p>`});
+        results.push({audience:a.id,pkg:d.pkg,headline:d.headline});
+        pkg=pkg||d.pkg;
+      }
+    } else {
+      let assess=[], transcript=[];
+      for(let r=1;r<=R;r++){
+        const turns=cache.rounds[r-1];
+        divider(`Round ${r}`);
+        for(const p of C.P){
+          const turn=turns.find(t=>t.who===p.key), id=`r${r}.${p.key}`;
+          const note = r>1 && fb[p.key]
+            ? `<p class="pk">Judge's note to ${esc(p.name)} after round ${r-1}: ${esc(fb[p.key])}</p>` : "";
+          const facts = establishedBefore(r);
+          const factNote = facts.length
+            ? `<p><strong>Established by the reviewer — treat as settled:</strong></p>`
+              + facts.map(f=>`<p class="pk">· ${esc(f)}</p>`).join("")
+            : "";
+          setStage(id,"run",{inp:`<p>Case record · own brief · own valuations${r>1?" · opposing argument from round "+(r-1)+(fb[p.key]?" · judge's note on its own last turn":""):""}${facts.length?" · "+facts.length+" established fact"+(facts.length>1?"s":""):""}.<br><span class="withheld">The other party's valuations are withheld.</span></p>${note}${factNote}`});
+          const side=p.key==="a"?"left":"right";
+          const node=typing(side,p.name);
+          await wait(turn.ms); calls++; clock+=turn.ms/1000;
+          const bd=bubble(node,side,p.name,attachment("Proposed package",turn.pkg,turn.concession));
+          await stream(bd,turn.position);
+          const s=C.score(turn.pkg); trail.push(s.v); drawPlot();
+          setStage(id,"done",{ms:turn.ms,res:`<p>${esc(turn.position)}</p><p class="pk">${C.pkgLine(turn.pkg)}</p><p>Its own utility ${fmt(C.util(p,turn.pkg),2)} · joint ${fmt(s.joint,3)} · ${s.pareto?"on the frontier":fmt(s.gap,2)+" short of it"}</p>`});
+          transcript.push(`${p.name} r${r}: ${turn.position}`);
+        }
+        if(cond==="B2"){
+          const j=cache.judge[r-1], id=`r${r}.judge`;
+          setStage(id,"run",{inp:`<p>Both arguments and the rubric.<br><span class="withheld">No brief, no valuations — it scores how the case was argued, not who is better off.</span></p>`});
+          const jn=sysTyping(); await wait(j.ms); calls++; clock+=j.ms/1000;
+          const rows=[[C.P[0].name,j.a,j.sa],[C.P[1].name,j.b,j.sb]];
+          judgeCard(jn,r,rows,j.un);
+          const tot=rows.map(([n,sc])=>`${n} ${Object.values(sc).reduce((a,b)=>a+b,0)}/25`);
+          setStage(id,"done",{ms:j.ms,res:`<p><strong>${tot.join(" · ")}</strong></p><p>${esc(C.P[0].name)}: ${esc(j.sa)}</p><p>${esc(C.P[1].name)}: ${esc(j.sb)}</p>${j.un.length?`<p class="pk">Unaddressed: ${esc(j.un.join("; "))}</p>`:""}`});
+          const verdict=await interventionGate(r, jn, rows.map(([n,,sum])=>[n,sum]));
+          if(verdict?.action==="edited"){
+            // the edited summary is what the next round and the recommender see
+            rows.forEach(row=>{ if(verdict.edits[row[0]]!==undefined) row[2]=verdict.edits[row[0]]; });
+            judgeCard(jn, r, rows, j.un);
+          }
+          rows.forEach(([n,,sum])=>{ const pp=C.P.find(x=>x.name===n); if(pp) fb[pp.key]=sum; });
+          assess.push(`Round ${r}: ${tot.join(", ")}`);
+        }
+      }
+      const facts=establishedBefore(R+1);
+      const cols=recCompare();
+      for(let i=0;i<AUDIENCES.length;i++){
+        const a=AUDIENCES[i], id=`rec.${a.id}`;
+        const rec=cache.advice.rec[PRIO]?.[a.id];
+        if(!rec){ setStage(id,"fail",{ms:0,res:`<p class="withheld">Not in this recording — a live run writes it.</p>`}); continue; }
+        setStage(id,"run",{inp:(cond==="B2"
+          ? `<p>${assess.length} judge assessment${assess.length>1?"s":""}.<br><span class="withheld">The transcript is withheld — the recommender never reads the debate itself.</span></p>`
+          : `<p>The raw transcript, ${transcript.length} turns. B1 has no judge.</p>`)
+          + `<p>Written for <strong>${esc(a.label)}</strong> protecting <strong>${esc(priorityLabel(PRIO))}</strong>.<br><span class="pk">${esc(a.blurb)}</span></p>`
+          + (facts.length?`<p><strong>Established by the reviewer:</strong></p>`+facts.map(f=>`<p class="pk">· ${esc(f)}</p>`).join(""):"")});
+        await wait(rec.ms); calls++; clock+=rec.ms/1000;
+        const bd=recBox(cols,a.label,rec.headline,rec.opts,rec.pkg);
+        await stream(bd,rec.rationale);
+        const opts=rec.opts.map(o=>`<div class="pk">if ${esc(o.c)} → ${esc(o.a)} [${esc(o.p)}]</div>`).join("");
+        setStage(id,"done",{ms:rec.ms,res:`<p>${esc(rec.rationale)}</p>${opts}<p class="pk">${C.pkgLine(rec.pkg)}</p>`});
+        results.push({audience:a.id,pkg:rec.pkg,headline:rec.headline});
+        // The board and the headline metrics follow the FIRST reader; the other
+        // is compared against it in the panel below rather than overwriting it,
+        // because there is no single "the" answer any more.
+        if(i===0) pkg=rec.pkg;
+      }
+    }
+
+    setStage("score","run",{inp:`<p class="pk">${C.pkgLine(pkg)}</p>`}); await wait(450);
+    if(!C.legal(pkg)){
+      setStage("score","fail",{ms:450,res:`<p class="withheld">Not a legal settlement — recorded, never coerced.</p>`});
+      $("status").textContent=`${calls} calls · package illegal, run unscorable.`;
+    }else{
+      const s=C.score(pkg);
+      sel={...pkg}; runs.push({caseId:C.k.id,cond,pkg,v:s.v,calls});
+      drawBoard();drawRO();drawParties();drawPlot();drawRes();
+      setStage("score","done",{ms:450,res:`<p>joint ${fmt(s.joint,3)} · recovered ${(s.recovered*100).toFixed(1)}% · Nash ${fmt(s.nash,2)} · inequality ${fmt(s.ineq,2)} · integrative ${fmt(s.integrative,2)} · Pareto ${s.pareto?"yes":"no"}</p>`});
+      const tag = interventions.length
+        ? ` · ${interventions.length} intervention${interventions.length>1?"s":""} — run tagged, report separately`
+        : "";
+      $("status").textContent=`${cond} on ${C.k.title}: ${calls} calls · recovered ${(s.recovered*100).toFixed(1)}% of joint value · Nash ${fmt(s.nash,2)} · integrative gain ${fmt(s.integrative,2)} · ${s.pareto?"on the frontier":fmt(s.gap,2)+" left unclaimed"}${tag}.`;
+      drawTailored(results);
+      const me=C.P[0], best=Math.max(...C.ALL.map(p=>C.util(me,p))), pc=x=>`${Math.round(x*100)}%`;
+      const out=document.createElement("div"); out.className="sys final px";
+      out.innerHTML=`<div class="hd">Where the advice leaves ${esc(me.name)}</div>
+        <div class="stats">
+          <div class="stat"><b>${pc(C.util(me,pkg)/best)}</b><span>of your best case</span></div>
+          <div class="stat"><b>${pc(C.util(me,C.SPLIT)/best)}</b><span>if you just split every issue</span></div>
+        </div>`;
+      chat().appendChild(out); scroll();
+    }
+  }catch(e){
+    const r=stages.find(s=>s.status==="run"); if(r) setStage(r.id,"idle");
+    // Pressing Stop is not a failure; anything else is, and saying "stopped"
+    // for both is how a ReferenceError once passed for a short debate.
+    if(e?.code==="cancelled"){
+      $("status").textContent=`Stopped after ${calls} calls.`;
+    }else{
+      console.error(e);
+      $("status").textContent=`Run failed after ${calls} calls — ${e?.message||e}. `
+        +`This is a bug in the console, not a result.`;
+    }
+  }finally{ busy(false); abort=null; }
+}
+
+/* ===== imagine before acting — the world model =====
+   A port of backend/crisis_debate/imagine.py, so this page rehearses openings
+   with no backend. Same model, same rules, same seed: the other side's weights
+   are guessed, so we imagine 64 versions of them (±20% on each weight), and in
+   each one ask whether they take your opening, and if not, what the closest
+   settlement they would accept looks like — closest to yours, best for them.
+   An option valued at exactly zero is a red line, never a low score. No model
+   is called; this is the cheap rehearsal, the debate is the expensive one. It
+   is a product feature and never feeds the B0/B1/B2 comparison. */
+const WM_SAMPLES=64, WM_SPREAD=0.2;
+
+/* Python's random.Random(seed).random(), so the guesses here are the very
+   guesses `dara rehearse` makes and the two report the same numbers. */
+function pyRandom(seed){
+  const N=624, mt=new Uint32Array(N); let mti;
+  mt[0]=19650218;
+  for(mti=1;mti<N;mti++){ const p=mt[mti-1]^(mt[mti-1]>>>30); mt[mti]=(Math.imul(1812433253,p)+mti)>>>0; }
+  let i=1, j=0; const key=[seed>>>0];
+  for(let k=N;k;k--){
+    const p=mt[i-1]^(mt[i-1]>>>30);
+    mt[i]=((mt[i]^Math.imul(p,1664525))>>>0)+key[j]+j>>>0;
+    i++; j++; if(i>=N){mt[0]=mt[N-1]; i=1;} if(j>=key.length) j=0;
+  }
+  for(let k=N-1;k;k--){
+    const p=mt[i-1]^(mt[i-1]>>>30);
+    mt[i]=(((mt[i]^Math.imul(p,1566083941))>>>0)-i)>>>0;
+    i++; if(i>=N){mt[0]=mt[N-1]; i=1;}
+  }
+  mt[0]=0x80000000; mti=N;
+  const next=()=>{
+    if(mti>=N){
+      for(let k=0;k<N;k++){
+        const y=(mt[k]&0x80000000)|(mt[(k+1)%N]&0x7fffffff);
+        mt[k]=mt[(k+397)%N]^(y>>>1)^((y&1)?0x9908b0df:0);
+      }
+      mti=0;
+    }
+    let y=mt[mti++];
+    y^=y>>>11; y^=(y<<7)&0x9d2c5680; y^=(y<<15)&0xefc60000; y^=y>>>18;
+    return y>>>0;
+  };
+  return ()=>{ const a=next()>>>5, b=next()>>>6; return (a*67108864+b)/9007199254740992; };
+}
+
+const r4=x=>Math.round(x*1e4)/1e4, r2=x=>Math.round(x*100)/100;
+const changedIssues=(a,b)=>Object.keys(a).filter(k=>a[k]!==b[k]);
+/** Issues on which `pkg` picks an option this party values at zero. */
+const redLinesCrossed=(C,p,pkg)=>C.ISSUES.filter(i=>{
+  const o=pkg[i.name]; return o!=null && (p.vals[i.name][1][o]??0)<=0;}).map(i=>i.name);
+
+function buildWorld(C){
+  const me=C.P[0], opp=C.P.slice(1), pk=C.ALL;
+  const mine=pk.map(p=>C.util(me,p));
+  const myOk=[]; pk.forEach((p,i)=>{ if(!redLinesCrossed(C,me,p).length) myOk.push(i); });
+  const okSet=new Set(myOk), rand=pyRandom(0), worlds=[];
+  for(let s=0;s<WM_SAMPLES;s++){
+    const acceptable=new Set(pk.keys()), theirs=new Array(pk.length).fill(0);
+    for(const t of opp){
+      const raw=C.ISSUES.map(i=>Math.max(1e-9, t.vals[i.name][0]*(1+(-WM_SPREAD+(2*WM_SPREAD)*rand()))));
+      const tot=raw.reduce((a,b)=>a+b,0);
+      const alt={...t, vals:Object.fromEntries(C.ISSUES.map((i,k)=>[i.name,[raw[k]/tot,t.vals[i.name][1]]]))};
+      const floor=C.util(alt,C.SPLIT);
+      pk.forEach((p,i)=>{
+        const u=C.util(alt,p); theirs[i]+=u;
+        if(u<floor-1e-9 || redLinesCrossed(C,alt,p).length) acceptable.delete(i);
+      });
+    }
+    const acc=[...acceptable].sort((a,b)=>a-b);
+    worlds.push({acceptable:new Set(acc), agreeable:acc.filter(i=>okSet.has(i)), theirs});
+  }
+  const keyOf=p=>C.ISSUES.map(i=>p[i.name]).join("|");
+  return {C, pk, mine, myOk, worlds, spread:WM_SPREAD, keyOf,
+          index:new Map(pk.map((p,i)=>[keyOf(p),i])),
+          mySplit:C.util(me,C.SPLIT), myBest:Math.max(...mine)};
+}
+/** The settlement this counterpart arrives at, or null for no deal. */
+function respond(m,w,o){
+  if(w.acceptable.has(o)) return o;
+  if(!w.agreeable.length) return null;
+  const op=m.pk[o]; let best=null, bn=0, bt=0;
+  for(const i of w.agreeable){
+    const n=changedIssues(op,m.pk[i]).length, t=-w.theirs[i];
+    if(best===null || n<bn || (n===bn && t<bt)){ best=i; bn=n; bt=t; }
+  }
+  return best;
+}
+const shareOf=(m,u)=>m.myBest>1e-9?r4(u/m.myBest):0;
+/** Unspecified issues take your own first choice — an opening is an ask. */
+function completeOpening(m,partial){
+  const me=m.C.P[0], pkg={}, filled=[];
+  for(const i of m.C.ISSUES){
+    if(partial[i.name]!=null){ pkg[i.name]=partial[i.name]; continue; }
+    const v=me.vals[i.name][1]; let best=i.options[0];
+    for(const o of i.options) if((v[o]??0)>(v[best]??0)) best=o;
+    pkg[i.name]=best; filled.push(i.name);
+  }
+  return {pkg,filled};
+}
+const mostCommon=map=>[...map.entries()].sort((a,b)=>b[1]-a[1]);
+function imagineOpening(m,partial){
+  const {pkg,filled}=completeOpening(m,partial), o=m.index.get(m.keyOf(pkg));
+  const landed=[]; let accepted=0, noDeal=0; const push=new Map(), counters=new Map();
+  for(const w of m.worlds){
+    const s=respond(m,w,o);
+    if(s===null){ noDeal++; continue; }
+    landed.push(m.mine[s]);
+    if(s===o){ accepted++; continue; }
+    changedIssues(pkg,m.pk[s]).forEach(k=>push.set(k,(push.get(k)||0)+1));
+    counters.set(s,(counters.get(s)||0)+1);
+  }
+  const n=m.worlds.length, rejected=n-accepted-noDeal, deals=landed.length||1;
+  const top=mostCommon(counters)[0];
+  return {
+    opening:pkg, filled, worlds:n, spread:m.spread,
+    accept_rate:r4(accepted/n),
+    sticking_points:mostCommon(push).map(([i,c])=>[i,r4(c/Math.max(rejected,1))]),
+    likely_counter:top?m.pk[top[0]]:null,
+    expected_share:shareOf(m,landed.reduce((a,b)=>a+b,0)/deals),
+    worst_share:shareOf(m,landed.length?Math.min(...landed):0),
+    split_share:shareOf(m,m.mySplit),
+    below_split_rate:r4(landed.filter(u=>u<m.mySplit-1e-9).length/n),
+    no_deal_rate:r4(noDeal/n),
+    crosses_your_red_lines:redLinesCrossed(m.C,m.C.P[0],pkg),
+  };
+}
+/** Try every opening that respects your red lines; keep the best `top` that
+    land differently. Ranked by deal reach, then expected share to the nearest
+    percent, then outright acceptance — imagine.plan(), line for line. */
+function planOpenings(m,top=3){
+  const scored=m.myOk.map(o=>{
+    const out=m.worlds.map(w=>respond(m,w,o)), deals=out.filter(s=>s!==null);
+    const exp=deals.length?deals.reduce((t,s)=>t+m.mine[s],0)/deals.length:0;
+    return [r2(deals.length/out.length), r2(shareOf(m,exp)), out.filter(s=>s===o).length/out.length,
+            m.mine[o], out.join(","), o];
+  });
+  scored.sort((a,b)=>(b[0]-a[0])||(b[1]-a[1])||(b[2]-a[2])||(b[3]-a[3]));
+  const seen=new Set(), picks=[];
+  for(const s of scored){
+    if(seen.has(s[4])) continue;
+    seen.add(s[4]); picks.push(s[5]);
+    if(picks.length===top) break;
+  }
+  return picks.map(o=>imagineOpening(m,m.pk[o]));
+}
+/** The rehearsal in sentences — Rehearsal.summary(), worded identically. */
+function rehearsalSummary(r,L){
+  const pc=x=>Math.round(x*100)+"%";
+  const lines=[`We imagined ${r.worlds} plausible versions of the other side (their priorities varied by ±${pc(r.spread)} around your estimate).`,
+               `They accept this opening as it stands in ${pc(r.accept_rate)} of them.`];
+  if(r.crosses_your_red_lines.length)
+    lines.unshift(`This opening includes something you marked unacceptable: ${r.crosses_your_red_lines.map(L).join(", ")}.`);
+  if(r.no_deal_rate>=1){
+    lines.push("No deal is possible: every settlement crosses a red line on one side or the other. Revisit what is marked unacceptable, or add an issue that gives them something to trade for.");
+    return lines;
+  }
+  if(r.no_deal_rate>0) lines.push(`In ${pc(r.no_deal_rate)} of them nothing survives both sides' red lines, and talks end without a deal.`);
+  if(r.sticking_points.length)
+    lines.push(`When they push back, it is over: ${r.sticking_points.slice(0,3).map(([i,s])=>`${L(i)} (${pc(s)})`).join(", ")}.`);
+  if(r.likely_counter){
+    const c=r.likely_counter;
+    lines.push(`Their most likely counter-offer asks you to move on ${changedIssues(r.opening,c).map(k=>`${L(k)} → ${L(c[k])}`).join("; ")}.`);
+  }
+  lines.push(`Where you are likely to land: ${pc(r.expected_share)} of the best you could get (worst imagined case ${pc(r.worst_share)}; splitting every issue down the middle gets you ${pc(r.split_share)}).`);
+  if(r.below_split_rate>0)
+    lines.push(`Warning: in ${pc(r.below_split_rate)} of the imagined worlds you end up worse off than simply splitting the difference. This opening depends on your read of them being right.`);
+  if(r.filled.length) lines.push(`Issues you did not specify were set to your own first choice: ${r.filled.map(L).join(", ")}.`);
+  return lines;
+}
+
+/* Words for slugs: the case's own issue labels, the person's own option
+   wording for a crisis they entered, and otherwise the slug made readable. */
+function labeler(k){
+  const m={};
+  k.issues.forEach(i=>{ m[i.name]=i.label; });
+  Object.values(k.optLabels||{}).forEach(o=>Object.assign(m,o));
+  return s=>{ if(m[s]) return m[s]; const t=String(s).replace(/_/g," "); return t.charAt(0).toUpperCase()+t.slice(1); };
+}
+/* One or more rehearsed openings as cards. `titles` overrides the headings. */
+function renderOpenings(rs,L,titles){
+  const pct=x=>`${Math.round(x*100)}%`;
+  const isWarn=l=>/^(Warning|No deal|This opening includes|In \d+% of them nothing)/.test(l);
+  // the tiles carry acceptance and landing, so those sentences are not repeated
+  const shown=l=>!/^(We imagined|They accept this opening|Where you are likely to land)/.test(l);
+  const b=rs[0], same=a=>a.accept_rate===b.accept_rate && a.expected_share===b.expected_share && a.worst_share===b.worst_share;
+  return rs.map((r,k)=>{
+    const rest=rehearsalSummary(r,L).filter(shown);
+    const title=titles?.[k] || (k===0?"Best opening":same(r)?"Equally good alternative":`Alternative ${k}`);
+    return `<div class="opening ${k===0&&!titles?"best":""}">
+      <div class="otitle">${esc(title)}</div>
+      <div class="ochips">${Object.entries(r.opening).map(([i,o])=>`<span class="ochip"><i>${esc(L(i))}</i> ${esc(L(o))}</span>`).join("")}</div>
+      <div class="stats">
+        <div class="stat"><b>${pct(r.accept_rate)}</b><span>chance they accept it as it stands</span></div>
+        <div class="stat"><b>${pct(r.expected_share)}</b><span>of your best case — where you likely land</span></div>
+        <div class="stat"><b>${pct(r.worst_share)}</b><span>in the worst imagined case</span></div>
+        <div class="stat"><b>${pct(r.split_share)}</b><span>if you just split every issue</span></div>
+      </div>
+      ${rest.length?`<ul class="said">${rest.map(l=>`<li class="${isWarn(l)?"warnline":""}">${esc(l)}</li>`).join("")}</ul>`:""}
+    </div>`;
+  }).join("");
+}
+
+let WMODEL=null;
+function drawImagine(){
+  const L=labeler(C.k), me=C.P[0];
+  WMODEL=buildWorld(C);
+  $("imagineWho").textContent=`as ${me.name} — imagined, not argued; no model calls`;
+  $("whatIfPick").innerHTML=C.ISSUES.map(i=>{
+    const v=me.vals[i.name][1], first=[...i.options].sort((a,b)=>(v[b]??0)-(v[a]??0))[0];
+    return `<label class="lab">${esc(L(i.name))}<select data-issue="${esc(i.name)}">${i.options.map(o=>
+      `<option value="${esc(o)}"${o===first?" selected":""}>${esc(L(o))}</option>`).join("")}</select></label>`;
+  }).join("");
+  $("whatIfOut").innerHTML="";
+  const picks=planOpenings(WMODEL);
+  $("imagineBody").innerHTML=picks.length
+    ? `<p class="status" style="margin-top:0">${esc(rehearsalSummary(picks[0],L)[0])}</p>`+renderOpenings(picks,L)
+    : `<div class="note warn">Every possible opening crosses one of your own red lines.</div>`;
+}
+$("whatIfBtn").onclick=()=>{
+  const op={}; $("whatIfPick").querySelectorAll("select").forEach(s=>{ op[s.dataset.issue]=s.value; });
+  $("whatIfOut").innerHTML=renderOpenings([imagineOpening(WMODEL,op)],labeler(C.k),["Your opening"]);
+};
+
+/* ===== add a crisis — the plain-language form =====
+   The same four steps as the main console, and the same conversion as
+   backend/crisis_debate/intake.py, done here because this page has no server:
+   ranks become weights by rank-order centroid (Barron & Barrett, 1996; ties
+   share the average), Good / OK / No become 1 / 0.5 / 0, and every No becomes
+   a red line in words. Nothing is saved until the read-back has been seen. */
+const MARKS=[{v:"good",label:"Good"},{v:"acceptable",label:"OK"},{v:"unacceptable",label:"No"}];
+const MARK_VALUE={good:1,acceptable:0.5,unacceptable:0};
+const MAX_ISSUES=6, MAX_OPTIONS=4;
+/* backend/examples/haze_form.json — the haze case as the simple form */
+const EXAMPLE_FORM={
+ title:"Transboundary haze (simple form)",
+ situation:"Recurring smoke haze from peatland fires in Indonesia reaches Singapore. Singapore wants accountability for the companies responsible; Indonesia wants to protect jurisdiction and smallholders.",
+ issues:[{name:"Concession maps",options:["Withheld","Aggregated by district","Full to ASEAN HMS"]},
+         {name:"Enforcement",options:["Indonesian courts only","Joint ASEAN panel","Singapore act applied"]},
+         {name:"Peatland moratorium",options:["Existing exempt","Partial exemptions","Full no exemptions"]},
+         {name:"Transition funding",options:["None","Partial donor fund","Full donor fund"]}],
+ you:{name:"Singapore",ranking:["Concession maps","Enforcement","Peatland moratorium","Transition funding"],
+  options:{"Concession maps":{"Withheld":"unacceptable","Aggregated by district":"acceptable","Full to ASEAN HMS":"good"},
+           "Enforcement":{"Indonesian courts only":"acceptable","Joint ASEAN panel":"acceptable","Singapore act applied":"good"},
+           "Peatland moratorium":{"Existing exempt":"acceptable","Partial exemptions":"acceptable","Full no exemptions":"good"},
+           "Transition funding":{"None":"good","Partial donor fund":"acceptable","Full donor fund":"acceptable"}},
+  red_lines:["Will not accept a settlement with no attribution mechanism"]},
+ them:{name:"Indonesia",ranking:["Enforcement","Transition funding","Concession maps","Peatland moratorium"],
+  options:{"Enforcement":{"Indonesian courts only":"good","Joint ASEAN panel":"acceptable","Singapore act applied":"unacceptable"},
+           "Transition funding":{"None":"unacceptable","Partial donor fund":"acceptable","Full donor fund":"good"},
+           "Concession maps":{"Withheld":"good","Aggregated by district":"acceptable","Full to ASEAN HMS":"acceptable"},
+           "Peatland moratorium":{"Existing exempt":"good","Partial exemptions":"acceptable","Full no exemptions":"acceptable"}},
+  red_lines:["No foreign jurisdiction over acts on Indonesian soil","No restriction that falls on smallholders without funded alternatives"]}
+};
+
+let userCases=0, intake=null, pending=null;
+const slug=s=>String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+const blankIssue=rank=>({name:"",options:["","",""],you:{rank,marks:["","",""]},them:{rank,marks:["","",""]}});
+const freshIntake=()=>({title:"",situation:"",you:{name:"Singapore",red:""},them:{name:"",red:""},
+                        issues:[blankIssue(1),blankIssue(2)]});
+
+function intakeFromForm(f){
+  const rankOf=(ranking,name)=>{const ix=ranking.findIndex(e=>(Array.isArray(e)?e:[e]).includes(name)); return ix<0?1:ix+1;};
+  return {title:f.title||"", situation:f.situation||"",
+    you:{name:f.you.name, red:(f.you.red_lines||[]).join("; ")},
+    them:{name:f.them.name, red:(f.them.red_lines||[]).join("; ")},
+    issues:f.issues.map(i=>({name:i.name, options:[...i.options],
+      you:{rank:rankOf(f.you.ranking,i.name), marks:i.options.map(o=>f.you.options?.[i.name]?.[o]||"")},
+      them:{rank:rankOf(f.them.ranking,i.name), marks:i.options.map(o=>f.them.options?.[i.name]?.[o]||"")}}))};
+}
+/* State -> the form intake.build() takes. Blank rows are dropped; equal ranks are a tie. */
+function intakePayload(){
+  const issues=intake.issues.map(i=>({...i, name:i.name.trim(),
+      keep:i.options.map((o,ix)=>[o.trim(),ix]).filter(([o])=>o)})).filter(i=>i.name&&i.keep.length);
+  const side=who=>{
+    const byRank=new Map();
+    for(const i of issues){ const r=Number(i[who].rank); if(!byRank.has(r)) byRank.set(r,[]); byRank.get(r).push(i.name); }
+    const ranking=[...byRank.keys()].sort((a,b)=>a-b).map(r=>byRank.get(r).length===1?byRank.get(r)[0]:byRank.get(r));
+    const options={};
+    for(const i of issues){ options[i.name]={}; for(const [o,ix] of i.keep) if(i[who].marks[ix]) options[i.name][o]=i[who].marks[ix]; }
+    const p=intake[who];
+    return {name:p.name.trim(), ranking, options, red_lines:p.red.split(";").map(x=>x.trim()).filter(Boolean)};
+  };
+  return {title:intake.title.trim(), situation:intake.situation.trim(),
+          issues:issues.map(i=>({name:i.name, options:i.keep.map(([o])=>o)})), you:side("you"), them:side("them")};
+}
+function intakeProblem(p){
+  if(!p.title) return "Give the crisis a short title.";
+  if(!p.you.name||!p.them.name) return "Name both sides.";
+  if(p.issues.length<2) return "Add at least two issues, each with at least two outcomes.";
+  const short=p.issues.find(i=>i.options.length<2);
+  if(short) return `“${short.name}” needs at least two possible outcomes.`;
+  return "";
+}
+
+function rocWeights(ranking){
+  const flat=ranking.map(e=>Array.isArray(e)?e:[e]), n=flat.reduce((a,g)=>a+g.length,0);
+  const centroid=Array.from({length:n},(_,k)=>{let s=0; for(let i=k+1;i<=n;i++) s+=1/i; return s/n;});
+  const out={}; let pos=0;
+  for(const g of flat){
+    const share=centroid.slice(pos,pos+g.length).reduce((a,b)=>a+b,0)/g.length;
+    g.forEach(x=>{out[x]=share;}); pos+=g.length;
+  }
+  return out;
+}
+/* intake.build(): the form -> a case this page can score and rehearse.
+   Throws an Error worded for the person who filled the form in. */
+function buildCrisis(f){
+  const fail=msg=>{ throw new Error(msg); };
+  if(f.issues.length<2) fail("Add at least two issues — with one there is nothing to trade.");
+  if(slug(f.you.name)===slug(f.them.name)) fail("The two sides need different names.");
+  const issues=[], names={}, labels={};
+  for(const i of f.issues){
+    const id=slug(i.name)||fail(`“${i.name}” needs at least one letter or digit.`);
+    if(names[id]) fail(`“${i.name}” is listed twice.`);
+    const opts=i.options.map(slug);
+    if(opts.length<2 || opts.some(o=>!o) || new Set(opts).size!==opts.length) fail(`“${i.name}” needs at least two different outcomes.`);
+    issues.push({name:id,label:i.name,options:opts}); names[id]=i.name;
+    labels[id]=Object.fromEntries(opts.map((o,k)=>[o,i.options[k]]));
+  }
+  const party=(view,key)=>{
+    const ranked=view.ranking.map(e=>(Array.isArray(e)?e:[e]).map(slug));
+    const seen=ranked.flat(), missing=issues.filter(i=>!seen.includes(i.name)).map(i=>i.label);
+    if(missing.length) fail(`${view.name}: please rank every issue — missing ${missing.join(", ")}.`);
+    const w=rocWeights(ranked), red=[...view.red_lines], vals={};
+    for(const is of issues){
+      const given={};
+      Object.entries(view.options[is.label]||{}).forEach(([o,mk])=>{ given[slug(o)]=mk; });
+      const v={};
+      for(const o of is.options){
+        const mk=given[o];
+        if(!mk) fail(`Mark how ${view.name} sees “${is.label}” → “${labels[is.name][o]}”.`);
+        v[o]=MARK_VALUE[mk];
+        if(mk==="unacceptable") red.push(`Will not accept '${labels[is.name][o]}' on ${is.label.toLowerCase()}.`);
+      }
+      vals[is.name]=[w[is.name],v];
+    }
+    const lead=names[ranked[0][0]]+(ranked.length>1?`, then ${names[ranked[1][0]]}`:"");
+    return {key, name:view.name, stance:`Most important to ${view.name}: ${lead}.`, redLines:red, vals};
+  };
+  const you=party(f.you,"a"), them=party(f.them,"b");
+  return {id:"user_"+(userCases+1), userMade:true, title:f.title,
+    parties_short:`${you.name} · ${them.name}`, when:"user-created", lede:f.situation||f.title,
+    context:f.situation||f.title, source:"", cutoff:null, sources:{},
+    issues, optLabels:labels, parties:[you,them]};
+}
+/* intake.review(): how the answers were read, in sentences, before anything is used. */
+function reviewLines(K){
+  const L=labeler(K), lines=[];
+  K.parties.forEach((p,ix)=>{
+    const who=ix===0?"you":p.name;
+    const order=[...K.issues].sort((a,b)=>p.vals[b.name][0]-p.vals[a.name][0]);
+    lines.push({t:`What matters to ${who}, in order: ${order.map(i=>`${L(i.name)} (${Math.round(p.vals[i.name][0]*100)}%)`).join(", ")}.`});
+    order.forEach(i=>{
+      const bad=i.options.filter(o=>p.vals[i.name][1][o]===0).map(L);
+      if(bad.length) lines.push({sub:true, t:`Unacceptable to ${who} on ${L(i.name)}: ${bad.join(", ")}.`});
+    });
+  });
+  lines.push({t:`Your view of ${K.parties[1].name} is a guess; the rehearsal tests how much the advice depends on it.`});
+  return lines;
+}
+
+function drawAddForm(){
+  if(!intake) intake=freshIntake();
+  $("addForm").hidden=false; $("addReview").hidden=true;
+  const yn=esc(intake.you.name||"You"), tn=esc(intake.them.name||"Them"), n=intake.issues.length;
+  const rankSelect=(ix,who)=>`<select class="irank" data-ix="${ix}" data-who="${who}"
+      aria-label="How much issue ${ix+1} matters to ${who==="you"?yn:tn}">${Array.from({length:n},(_,r)=>
+      `<option value="${r+1}"${Number(intake.issues[ix][who].rank)===r+1?" selected":""}>${["Most important","2nd","3rd","4th","5th","6th"][r]}</option>`).join("")}</select>`;
+  const marks=(ix,ox,who)=>{
+    const cur=intake.issues[ix][who].marks[ox];
+    return `<div class="seg" role="radiogroup" aria-label="${who==="you"?yn:tn}: outcome ${ox+1}">${MARKS.map(m=>
+      `<button type="button" role="radio" class="m-${m.v}" aria-checked="${cur===m.v}" data-ix="${ix}" data-ox="${ox}" data-who="${who}" data-v="${m.v}">${m.label}</button>`).join("")}</div>`;
+  };
+  const issueCard=(i,ix)=>`<div class="icard">
+    <div class="ihead">
+      <input type="text" class="iname" data-ix="${ix}" value="${esc(i.name)}" aria-label="Issue ${ix+1}"
+        placeholder="Issue ${ix+1} — e.g. Who enforces the rules">
+      ${n>2?`<button type="button" class="mini" data-rmissue="${ix}" aria-label="Remove issue ${ix+1}">remove</button>`:""}
+    </div>
+    <div class="ogrid">
+      <span class="hd">Possible outcome</span><span class="hd">${yn}</span><span class="hd">${tn} <i>your guess</i></span>
+      ${i.options.map((o,ox)=>`
+        <span class="ocell">
+          <input type="text" class="oname" data-ix="${ix}" data-ox="${ox}" value="${esc(o)}" aria-label="Issue ${ix+1}, outcome ${ox+1}"
+            placeholder="${["e.g. Their courts only","e.g. A joint panel","e.g. Our law applies","another outcome"][ox]}">
+          ${i.options.length>2?`<button type="button" class="x" data-rmopt="${ix}:${ox}" aria-label="Remove this outcome">×</button>`:""}
+        </span>${marks(ix,ox,"you")}${marks(ix,ox,"them")}`).join("")}
+      ${i.options.length<MAX_OPTIONS?`<span><button type="button" class="mini" data-addopt="${ix}">+ outcome</button></span>`:""}
+    </div>
+    <div class="irow">
+      <span class="hd">How much it matters</span>
+      <label>${yn} ${rankSelect(ix,"you")}</label>
+      <label>${tn} ${rankSelect(ix,"them")}</label>
+    </div>
+  </div>`;
+
+  $("addForm").innerHTML=`
+    <div class="note">Four short steps, no numbers. DARA reads your answers back to you before using
+      them, and nothing is saved until you say so.
+      <button type="button" class="mini" id="nExample">Fill in the haze example</button></div>
+    <div class="step"><div class="sh">Step 1 · What is happening</div>
+      <input type="text" id="nTitle" value="${esc(intake.title)}" placeholder="Short title — e.g. Johor River drought shortfall" aria-label="Title">
+      <textarea id="nSum" placeholder="One or two sentences on the situation." aria-label="Situation">${esc(intake.situation)}</textarea></div>
+    <div class="step"><div class="sh">Step 2 · Who is at the table <i>— DARA advises the first</i></div>
+      <div class="two">
+        <label class="lab">You<input type="text" id="nA" value="${esc(intake.you.name)}"></label>
+        <label class="lab">The other side<input type="text" id="nB" value="${esc(intake.them.name)}" placeholder="e.g. Malaysia"></label>
+      </div>
+      <div class="two">
+        <label class="lab">Your red lines, in words <i>optional, separate with ;</i>
+          <input type="text" id="nAr" value="${esc(intake.you.red)}" placeholder="e.g. No foreign court rules on our companies"></label>
+        <label class="lab">Theirs, as far as you know <i>optional</i>
+          <input type="text" id="nBr" value="${esc(intake.them.red)}"></label>
+      </div></div>
+    <div class="step"><div class="sh">Step 3 · What is on the table <i>— and how each side sees every outcome</i></div>
+      <div class="note"><b>Good</b> = they would be happy with it. <b>OK</b> = they could live with it.
+        <b>No</b> = they would walk away rather than accept it. For the other side, give your best guess —
+        DARA tests how much the advice depends on that guess.</div>
+      ${intake.issues.map(issueCard).join("")}
+      ${n<MAX_ISSUES?`<button type="button" class="go ghost" id="nAddIssue">+ Add an issue</button>`:""}
+    </div>
+    <div class="foot"><span class="msg" id="nMsg" role="status"></span>
+      <button class="go ghost" type="button" id="nCancel">Cancel</button>
+      <button class="go" type="button" id="nReview">Review →</button></div>`;
+
+  // text updates state without a redraw, so typing keeps focus
+  const bind=(id,set)=>{ $(id).oninput=e=>set(e.target.value); };
+  bind("nTitle",v=>{intake.title=v;}); bind("nSum",v=>{intake.situation=v;});
+  bind("nAr",v=>{intake.you.red=v;}); bind("nBr",v=>{intake.them.red=v;});
+  $("nA").oninput=e=>{ intake.you.name=e.target.value; relabel(); };
+  $("nB").oninput=e=>{ intake.them.name=e.target.value; relabel(); };
+  const form=$("addForm");
+  form.querySelectorAll(".iname").forEach(el=>{ el.oninput=()=>{ intake.issues[el.dataset.ix].name=el.value; }; });
+  form.querySelectorAll(".oname").forEach(el=>{ el.oninput=()=>{ intake.issues[el.dataset.ix].options[el.dataset.ox]=el.value; }; });
+  form.querySelectorAll(".irank").forEach(el=>{ el.onchange=()=>{ intake.issues[el.dataset.ix][el.dataset.who].rank=Number(el.value); }; });
+  // a click picks a mark; a second click on the same mark clears it
+  form.querySelectorAll(".seg button").forEach(b=>{ b.onclick=()=>{
+    const m=intake.issues[b.dataset.ix][b.dataset.who].marks;
+    m[b.dataset.ox]=m[b.dataset.ox]===b.dataset.v?"":b.dataset.v;
+    b.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.v===m[b.dataset.ox])));
+  }; });
+  form.querySelectorAll("[data-addopt]").forEach(b=>{ b.onclick=()=>{
+    const i=intake.issues[b.dataset.addopt]; i.options.push(""); i.you.marks.push(""); i.them.marks.push(""); drawAddForm(); }; });
+  form.querySelectorAll("[data-rmopt]").forEach(b=>{ b.onclick=()=>{
+    const [ix,ox]=b.dataset.rmopt.split(":").map(Number), i=intake.issues[ix];
+    i.options.splice(ox,1); i.you.marks.splice(ox,1); i.them.marks.splice(ox,1); drawAddForm(); }; });
+  form.querySelectorAll("[data-rmissue]").forEach(b=>{ b.onclick=()=>{
+    intake.issues.splice(Number(b.dataset.rmissue),1);
+    for(const i of intake.issues) for(const w of ["you","them"]) i[w].rank=Math.min(i[w].rank,intake.issues.length);
+    drawAddForm(); }; });
+  if($("nAddIssue")) $("nAddIssue").onclick=()=>{ intake.issues.push(blankIssue(intake.issues.length+1)); drawAddForm(); };
+  $("nExample").onclick=()=>{ intake=intakeFromForm(EXAMPLE_FORM); drawAddForm(); };
+  $("nCancel").onclick=closeAdd;
+  $("nReview").onclick=reviewCrisis;
+}
+function relabel(){
+  const a=intake.you.name||"You", b=intake.them.name||"Them";
+  $("addForm").querySelectorAll(".ogrid").forEach(g=>{ const hd=g.querySelectorAll(".hd");
+    hd[1].textContent=a; hd[2].innerHTML=`${esc(b)} <i>your guess</i>`; });
+  $("addForm").querySelectorAll(".irow label").forEach((l,k)=>{ l.firstChild.textContent=(k%2===0?a:b)+" "; });
+}
+function reviewCrisis(){
+  const p=intakePayload(), problem=intakeProblem(p);
+  if(problem){ $("nMsg").textContent=problem; return; }
+  try{ pending=buildCrisis(p); }catch(e){ $("nMsg").textContent=e.message; return; }
+  $("nMsg").textContent="";
+  drawReview();
+}
+function drawReview(){
+  const K=pending, PC=derive(K), L=labeler(K), picks=planOpenings(buildWorld(PC));
+  $("addForm").hidden=true; $("addReview").hidden=false;
+  $("addReview").innerHTML=`
+    <div class="rcard gate">
+      <h4>Is this what you meant? <em>check before trusting anything below</em></h4>
+      <ul class="readback">${reviewLines(K).map(l=>`<li class="${l.sub?"sub":""}">${esc(l.t)}</li>`).join("")}</ul>
+    </div>
+    <div class="rcard">
+      <h4>Rehearsed in imagination <em>${esc(picks[0]?rehearsalSummary(picks[0],L)[0]:"")}</em></h4>
+      ${picks.length?renderOpenings(picks,L)
+        :`<div class="note warn">Every possible opening crosses one of your own red lines. Go back and revisit what you marked “No”.</div>`}
+      <p class="status">A quick estimate from your read of the other side, not a prediction.
+        This page holds no recorded debate for a crisis you add — hearing the two sides argue it needs the backend and a key.</p>
+    </div>
+    <div class="foot"><span class="msg" id="rMsg" role="status"></span>
+      <button class="go ghost" id="rBack" type="button">← Change answers</button>
+      <button class="go" id="rSave" type="button">Looks right — save</button></div>`;
+  $("rBack").onclick=()=>{ drawAddForm(); $("addWrap").scrollTop=0; };
+  $("rSave").onclick=saveCrisis;
+  $("addWrap").scrollTop=0;
+}
+function saveCrisis(){
+  const K=pending; userCases++; K.id="user_"+userCases;
+  CASES.push(K); intake=null; pending=null;
+  closeAdd(); fillCaseSel(); $("caseSel").value=K.id; loadCase(K.id);
+  $("status").textContent=`${K.title} saved — ${C.ALL.length} possible settlements, ${C.PARETO.length} on the `
+    +`frontier, ${fmt(C.MAXJ-C.SPLITJ,2)} of joint value above the split-the-difference baseline. `
+    +`The payoff structure is scored; the debate needs the backend and an API key.`;
+  if(isResearch()) show("analysis");
+  else $("imagineCard").scrollIntoView({behavior:reduced?"auto":"smooth", block:"start"});
+}
+function openAdd(){ drawAddForm(); $("addWrap").hidden=false; $("addWrap").scrollTop=0; $("nTitle").focus(); }
+function closeAdd(){ $("addWrap").hidden=true; $("newBtn").focus(); }
+
+/* ===== two audiences, one page =====
+   Policymaker view hides the research apparatus — conditions, rounds, the
+   pipeline, frontier metrics, judge scores — and leads with the rehearsal.
+   Research view is the full console. Markup opts in with .px (policymaker
+   only) and .rx (research only); the choice is a per-viewer convenience, so
+   localStorage, and the page works without it. */
+const MODE_KEY="dara.view";
+const isResearch=()=>document.body.classList.contains("research");
+function setMode(mode){
+  document.body.classList.toggle("research",mode==="research");
+  document.querySelectorAll(".modeseg button").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.mode===mode)));
+  try{ localStorage.setItem(MODE_KEY,mode); }catch(e){ /* private window: fine */ }
+  if(mode!=="research"){
+    // the policymaker hears the full system; a research choice left in a
+    // hidden select must not silently change what the button does
+    $("cond").value="B2"; $("rounds").value="3";
+    if(!abort) updateMeta();
+    show("debate");
+  }
+}
+document.querySelectorAll(".modeseg button").forEach(b=>{ b.onclick=()=>setMode(b.dataset.mode); });
+
+/* ===== boot ===== */
+function fillCaseSel(){
+  const mine=CASES.filter(c=>c.userMade);
+  const groups=["historical","prospective"].map(kind=>{
+    const rows=ROSTER.filter(r=>r.kind===kind).map(r=>{
+      const ok=built(r.id);
+      return `<option value="${r.id}"${ok?"":" disabled"}>${r.n}. ${r.title} — ${r.who}${ok?"":" · to build"}</option>`;
+    }).join("");
+    return `<optgroup label="${kind==="historical"?"Historical":"Prospective — set in the present"}">${rows}</optgroup>`;
+  });
+  if(mine.length) groups.push(`<optgroup label="Yours">${
+    mine.map(c=>`<option value="${c.id}">${esc(c.title)} — ${esc(c.parties_short)}</option>`).join("")}</optgroup>`);
+  $("caseSel").innerHTML=groups.join("");
+  $("caseCount").textContent=`${CASES.filter(c=>!c.userMade).length} of ${ROSTER.length} built`
+    + (mine.length?` · ${mine.length} yours`:"");
+}
+function loadCase(id){
+  CASE=CASES.find(c=>c.id===id)||CASES[0];
+  C=derive(CASE);
+  sel={...C.SPLIT}; reveal={[C.P[0].key]:true,[C.P[1].key]:false}; trail=[];
+  stages=buildStages($("cond").value,+$("rounds").value||3); curStage=null;
+  chat().innerHTML=""; $("msgCount").textContent=""; $("status").textContent="No runs yet on this case. The split-the-difference row is the bar any negotiation has to clear — it needs no deliberation at all.";
+  drawCaseInfo();drawBoard();drawRO();drawParties();drawPlot();drawRes();drawRail();drawInsp();updateMeta();
+  drawImagine();
+}
+function updateMeta(){
+  const c=$("cond").value, r=Math.max(1,Math.min(3,+$("rounds").value||3));
+  // one recommender call per priority, in every condition, so the budget
+  // comparison between conditions still holds
+  const k=AUDIENCES.length;   // one recommender call per reader
+  const n=c==="B0"?k:c==="B2"?3*r+k:2*r+k;
+  $("rounds").disabled=(c==="B0");
+  // a user-created scenario has no recording, so the call count is what it WOULD
+  // cost rather than what is sitting on disk — and Run says so by being off
+  const rec=!!C.k.cached;
+  $("runBtn").disabled=!rec;
+  $("runBtn").title=rec?"":"This scenario has no recorded run — the debate needs the backend and an API key.";
+  $("cost").textContent=rec?`${n} recorded call${n>1?"s":""}`:`${n} calls · none recorded`;
+  stages=buildStages(c,r); curStage=null; drawRail(); drawInsp();
+}
+function show(which){
+  if(!isResearch()) which="debate";   // the analysis tab is research apparatus
+  ["debate","analysis"].forEach(t=>{
+    $("pane-"+t).hidden = t!==which;
+    const b=$("tab"+t[0].toUpperCase()+t.slice(1));
+    b.classList.toggle("on",t===which); b.setAttribute("aria-selected",String(t===which));
+  });
+  if(which==="analysis") drawPlot();   // the pane was hidden, so re-render at real width
+}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>show(b.dataset.tab));
+$("caseSel").onchange=e=>loadCase(e.target.value);
+$("cond").onchange=updateMeta; $("rounds").onchange=updateMeta;
+
+/* One priority, chosen from the whole vocabulary. Priorities this recording does
+   not cover are listed but disabled — the same idiom the case picker uses for
+   cases that are planned but not built, so the menu shows the real programme
+   instead of implying the tool only knows two things. */
+$("priority").innerHTML=PRIORITIES.map(p=>{
+  const ok=RECORDED_PRIORITIES.includes(p.id);
+  return `<option value="${p.id}"${ok?"":" disabled"} title="${esc(p.blurb)}">${esc(p.label)}${ok?"":" · needs a key"}</option>`;
+}).join("");
+$("priority").value="casualty_minimisation";
+$("priority").onchange=updateMeta;
+$("runBtn").onclick=run; $("stopBtn").onclick=()=>abort?.abort();
+
+$("newBtn").onclick=openAdd;
+$("addWrap").onclick=e=>{ if(e.target===$("addWrap")) closeAdd(); };
+addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("addWrap").hidden) closeAdd(); });
+
+fillCaseSel();
+$("caseSel").value=CASES[0].id;
+loadCase(CASES[0].id);
+let savedMode="policy";
+try{ savedMode=localStorage.getItem(MODE_KEY)||"policy"; }catch(e){ /* no storage */ }
+setMode(savedMode);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "scenario_id": "haze_real_v1",
+  "title": "Transboundary haze — what was actually settled",
+  "as_of": "2016-12-31",
+  "summary": "No bilateral settlement was reached. Indonesia withheld the concession maps on sovereignty and domestic-law grounds, Singapore's Transboundary Haze Pollution Act produced no successful prosecution, the peatland moratorium exempted existing legal permits, and no Singapore-funded transition emerged. The dispute ended in the status quo rather than in a deal.",
+  "settlement": {
+    "concession_maps": "withheld",
+    "enforcement": "indonesian_courts_only",
+    "peatland_moratorium": "partial_exemptions",
+    "transition_funding": "none"
+  },
+  "confidence": {
+    "concession_maps": "high",
+    "enforcement": "high",
+    "peatland_moratorium": "medium",
+    "transition_funding": "medium"
+  },
+  "evidence": [
+    {
+      "issue": "concession_maps",
+      "claim": "Indonesia declined to share concession maps with the ASEAN Haze Monitoring System, citing sovereignty and a domestic legal prohibition; the AHMS was still not operational for want of those maps. Indonesia's environment ministry reviewed bilateral cooperation with a view to termination, and its foreign ministry filed a protest through its embassy in Singapore.",
+      "url": "https://news.mongabay.com/2016/05/singapore-indonesia-jostle-anti-haze-measures/",
+      "publisher": "Mongabay"
+    },
+    {
+      "issue": "enforcement",
+      "claim": "Singapore pursued five Indonesian companies under the Transboundary Haze Pollution Act in 2015, but prosecution proved impracticable: Indonesian land-use law was conflicting and no transparent cooperation with Indonesian officials was established. Commentators concluded resolution ultimately depended on Indonesian enforcement rather than the Singapore statute.",
+      "url": "https://www.scmp.com/news/asia/southeast-asia/article/1973581/moral-high-ground-singapore-prepared-prosecute-indonesian",
+      "publisher": "South China Morning Post"
+    },
+    {
+      "issue": "peatland_moratorium",
+      "claim": "The moratorium exempted existing legal permits, though it was revised to cover concessions that had been granted but left idle. Areas holding in-principle permits as of 2011 were excluded even where they sat in primary forest.",
+      "url": "https://eia-international.org/news/indonesias-moratorium-on-clearing-forests-and-peatlands-now-permanent-but-excludes-vast-areas/",
+      "publisher": "Environmental Investigation Agency"
+    },
+    {
+      "issue": "transition_funding",
+      "claim": "The Peatland Restoration Agency (BRG) was established in 2016 under the President with a mandate covering roughly 2 million hectares, funded domestically and through pre-existing arrangements rather than through any transition fund arising from this bilateral dispute.",
+      "url": "https://www.cbd.int/doc/meetings/ecr/ecrws-2016-02/other/ecrws-2016-02-presentation-day1-03-en.pdf",
+      "publisher": "Peatland Restoration Agency (BRG), via CBD"
+    }
+  ],
+  "coding_notes": [
+    "peatland_moratorium is the least clean coding. `existing_exempt` is defensible for the original instrument; `partial_exemptions` is used because idle concessions were later brought in. A result that flips on this issue alone should be reported as sensitive to the coding.",
+    "transition_funding is coded `none` for funding arising FROM this dispute. Indonesia received separate, pre-existing international forestry finance, which is not what this issue is about."
+  ]
+}

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/mark.png">
+<link rel="stylesheet" href="/styles.css">
+<title>DARA</title>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="brand">
+    <a href="#/" aria-label="DARA home"><img class="mark" src="/mark.png" alt="" width="990" height="735"></a>
+    <div class="lock">
+      <a href="#/" class="wm">dara</a>
+      <div class="xp"><b>D</b>ebate<i>·</i><b>A</b>djudicate<i>·</i><b>R</b>ecommend<i>·</i><b>A</b>ssess</div>
+    </div>
+    <div class="right">
+      <div class="seg modeseg" role="radiogroup" aria-label="View">
+        <button type="button" role="radio" data-mode="policy" aria-checked="true">Policymaker</button>
+        <button type="button" role="radio" data-mode="research" aria-checked="false">Research</button>
+      </div>
+      <span class="pill off" id="providerPill"><span class="dot"></span>checking…</span>
+    </div>
+  </header>
+
+  <!-- ============ home ============ -->
+  <section id="viewHome">
+    <div class="hero">
+      <span class="eyebrow">Crisis negotiation rehearsal</span>
+      <h1>Know what they will refuse before you ask.</h1>
+      <p class="lede px">Describe a negotiation you are about to walk into. DARA shows you the openings
+        most likely to land, what the other side will push back on, and lets you hear both sides argue
+        it out before you say a word in the room.</p>
+      <p class="lede rx">Each crisis is a multi-issue bargaining problem with a private utility function
+        per party. Agents argue it out, a judge scores how it was argued, and the settlement is
+        measured against the best one that was actually available.</p>
+    </div>
+
+    <div id="homeNote"></div>
+
+    <div class="card">
+      <h2>Cases <em id="caseCount">loading…</em></h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+
+    <p class="status rx">
+      A <b>scenario</b> is the input — parties, issues, options and private valuations — and is
+      exactly what the add-crisis form produces. A <b>recording</b> is the output of a past run,
+      down to each agent's turn, kept so a debate can be replayed at no cost.
+      <a class="back" href="/standalone/index.html">The no-install standalone console is here →</a>
+    </p>
+  </section>
+
+  <!-- ============ run ============ -->
+  <section id="viewRun" hidden>
+    <a class="back" href="#/">← all cases</a>
+
+    <div class="hero">
+      <span class="eyebrow" id="runMeta"></span>
+      <h1 id="runTitle"></h1>
+      <p class="lede" id="runLede"></p>
+      <div class="stats rx" id="runStats"></div>
+    </div>
+
+    <div class="card px" id="imagineCard">
+      <h2>Your best openings <em>rehearsed in imagination — instant, no model call</em></h2>
+      <div id="imagineBody"><p class="status">Rehearsing…</p></div>
+      <details class="whatif">
+        <summary>Test your own opening</summary>
+        <div class="wigrid" id="whatIfPick"></div>
+        <button class="go sm" id="whatIfBtn" type="button">Test this opening</button>
+        <div id="whatIfOut"></div>
+      </details>
+    </div>
+
+    <div class="bar">
+      <label class="f rx"><span class="fl">Condition</span>
+        <select id="cond">
+          <option value="B2">B2 · debate + judge</option>
+          <option value="B1">B1 · debate, no judge</option>
+          <option value="B0">B0 · single call</option>
+        </select>
+      </label>
+      <label class="f rx"><span class="fl">Rounds</span>
+        <select id="rounds"><option>1</option><option>2</option><option selected>3</option></select>
+      </label>
+      <label class="f grow"><span class="fl">Protect &#8212; 1</span>
+        <select id="priority1"></select>
+      </label>
+      <label class="f grow"><span class="fl">Protect &#8212; 2</span>
+        <select id="priority2"></select>
+      </label>
+      <label class="f"><span class="fl">Playback</span>
+        <select id="speed">
+          <option value="4">4× faster</option>
+          <option value="1">Real time</option>
+          <option value="0" selected>Instant</option>
+        </select>
+      </label>
+      <div class="barend">
+        <span class="meta" id="replayNote"></span>
+        <span class="meta" id="runNote"></span>
+        <button class="go" id="runBtn" type="button"><span class="px">Hear them argue it</span><span class="rx">Run</span></button>
+        <button class="go ghost" id="stopBtn" type="button" hidden>Stop</button>
+      </div>
+    </div>
+
+    <div id="runError"></div>
+
+    <div class="card gate" id="gateCard">
+      <h2>Review <em>confirm the problem before anything runs</em></h2>
+      <p class="gatelede">The debate, the advice and every number below are computed about
+        <b>whatever is confirmed here</b> &#8212; correctly, and about the wrong problem if this
+        is wrong. It is the last point where a missing issue is cheap to catch.</p>
+      <div id="gateBody"></div>
+      <div class="gatefoot">
+        <button class="go" id="gateBtn" type="button">Confirm and unlock the run</button>
+        <span class="meta" id="gateState">not confirmed &#8212; the run is locked</span>
+      </div>
+    </div>
+
+    <div class="card rx">
+      <h2>Pipeline <em id="pipeMeta">idle</em></h2>
+      <div class="rail" id="rail"></div>
+    </div>
+
+    <nav class="tabs rx">
+      <button class="tab on" data-tab="debate" type="button">Debate</button>
+      <button class="tab" data-tab="analysis" type="button">Analysis</button>
+    </nav>
+
+    <div id="paneDebate">
+      <div class="card"><div class="chatwrap"><div class="chat" id="chat"></div></div></div>
+    </div>
+
+    <div id="paneAnalysis" hidden>
+      <div class="cols">
+        <div>
+          <div class="card">
+            <h2>Outcome space <em>every settlement, by what it is worth to each side</em></h2>
+            <div id="plot"></div>
+          </div>
+          <div class="card">
+            <h2>Settlement board <em>click to explore</em></h2>
+            <div id="board"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card"><h2>Payoff <em>of the settlement on the board</em></h2><dl class="ro" id="payoff"></dl></div>
+          <div class="card"><h2>Parties <em>valuations are private to each agent</em></h2><div id="parties"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="resultCard" hidden>
+      <h2>Result <em>one per priority — no single answer is "the" answer</em></h2>
+      <div id="results"></div>
+    </div>
+  </section>
+
+  <!-- ============ add ============ -->
+  <section id="viewAdd" hidden>
+    <a class="back" href="#/">← all cases</a>
+    <div class="hero">
+      <span class="eyebrow">Add a crisis</span>
+      <h1>Describe the negotiation in your own words.</h1>
+      <p class="lede">Who is at the table, what is being argued over, and how each side sees every
+        possible outcome. DARA turns your answers into a model of the negotiation, reads it back to
+        you, and rehearses the best openings before anything is saved.</p>
+    </div>
+    <div class="card" id="addCard"><div class="form" id="addForm"></div></div>
+    <div id="addReview" hidden></div>
+  </section>
+
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

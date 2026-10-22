@@ -1,0 +1,9 @@
+{
+  "name": "dara-console",
+  "private": true,
+  "version": "1.0.0",
+  "description": "DARA console — static frontend served by Node, proxying /api to the Flask backend.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

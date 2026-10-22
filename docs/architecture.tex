@@ -1,0 +1,118 @@
+% DARA — system architecture (section 4)
+% Standalone: compile directly.  In a paper: copy the tikzpicture into a figure
+% and move the \usetikzlibrary line to the preamble.
+\documentclass[tikz,border=12pt]{standalone}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily,
+  >={Stealth[length=2.4mm]},
+  box/.style   ={draw,rounded corners=2pt,align=center,inner sep=5pt},
+  scen/.style  ={box,fill=black!6,   draw=black!45,        text width=13.6cm},
+  gate/.style  ={box,fill=yellow!12, draw=black!75,        text width=13.6cm,
+                 double,double distance=1pt},
+  agent/.style ={box,fill=blue!10,   draw=blue!55,         text width=4.1cm},
+  judge/.style ={box,fill=orange!18, draw=orange!70!black, text width=4.6cm},
+  rec/.style   ={box,fill=green!14,  draw=green!50!black,  text width=6.2cm},
+  out/.style   ={box,fill=green!14,  draw=green!50!black,  text width=4.3cm},
+  yard/.style  ={box,fill=violet!12, draw=violet!65,       text width=4.0cm},
+  score/.style ={box,fill=violet!12, draw=violet!65,       text width=8.6cm},
+  side/.style  ={box,fill=white,     draw=black!55,dashed, text width=3.6cm},
+  flow/.style  ={->,thick},
+  fb/.style    ={->,thick,dashed},
+  note/.style  ={->,thick,dotted},
+  lbl/.style   ={font=\sffamily\small\itshape},
+  tiny/.style  ={font=\sffamily\footnotesize}
+]
+
+% ── 1 SOURCE / 2 FRAME ────────────────────────────────────────────────────
+\node[scen] (scen) {\textbf{Crisis scenario (JSON)}\\[1pt]
+  {\footnotesize Parties $\cdot$ Issues \& options $\cdot$ Briefs $\cdot$
+   Conditions \textit{(pulled at run time)} $\cdot$ Valuations \textit{(private)}
+   $\cdot$ Evidence cutoff}};
+\node[lbl,text=black!65,above=2.5mm of scen] (src)
+  {1 SOURCE $\cdot$ 2 FRAME — typed, pasted documents, or extracted under the evidence cutoff};
+
+% ── REVIEW gate ───────────────────────────────────────────────────────────
+\node[gate,below=5mm of scen] (gate) {\textbf{REVIEW — human gate}\\[1pt]
+  {\footnotesize The issue set, its options and the weights are shown and confirmed.
+   Nothing below runs until they are:\\ this is the only place a wrong problem is still cheap to catch.}};
+
+% ── PLAY: the debate ──────────────────────────────────────────────────────
+\node[agent,below left =20mm and 8mm of gate.south] (sg)
+  {\textbf{Singapore agent}\\{\footnotesize SG brief + private valuations}};
+\node[agent,below right=20mm and 8mm of gate.south] (cp)
+  {\textbf{Counterpart agent}\\{\footnotesize Counterpart brief + private valuations}};
+\coordinate (mid) at ($(sg)!0.5!(cp)$);
+\node[judge,below=11mm of mid] (judge)
+  {\textbf{8 ADJUDICATE — Judge}\\{\footnotesize Fixed rubric, no brief\\
+   scores + justifications\\ unaddressed trade-offs}};
+\node[tiny,below=3mm of judge] (arms)
+  {\textit{Shown: \textbf{B2}. \ B1 = same, Judge removed. \ B0 = one call, no debate.}};
+\node[tiny,below=1.5mm of arms] (key)
+  {$\rightarrow$ structured argument + settlement package \qquad
+   $\dashrightarrow$ feedback (Round 2+)};
+
+\begin{scope}[on background layer]
+  \node[draw=blue!55,dashed,rounded corners=3pt,fill=blue!4,
+        fit=(sg)(cp)(judge)(arms)(key),inner sep=7mm] (debate) {};
+\end{scope}
+\node[anchor=north,font=\sffamily\bfseries] at ([yshift=-2.5mm]debate.north)
+  {7 REHEARSE — Debate: up to 3 rounds};
+
+\draw[flow] (gate.south -| sg) -- (sg) node[midway,left,lbl]{Round 1};
+\draw[flow] (gate.south -| cp) -- (cp) node[midway,right,lbl]{Round 1};
+\draw[fb] (sg) -- (cp) node[midway,above,lbl]{opposing argument};
+\draw[flow] (sg.south) |- (judge.west);
+\draw[flow] (cp.south) |- (judge.east);
+\draw[fb] (judge.west) -- ++(-1.55,0) |- (sg.south west);
+\draw[fb] (judge.east) -- ++( 1.55,0) |- (cp.south east);
+
+% ── YARD: the frontier, built from the scenario, bypassing the debate ─────
+\node[yard,left=9mm of debate] (front)
+  {\textbf{6 MAP — the frontier}\\[1pt]{\footnotesize all $3^4=81$ settlements\\
+   split baseline $\cdot$ Nash max\\[1pt] \textbf{arithmetic, no LLM}\\
+   built before any agent call}};
+\draw[flow] (gate.south -| front) -- (front)
+      node[midway,left,lbl,align=right]{independent\\of the debate};
+
+% ── 9 ADVISE ──────────────────────────────────────────────────────────────
+\node[rec,below=13mm of debate] (rec)
+  {\textbf{9 ADVISE — Recommender}\\{\footnotesize Scenario + judge assessments from all
+   rounds\\ \textbf{no raw transcript} — enforced by the signature}};
+\draw[flow] (debate) -- (rec) node[midway,right,lbl]{after final round};
+
+% ── Output: one per audience ──────────────────────────────────────────────
+\node[out,below left =13mm and 2mm of rec.south] (out1)
+  {\textbf{Output — policymaker}\\{\footnotesize conditional, priority-tagged,\\ trade-offs explained}};
+\node[out,below right=13mm and 2mm of rec.south] (out2)
+  {\textbf{Output — intl.\ organisation}\\{\footnotesize same priority, different reader}};
+\draw[flow] (rec.south) -- (out1.north);
+\draw[flow] (rec.south) -- (out2.north);
+
+% ── TELL: score + stress ──────────────────────────────────────────────────
+\coordinate (omid) at ($(out1)!0.5!(out2)$);
+\node[score,below=13mm of omid] (sc)
+  {\textbf{10 SCORE $\cdot$ 11 STRESS}\\{\footnotesize joint value recovered vs the frontier
+   $\cdot$ focus-country utility\\ stress: re-run stage 6 under other guesses about them
+   $\cdot$ report the spread}};
+\draw[flow] (out1.south) -- (out1.south |- sc.north);
+\draw[flow] (out2.south) -- (out2.south |- sc.north);
+\draw[flow] (front.south) |- (sc.west) node[near end,above,lbl]{the yardstick};
+
+% ── side boxes: bookkeeping right, eval reference right of score ──────────
+\node[side,right=9mm of debate.east |- rec] (log)
+  {\textbf{Run log}\\{\footnotesize scenario, arguments, assessments,\\ output, conditions id}};
+\node[side,above=6mm of log] (pkg)
+  {\textbf{Package check}\\{\footnotesize invalid options logged as errors,\\ never coerced}};
+\draw[note] (rec.east) -- (log.west);
+\draw[note] (debate.east) -- (pkg.west);
+
+\node[side,right=9mm of sc] (hist)
+  {\textbf{Historical settlement}\\{\footnotesize reference, \textbf{eval only}\\
+   never enters a prompt}};
+\draw[note] (hist.west) -- (sc.east);
+
+\end{tikzpicture}
+\end{document}

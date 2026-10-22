@@ -1,0 +1,162 @@
+{
+  "scenario_id": "haze_real_v1",
+  "title": "Transboundary haze — Singapore · Indonesia (2015–16)",
+  "description": "Between June and October 2015 fires on Indonesian peatland produced the worst haze episode on record. Singapore's 24-hour PSI passed 300 — the hazardous band — schools closed, and regional economic losses ran into the tens of billions of dollars. Singapore had passed the Transboundary Haze Pollution Act in 2014, asserting liability over companies whose activities caused haze in Singapore regardless of where they operated. Indonesia objected to its extraterritorial reach and declined to release plantation concession maps to the ASEAN Haze Monitoring System, citing sovereignty and domestic data law. Indonesia announced a peatland moratorium in late 2015 and established the Peatland Restoration Agency in January 2016. Positions are reconstructed from the public record and are not official; see source note. Source: ASEAN Agreement on Transboundary Haze Pollution (2002); Singapore Transboundary Haze Pollution Act (2014); Indonesian Presidential Regulation 1/2016 (BRG).",
+  "focus_country": "Singapore",
+  "issues": [
+    {
+      "name": "concession_maps",
+      "options": [
+        "withheld",
+        "aggregated_by_district",
+        "full_to_asean_hms"
+      ]
+    },
+    {
+      "name": "enforcement",
+      "options": [
+        "indonesian_courts_only",
+        "joint_asean_panel",
+        "singapore_act_applied"
+      ]
+    },
+    {
+      "name": "peatland_moratorium",
+      "options": [
+        "existing_exempt",
+        "partial_exemptions",
+        "full_no_exemptions"
+      ]
+    },
+    {
+      "name": "transition_funding",
+      "options": [
+        "none",
+        "partial_donor_fund",
+        "full_donor_fund"
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Singapore",
+      "interests": [
+        "End hazardous PSI exposure in a recurring dry-season cycle",
+        "Establish attribution that survives the episode it was built for",
+        "Hold corporate actors, not only states, accountable"
+      ],
+      "resources": [
+        "Regional development and donor funding it can direct",
+        "Satellite monitoring it already operates",
+        "Capital markets where several plantation parents are listed"
+      ],
+      "constraints": [
+        "Cannot compel enforcement inside Indonesian territory",
+        "Its own agribusiness sector lobbies against concession-level liability",
+        "Extraterritorial prosecution is legally untested"
+      ],
+      "red_lines": [
+        "Will not accept a settlement with no attribution mechanism",
+        "Will not fund transition without measurable reductions"
+      ],
+      "valuations": [
+        {
+          "issue": "concession_maps",
+          "weight": 0.35,
+          "option_values": {
+            "withheld": 0,
+            "aggregated_by_district": 0.45,
+            "full_to_asean_hms": 1
+          }
+        },
+        {
+          "issue": "enforcement",
+          "weight": 0.3,
+          "option_values": {
+            "indonesian_courts_only": 0.1,
+            "joint_asean_panel": 0.6,
+            "singapore_act_applied": 1
+          }
+        },
+        {
+          "issue": "peatland_moratorium",
+          "weight": 0.25,
+          "option_values": {
+            "existing_exempt": 0.1,
+            "partial_exemptions": 0.55,
+            "full_no_exemptions": 1
+          }
+        },
+        {
+          "issue": "transition_funding",
+          "weight": 0.1,
+          "option_values": {
+            "none": 1,
+            "partial_donor_fund": 0.55,
+            "full_donor_fund": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "name": "Indonesia",
+      "interests": [
+        "Protect smallholder livelihoods through the planting window",
+        "Keep enforcement and land data under domestic jurisdiction",
+        "Avoid a precedent of foreign courts ruling on acts on its soil"
+      ],
+      "resources": [
+        "Sole authority to enforce on its own territory",
+        "Provincial administrations able to implement a phased moratorium",
+        "Leverage as the destination of regional agricultural investment"
+      ],
+      "constraints": [
+        "Limited fiscal capacity to fund transition alone",
+        "Domestic data law restricts parcel-level disclosure",
+        "Unresolved land-tenure disputes overlap the concession registry"
+      ],
+      "red_lines": [
+        "No foreign jurisdiction over acts on Indonesian soil",
+        "No restriction that falls on smallholders without funded alternatives"
+      ],
+      "valuations": [
+        {
+          "issue": "concession_maps",
+          "weight": 0.25,
+          "option_values": {
+            "withheld": 1,
+            "aggregated_by_district": 0.6,
+            "full_to_asean_hms": 0.15
+          }
+        },
+        {
+          "issue": "enforcement",
+          "weight": 0.35,
+          "option_values": {
+            "indonesian_courts_only": 1,
+            "joint_asean_panel": 0.45,
+            "singapore_act_applied": 0
+          }
+        },
+        {
+          "issue": "peatland_moratorium",
+          "weight": 0.1,
+          "option_values": {
+            "existing_exempt": 1,
+            "partial_exemptions": 0.6,
+            "full_no_exemptions": 0.25
+          }
+        },
+        {
+          "issue": "transition_funding",
+          "weight": 0.3,
+          "option_values": {
+            "none": 0,
+            "partial_donor_fund": 0.5,
+            "full_donor_fund": 1
+          }
+        }
+      ]
+    }
+  ]
+}

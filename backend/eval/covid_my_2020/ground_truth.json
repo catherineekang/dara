@@ -1,0 +1,49 @@
+{
+  "scenario_id": "covid_my_2020_v1",
+  "scenario_file": "covid_my_2020",
+  "title": "COVID-19 border and supply measures — what was actually settled",
+  "as_of": "2020-03-31",
+  "summary": "A settlement was reached within days. Malaysians holding work permits continued working in Singapore rather than crossing daily, housed on the Singapore side with health screening; Singapore subsidised employers at S$50 per worker per night for up to 14 nights; and both governments kept cargo and food moving, with Malaysia's prime minister giving that assurance directly to Singapore's.",
+  "settlement": {
+    "commuter_arrangement": "stay_in_singapore_with_support",
+    "accommodation_cost": "singapore_subsidised",
+    "goods_and_food_flow": "unrestricted_cargo",
+    "health_screening": "temperature_and_declaration"
+  },
+  "confidence": {
+    "commuter_arrangement": "high",
+    "accommodation_cost": "medium",
+    "goods_and_food_flow": "high",
+    "health_screening": "medium"
+  },
+  "evidence": [
+    {
+      "issue": "commuter_arrangement",
+      "claim": "Although the Movement Control Order barred Malaysians from leaving the country, discussions between the two governments led to Malaysians with work permits being allowed to continue working in Singapore, subject to health screening and suitable accommodation. Around 300,000 people had been commuting daily.",
+      "url": "https://www.mom.gov.sg/newsroom/press-releases/2020/0319-temporary-housing-support-for-employers-affected-by-malaysias-movement-control-order",
+      "publisher": "Singapore Ministry of Manpower"
+    },
+    {
+      "issue": "accommodation_cost",
+      "claim": "Singapore announced temporary housing support of S$50 per affected worker per night, capped at 14 nights, payable to employers to defray the cost of housing affected workers. Announced 17 March 2020.",
+      "url": "https://www.malaymail.com/news/malaysia/2020/03/17/singapore-to-provide-financial-support-to-employers-affected-by-malaysias-m/1847554",
+      "publisher": "Malay Mail"
+    },
+    {
+      "issue": "goods_and_food_flow",
+      "claim": "Singapore's prime minister reported Malaysia's assurance that the flow of goods and cargo between the two countries, including food supplies, would continue. Fresh produce arrived at the Pasir Panjang Wholesale Centre largely on schedule the day the order took effect.",
+      "url": "https://newsinfo.inquirer.net/1243813/flow-of-goods-food-supplies-between-singapore-malaysia-to-continue-despite-lockdown-over-coronavirus-pm-lee/amp",
+      "publisher": "Philippine Daily Inquirer, reporting PM Lee Hsien Loong"
+    },
+    {
+      "issue": "health_screening",
+      "claim": "The arrangement was conditioned on 'appropriate health screening' on entry. Routine testing and quarantine of this population came later in the outbreak, not in the March arrangement.",
+      "url": "https://landtransportguru.net/transport-arrangements-malaysia-movement-control-order/",
+      "publisher": "Land Transport Guru"
+    }
+  ],
+  "coding_notes": [
+    "accommodation_cost is the least clean coding. Singapore subsidised, but partially and with a 14-night cap, and employers carried the remainder; Malaysia contributed nothing. `singapore_subsidised` is used because Singapore was the only state paying, but `employers_only` is arguable and a result that turns on this issue should say so.",
+    "health_screening is coded to the March arrangement, not to what the regime became by mid-2020. The scenario's evidence cutoff is 2020-03-16 and the ground truth is taken as of 2020-03-31 to capture the settlement, not its later evolution."
+  ]
+}
