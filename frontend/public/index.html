@@ -64,17 +64,6 @@
       <div class="stats rx" id="runStats"></div>
     </div>
 
-    <div class="card px" id="imagineCard">
-      <h2>Your best openings <em>rehearsed in imagination — instant, no model call</em></h2>
-      <div id="imagineBody"><p class="status">Rehearsing…</p></div>
-      <details class="whatif">
-        <summary>Test your own opening</summary>
-        <div class="wigrid" id="whatIfPick"></div>
-        <button class="go sm" id="whatIfBtn" type="button">Test this opening</button>
-        <div id="whatIfOut"></div>
-      </details>
-    </div>
-
     <div class="bar">
       <label class="f rx"><span class="fl">Condition</span>
         <select id="cond">
@@ -109,29 +98,48 @@
 
     <div id="runError"></div>
 
-    <div class="card gate" id="gateCard">
-      <h2>Review <em>confirm the problem before anything runs</em></h2>
-      <p class="gatelede">The debate, the advice and every number below are computed about
-        <b>whatever is confirmed here</b> &#8212; correctly, and about the wrong problem if this
-        is wrong. It is the last point where a missing issue is cheap to catch.</p>
-      <div id="gateBody"></div>
-      <div class="gatefoot">
-        <button class="go" id="gateBtn" type="button">Confirm and unlock the run</button>
-        <span class="meta" id="gateState">not confirmed &#8212; the run is locked</span>
-      </div>
-    </div>
-
     <div class="card rx">
       <h2>Pipeline <em id="pipeMeta">idle</em></h2>
       <div class="rail" id="rail"></div>
     </div>
 
-    <nav class="tabs rx">
-      <button class="tab on" data-tab="debate" type="button">Debate</button>
-      <button class="tab" data-tab="analysis" type="button">Analysis</button>
+    <!-- Policymaker: Rehearse | Debate. Research: Debate | Analysis. -->
+    <nav class="tabs" role="tablist">
+      <button class="tab px" data-tab="rehearse" type="button" role="tab">Rehearse openings</button>
+      <button class="tab on" data-tab="debate" type="button" role="tab"><span class="px">Debate &amp; advice</span><span class="rx">Debate</span></button>
+      <button class="tab rx" data-tab="analysis" type="button" role="tab">Analysis</button>
     </nav>
 
+    <div id="paneRehearse" class="px" hidden>
+      <div class="card px" id="imagineCard">
+        <h2>Your best openings <em>rehearsed in imagination — instant, no model call</em></h2>
+        <div id="imagineBody"><p class="status">Rehearsing…</p></div>
+        <details class="whatif">
+          <summary>Test your own opening</summary>
+          <div class="wigrid" id="whatIfPick"></div>
+          <button class="go sm" id="whatIfBtn" type="button">Test this opening</button>
+          <div id="whatIfOut"></div>
+        </details>
+      </div>
+      <div class="nextstep">
+        <span>These openings are a quick estimate. To hear the two sides argue it out and get written advice:</span>
+        <button class="go" type="button" data-goto="debate">Go to the debate →</button>
+      </div>
+    </div>
+
     <div id="paneDebate">
+      <div class="card gate" id="gateCard">
+        <h2>Review <em>confirm the problem before anything runs</em></h2>
+        <p class="gatelede">The debate, the advice and every number below are computed about
+          <b>whatever is confirmed here</b> &#8212; correctly, and about the wrong problem if this
+          is wrong. It is the last point where a missing issue is cheap to catch.</p>
+        <div id="gateBody"></div>
+        <div class="gatefoot">
+          <button class="go" id="gateBtn" type="button">Confirm and unlock the run</button>
+          <span class="meta" id="gateState">not confirmed &#8212; the run is locked</span>
+        </div>
+      </div>
+
       <div class="card"><div class="chatwrap"><div class="chat" id="chat"></div></div></div>
     </div>
 
@@ -154,9 +162,11 @@
       </div>
     </div>
 
-    <div class="card" id="resultCard" hidden>
-      <h2>Result <em>one per priority — no single answer is "the" answer</em></h2>
-      <div id="results"></div>
+    <div id="resultWrap">
+      <div class="card" id="resultCard" hidden>
+        <h2>Result <em>one per priority — no single answer is "the" answer</em></h2>
+        <div id="results"></div>
+      </div>
     </div>
   </section>
 

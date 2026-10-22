@@ -54,8 +54,9 @@ function setMode(mode) {
     // select must not silently change what "Hear them argue it" does.
     $("cond").value = "B2"; $("rounds").value = "3";
     stages = []; drawStages();
-    showTab("debate");
   }
+  showTab(currentTab);
+  refreshRunBtn();
 }
 document.querySelectorAll(".modeseg button").forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
 
@@ -200,7 +201,7 @@ async function loadCase(id) {
   drawGate(); setConfirmed(false);
   if (!isResearch()) { $("cond").value = "B2"; $("rounds").value = "3"; stages = []; }
   drawStages(); drawBoard(); drawParties(); drawPlot(); scoreBoard();
-  showTab("debate");
+  showTab(isResearch() ? "debate" : "rehearse");
   drawImagine(id);
 }
 
@@ -298,10 +299,22 @@ function setConfirmed(v) {
   refreshRunBtn();
 }
 
+/* Research: locked until the review is confirmed. Policymaker: the review sits
+   in the Debate & advice tab, so an unconfirmed press takes them to it instead
+   of doing nothing. */
 function refreshRunBtn() {
-  $("runBtn").disabled = !canRun || !confirmed;
+  $("runBtn").disabled = !canRun || (!confirmed && isResearch());
   $("runBtn").title = !canRun ? "no recording for this case, and no API key"
-    : !confirmed ? "confirm the problem above first" : "";
+    : !confirmed ? "confirm the problem in the review first" : "";
+}
+function onRunPress() {
+  if (!confirmed) {
+    showTab("debate");
+    $("gateCard").scrollIntoView({ behavior: "smooth", block: "start" });
+    $("gateBtn").focus({ preventScroll: true });
+    return;
+  }
+  runCase();
 }
 
 /* ---- pipeline rail ---- */
@@ -611,12 +624,23 @@ function drawPlot() {
 }
 
 /* ---- tabs ---- */
+/* Policymakers get Rehearse | Debate & advice; research gets Debate | Analysis.
+   A tab the current view does not have falls back to the debate. */
+let currentTab = "debate";
 function showTab(which) {
+  if ((which === "rehearse" && isResearch()) || (which === "analysis" && !isResearch())) which = "debate";
+  currentTab = which;
+  $("paneRehearse").hidden = which !== "rehearse";
   $("paneDebate").hidden = which !== "debate";
   $("paneAnalysis").hidden = which !== "analysis";
-  document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("on", t.dataset.tab === which));
+  $("resultWrap").hidden = which === "rehearse";
+  document.querySelectorAll(".tab").forEach((t) => {
+    t.classList.toggle("on", t.dataset.tab === which);
+    t.setAttribute("aria-selected", String(t.dataset.tab === which));
+  });
   if (which === "analysis") drawPlot();
 }
+document.querySelectorAll("[data-goto]").forEach((b) => { b.onclick = () => { showTab(b.dataset.goto); window.scrollTo(0, 0); }; });
 document.querySelectorAll(".tab").forEach((t) => { t.onclick = () => showTab(t.dataset.tab); });
 
 /* --------------------------------------------------------- add a crisis */
@@ -969,7 +993,7 @@ $("gateBtn").onclick = () => setConfirmed(!confirmed);
 // not reopen the gate; it only has to keep the two selects distinct.
 $("priority1").onchange = () => { syncPriorities(); stages = []; };
 $("priority2").onchange = () => { syncPriorities(); stages = []; };
-$("runBtn").onclick = runCase;
+$("runBtn").onclick = onRunPress;
 $("stopBtn").onclick = () => abort?.abort();
 $("cond").onchange = () => { stages = []; drawStages(); };
 $("rounds").onchange = () => { stages = []; drawStages(); };

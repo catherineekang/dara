@@ -1522,3 +1522,17 @@ body.research .px { display: none !important; }
   .opening .stats .stat, .reccard .stats .stat { flex: 1 1 calc(50% - 8px); padding: 12px 14px; }
   .opening .stat b { font-size: 21px; }
 }
+
+/* tabs: Rehearse | Debate & advice for policymakers */
+.nextstep {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; justify-content: space-between;
+  background: var(--soft); border-radius: 14px; padding: 14px 16px; margin-bottom: 16px;
+  font-size: 14px; color: var(--ink-2);
+}
+.tabs { max-width: 100%; }
+@media (max-width: 600px) {
+  .tabs { width: 100%; }
+  .tab { flex: 1; padding: 8px 10px; }
+}
+/* once confirmed, the review collapses to its button — reopen to see it again */
+.card.gate.ok .gatelede, .card.gate.ok #gateBody { display: none; }

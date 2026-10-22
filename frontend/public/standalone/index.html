@@ -442,6 +442,10 @@ body:not(.research) .chat:empty::after{content:"Press “Hear them argue it” t
 .wigrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-bottom:12px}
 .wigrid select{font-size:13.5px; padding:8px}
 #whatIfOut{margin-top:14px}
+.nextstep{display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; justify-content:space-between;
+  background:var(--soft); border-radius:14px; padding:14px 16px; margin-bottom:16px; font-size:14px; color:var(--ink-2)}
+.tabs{max-width:100%}
+@media (max-width:600px){ .tabs{width:100%} .tab{flex:1; padding-inline:10px} }
 @media (max-width:600px){
   .opening .stats .stat,.sys .stats .stat{flex:1 1 calc(50% - 8px); padding:12px 14px}
   .opening .stat b,.sys .stat b{font-size:21px}
@@ -529,18 +533,6 @@ body:not(.research) .chat:empty::after{content:"Press “Hear them argue it” t
   </div>
   <div id="tip" hidden></div>
 
-  <!-- the world model: rehearse openings in imagination, before anything is said aloud -->
-  <div class="card px" id="imagineCard">
-    <h2>Rehearse it first <em id="imagineWho"></em></h2>
-    <div id="imagineBody"></div>
-    <details class="whatif">
-      <summary>What if I open with…</summary>
-      <div class="wigrid" id="whatIfPick"></div>
-      <button class="go" type="button" id="whatIfBtn">Imagine it</button>
-      <div id="whatIfOut"></div>
-    </details>
-  </div>
-
   <!-- add-crisis flow — build_plan §7.1 -->
   <div class="scrim" id="addWrap" hidden role="dialog" aria-modal="true" aria-labelledby="addTitle">
     <div class="sheet">
@@ -559,10 +551,30 @@ body:not(.research) .chat:empty::after{content:"Press “Hear them argue it” t
     <div class="rail" id="rail"></div>
   </div>
 
-  <nav class="tabs rx" role="tablist">
-    <button class="tab on" id="tabDebate" data-tab="debate" role="tab" aria-selected="true">Debate<span class="n" id="msgCount"></span></button>
-    <button class="tab" id="tabAnalysis" data-tab="analysis" role="tab" aria-selected="false">Analysis</button>
+  <!-- Policymaker: Rehearse | Debate & advice. Research: Debate | Analysis. -->
+  <nav class="tabs" role="tablist">
+    <button class="tab px" id="tabRehearse" data-tab="rehearse" role="tab" aria-selected="false">Rehearse openings</button>
+    <button class="tab on" id="tabDebate" data-tab="debate" role="tab" aria-selected="true"><span class="px">Debate &amp; advice</span><span class="rx">Debate</span><span class="n" id="msgCount"></span></button>
+    <button class="tab rx" id="tabAnalysis" data-tab="analysis" role="tab" aria-selected="false">Analysis</button>
   </nav>
+
+  <section id="pane-rehearse" class="px" hidden>
+    <!-- the world model: rehearse openings in imagination, before anything is said aloud -->
+    <div class="card" id="imagineCard">
+      <h2>Rehearse it first <em id="imagineWho"></em></h2>
+      <div id="imagineBody"></div>
+      <details class="whatif">
+        <summary>What if I open with…</summary>
+        <div class="wigrid" id="whatIfPick"></div>
+        <button class="go" type="button" id="whatIfBtn">Imagine it</button>
+        <div id="whatIfOut"></div>
+      </details>
+    </div>
+    <div class="nextstep" id="nextStep">
+      <span>These openings are a quick estimate. To hear the two sides argue it out and get written advice:</span>
+      <button class="go" type="button" id="goDebate">Hear them argue it →</button>
+    </div>
+  </section>
 
   <section id="pane-debate">
     <div class="card"><div class="chatwrap"><div class="chat" id="chat"></div></div></div>
@@ -2071,7 +2083,7 @@ function saveCrisis(){
     +`frontier, ${fmt(C.MAXJ-C.SPLITJ,2)} of joint value above the split-the-difference baseline. `
     +`The payoff structure is scored; the debate needs the backend and an API key.`;
   if(isResearch()) show("analysis");
-  else $("imagineCard").scrollIntoView({behavior:reduced?"auto":"smooth", block:"start"});
+  else $("pane-rehearse").scrollIntoView({behavior:reduced?"auto":"smooth", block:"start"});
 }
 function openAdd(){ drawAddForm(); $("addWrap").hidden=false; $("addWrap").scrollTop=0; $("nTitle").focus(); }
 function closeAdd(){ $("addWrap").hidden=true; $("newBtn").focus(); }
@@ -2093,8 +2105,8 @@ function setMode(mode){
     // hidden select must not silently change what the button does
     $("cond").value="B2"; $("rounds").value="3";
     if(!abort) updateMeta();
-    show("debate");
   }
+  show(currentTab);
 }
 document.querySelectorAll(".modeseg button").forEach(b=>{ b.onclick=()=>setMode(b.dataset.mode); });
 
@@ -2122,6 +2134,7 @@ function loadCase(id){
   chat().innerHTML=""; $("msgCount").textContent=""; $("status").textContent="No runs yet on this case. The split-the-difference row is the bar any negotiation has to clear — it needs no deliberation at all.";
   drawCaseInfo();drawBoard();drawRO();drawParties();drawPlot();drawRes();drawRail();drawInsp();updateMeta();
   drawImagine();
+  show(isResearch()?"debate":"rehearse");
 }
 function updateMeta(){
   const c=$("cond").value, r=Math.max(1,Math.min(3,+$("rounds").value||3));
@@ -2134,13 +2147,18 @@ function updateMeta(){
   // cost rather than what is sitting on disk — and Run says so by being off
   const rec=!!C.k.cached;
   $("runBtn").disabled=!rec;
+  $("nextStep").hidden=!rec;   // nothing recorded to argue for a crisis you added
   $("runBtn").title=rec?"":"This scenario has no recorded run — the debate needs the backend and an API key.";
   $("cost").textContent=rec?`${n} recorded call${n>1?"s":""}`:`${n} calls · none recorded`;
   stages=buildStages(c,r); curStage=null; drawRail(); drawInsp();
 }
+/* Policymakers get Rehearse | Debate & advice; research gets Debate | Analysis.
+   A tab the current view does not have falls back to the debate. */
+let currentTab="debate";
 function show(which){
-  if(!isResearch()) which="debate";   // the analysis tab is research apparatus
-  ["debate","analysis"].forEach(t=>{
+  if((which==="rehearse"&&isResearch())||(which==="analysis"&&!isResearch())) which="debate";
+  currentTab=which;
+  ["rehearse","debate","analysis"].forEach(t=>{
     $("pane-"+t).hidden = t!==which;
     const b=$("tab"+t[0].toUpperCase()+t.slice(1));
     b.classList.toggle("on",t===which); b.setAttribute("aria-selected",String(t===which));
@@ -2164,6 +2182,7 @@ $("priority").onchange=updateMeta;
 $("runBtn").onclick=run; $("stopBtn").onclick=()=>abort?.abort();
 
 $("newBtn").onclick=openAdd;
+$("goDebate").onclick=()=>{ run(); };
 $("addWrap").onclick=e=>{ if(e.target===$("addWrap")) closeAdd(); };
 addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("addWrap").hidden) closeAdd(); });
 
