@@ -95,6 +95,12 @@ def _items(pkg: Dict[str, str]) -> List[PackageItem]:
     return [PackageItem(issue=k, option=v) for k, v in pkg.items()]
 
 
+#: Rubric criteria renamed since a recording was made, old -> new. The paper
+#: scores consistency with the agent's own previous position; recordings from
+#: before that fix call the slot by its old name.
+RENAMED = {"interest_consistency": "position_consistency"}
+
+
 @dataclass
 class CachedBackend:
     """Serves recorded turns in pipeline order.
@@ -148,7 +154,8 @@ class CachedBackend:
                 round_index=j["round_index"],
                 judgments=[ArgumentJudgment(
                     country=x["country"],
-                    scores=[CriterionScore(criterion=k, score=v, justification=x["summary"])
+                    scores=[CriterionScore(criterion=RENAMED.get(k, k), score=v,
+                                           justification=x["summary"])
                             for k, v in x["scores"].items()],
                     summary=x["summary"]) for x in j["judgments"]],
                 unaddressed_tradeoffs=j["unaddressed"])

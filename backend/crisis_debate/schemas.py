@@ -26,18 +26,22 @@ from typing import Dict, List, Literal
 
 from pydantic import BaseModel, Field
 
+from crisis_debate.provenance import Sourced
+
 CRITERIA = (
     "feasibility",
     "specificity",
     "tradeoff_acknowledgement",
-    "interest_consistency",
+    # Paper §3(b): consistency with the agent's own previously stated position.
+    # Consistency with the brief is role adherence, scored by an evaluator.
+    "position_consistency",
     "responsiveness",
 )
 Criterion = Literal[
     "feasibility",
     "specificity",
     "tradeoff_acknowledgement",
-    "interest_consistency",
+    "position_consistency",
     "responsiveness",
 ]
 PriorityTag = Literal["cost", "speed", "equity", "casualty_minimisation", "sovereignty"]
@@ -161,12 +165,31 @@ class CountryBrief(BaseModel):
     constraints: List[str]
     red_lines: List[str]
     valuations: List[IssueValuation]
+    # Element text -> its support (paper Fig. 1 stage 1: every brief element is
+    # labelled, never dropped). An element with no entry has no recorded support.
+    provenance: Dict[str, Sourced] = Field(default_factory=dict)
+
+    def label(self, element: str) -> str:
+        """The element as an agent sees it: unsourced ones say so."""
+        p = self.provenance.get(element)
+        return p.for_prompt() if p else element
 
     def valuation(self, issue: str) -> IssueValuation:
         for v in self.valuations:
             if v.issue == issue:
                 return v
         raise KeyError(f"{self.name} has no valuation for issue {issue!r}")
+
+
+class SourceLink(BaseModel):
+    """A public document the scenario's background rests on. All are shown to
+    the user; agents see only those published by the case's evidence cutoff
+    (`agents.agent_sources`), with `facts` as the figures they may cite."""
+    title: str
+    publisher: str = ""
+    url: str
+    published: str = ""                  # ISO date; blank = never shown to agents
+    facts: List[str] = Field(default_factory=list)
 
 
 class Scenario(BaseModel):
@@ -176,6 +199,10 @@ class Scenario(BaseModel):
     focus_country: str
     issues: List[Issue]
     countries: List[CountryBrief]
+    sources: List[SourceLink] = Field(default_factory=list)
+    # ISO date after which no material may be used (paper Table 1). Blank means
+    # none was set; a case added through the form defaults to the day it was made.
+    evidence_cutoff: str = ""
 
     def brief(self, name: str) -> CountryBrief:
         for c in self.countries:
@@ -242,6 +269,9 @@ class ArgumentJudgment(BaseModel):
     country: str
     scores: List[CriterionScore]
     summary: str
+    # Claims the argument makes that no listed source or the scenario supports
+    # (paper Table 6, fact-checking accuracy). Empty means none were found.
+    unsupported_claims: List[str] = Field(default_factory=list)
 
     def score_map(self) -> Dict[str, int]:
         return {s.criterion: s.score for s in self.scores}
@@ -326,6 +356,8 @@ class DebateRun(BaseModel):
     #: run had none. Recorded so that two runs being compared can be CHECKED to
     #: have read the same world, rather than assumed to have.
     conditions_id: str = ""
+    # Rounds where a human reviewer edited the judgment or left a note.
+    interventions: int = 0
     #: What those conditions put out of reach: n_reachable of n_total
     #: settlements, and how much joint value became unattainable.
     conditions_report: Dict[str, float] = Field(default_factory=dict)

@@ -96,7 +96,106 @@
             "full_donor_fund": 0.15
           }
         }
-      ]
+      ],
+      "provenance": {
+        "End hazardous PSI exposure in a recurring dry-season cycle": {
+          "value": "End hazardous PSI exposure in a recurring dry-season cycle",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Establish attribution that survives the episode it was built for": {
+          "value": "Establish attribution that survives the episode it was built for",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Section 8: an entity owning or occupying land where a fire burns is presumed to have caused the haze, and ownership can be proved from maps supplied by a foreign government."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Hold corporate actors, not only states, accountable": {
+          "value": "Hold corporate actors, not only states, accountable",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Section 5(2)(a): a fine of up to S$100,000 for every day of haze pollution in Singapore; section 6: anyone in Singapore who suffers loss can sue."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Regional development and donor funding it can direct": {
+          "value": "Regional development and donor funding it can direct",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Satellite monitoring it already operates": {
+          "value": "Satellite monitoring it already operates",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Capital markets where several plantation parents are listed": {
+          "value": "Capital markets where several plantation parents are listed",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Cannot compel enforcement inside Indonesian territory": {
+          "value": "Cannot compel enforcement inside Indonesian territory",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Article 27: disputes are settled amicably by consultation or negotiation; there is no court or tribunal."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Its own agribusiness sector lobbies against concession-level liability": {
+          "value": "Its own agribusiness sector lobbies against concession-level liability",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Extraterritorial prosecution is legally untested": {
+          "value": "Extraterritorial prosecution is legally untested",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Section 4: the Act extends to conduct outside Singapore."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "The Act reaches conduct abroad; that no case has yet been brought under it is inferred."
+        },
+        "Will not accept a settlement with no attribution mechanism": {
+          "value": "Will not accept a settlement with no attribution mechanism",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not fund transition without measurable reductions": {
+          "value": "Will not fund transition without measurable reductions",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
     },
     {
       "name": "Indonesia",
@@ -156,7 +255,142 @@
             "full_donor_fund": 1
           }
         }
-      ]
+      ],
+      "provenance": {
+        "Protect smallholder livelihoods through the planting window": {
+          "value": "Protect smallholder livelihoods through the planting window",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Keep enforcement and land data under domestic jurisdiction": {
+          "value": "Keep enforcement and land data under domestic jurisdiction",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Article 3(1): parties keep the sovereign right to exploit their own resources."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the sovereignty principle Indonesia signed up to."
+        },
+        "Avoid a precedent of foreign courts ruling on acts on its soil": {
+          "value": "Avoid a precedent of foreign courts ruling on acts on its soil",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Section 4: the Act extends to conduct outside Singapore."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred as Indonesia's response to an Act that reaches conduct on its territory."
+        },
+        "Sole authority to enforce on its own territory": {
+          "value": "Sole authority to enforce on its own territory",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Article 3(1): parties keep the sovereign right to exploit their own resources."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Provincial administrations able to implement a phased moratorium": {
+          "value": "Provincial administrations able to implement a phased moratorium",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Leverage as the destination of regional agricultural investment": {
+          "value": "Leverage as the destination of regional agricultural investment",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Limited fiscal capacity to fund transition alone": {
+          "value": "Limited fiscal capacity to fund transition alone",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Domestic data law restricts parcel-level disclosure": {
+          "value": "Domestic data law restricts parcel-level disclosure",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Unresolved land-tenure disputes overlap the concession registry": {
+          "value": "Unresolved land-tenure disputes overlap the concession registry",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "No foreign jurisdiction over acts on Indonesian soil": {
+          "value": "No foreign jurisdiction over acts on Indonesian soil",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Article 3(1): parties keep the sovereign right to exploit their own resources."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the sovereignty principle; not a quoted statement."
+        },
+        "No restriction that falls on smallholders without funded alternatives": {
+          "value": "No restriction that falls on smallholders without funded alternatives",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
     }
-  ]
+  ],
+  "sources": [
+    {
+      "title": "ASEAN Agreement on Transboundary Haze Pollution (2002) — full text",
+      "publisher": "University of Oslo treaty library",
+      "url": "https://jus.uio.no/english/services/library/treaties/06/6-03/asean_transboundary_pollution.html",
+      "published": "2002-06-10",
+      "facts": [
+        "Done at Kuala Lumpur on 10 June 2002; in force from 25 November 2003.",
+        "Article 3(1): parties keep the sovereign right to exploit their own resources, with a duty not to cause environmental damage to other states.",
+        "Article 8(1): each party's monitoring centre must send fire and haze data to the ASEAN Co-ordinating Centre at agreed intervals.",
+        "Article 9: parties must control open burning and prevent land clearing using fire.",
+        "Article 27: disputes are settled amicably by consultation or negotiation; there is no court or tribunal."
+      ]
+    },
+    {
+      "title": "Transboundary Haze Pollution Act 2014 (No. 24 of 2014)",
+      "publisher": "Singapore Statutes Online, via FAOLEX",
+      "url": "https://faolex.fao.org/docs/pdf/sin137119.pdf",
+      "published": "2014-09-25",
+      "facts": [
+        "Section 4: the Act extends to conduct outside Singapore.",
+        "Section 5(2)(a): a fine of up to S$100,000 for every day of haze pollution in Singapore.",
+        "Section 5(2)(b): up to S$50,000 more per day for failing to comply with a preventive measures notice.",
+        "Section 5(5): the aggregate fine is capped at S$2 million.",
+        "Section 6: anyone in Singapore who suffers injury, property damage or economic loss can sue, whether or not the conduct is actionable abroad.",
+        "Section 8: an entity owning or occupying land where a fire burns is presumed to have caused the haze, and ownership can be proved from maps supplied by a foreign government."
+      ]
+    },
+    {
+      "title": "Perpres No. 1 Tahun 2016 tentang Badan Restorasi Gambut (Peatland Restoration Agency)",
+      "publisher": "Cabinet Secretariat of the Republic of Indonesia",
+      "url": "https://setkab.go.id/inilah-perpres-no-1-tahun-2016-tentang-badan-restorasi-gambut/",
+      "published": "2016-01-06"
+    }
+  ],
+  "evidence_cutoff": "2015-09-01"
 }

@@ -97,7 +97,86 @@
             "testing_and_quarantine": 1.0
           }
         }
-      ]
+      ],
+      "provenance": {
+        "Keep essential sectors staffed through the outbreak": {
+          "value": "Keep essential sectors staffed through the outbreak",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Keep fresh food and supplies moving by road": {
+          "value": "Keep fresh food and supplies moving by road",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Avoid importing transmission through daily cross-border movement": {
+          "value": "Avoid importing transmission through daily cross-border movement",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Fiscal capacity to subsidise accommodation at short notice": {
+          "value": "Fiscal capacity to subsidise accommodation at short notice",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Hotel and dormitory capacity that can be requisitioned": {
+          "value": "Hotel and dormitory capacity that can be requisitioned",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Testing and screening infrastructure at the checkpoints": {
+          "value": "Testing and screening infrastructure at the checkpoints",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Cannot compel Malaysian citizens to relocate": {
+          "value": "Cannot compel Malaysian citizens to relocate",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Healthcare and construction cannot absorb a sudden loss of a third of shift staff": {
+          "value": "Healthcare and construction cannot absorb a sudden loss of a third of shift staff",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Public will not accept an uncontrolled daily crossing during an outbreak": {
+          "value": "Public will not accept an uncontrolled daily crossing during an outbreak",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not accept an arrangement that leaves essential services unstaffed": {
+          "value": "Will not accept an arrangement that leaves essential services unstaffed",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not accept unscreened daily movement across the Causeway": {
+          "value": "Will not accept unscreened daily movement across the Causeway",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
     },
     {
       "name": "Malaysia",
@@ -157,7 +236,133 @@
             "testing_and_quarantine": 1.0
           }
         }
-      ]
+      ],
+      "provenance": {
+        "Stop the daily movement that the Movement Control Order exists to prevent": {
+          "value": "Stop the daily movement that the Movement Control Order exists to prevent",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "All Malaysians are barred from travelling abroad; tourists and foreigners are barred from entering."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Ensure Malaysians working abroad are housed and paid for": {
+          "value": "Ensure Malaysians working abroad are housed and paid for",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Protect domestic food supply before exporting it": {
+          "value": "Protect domestic food supply before exporting it",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Sovereign control over who leaves and returns": {
+          "value": "Sovereign control over who leaves and returns",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "All Malaysians are barred from travelling abroad; tourists and foreigners are barred from entering."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "The Causeway and Second Link as the only land routes": {
+          "value": "The Causeway and Second Link as the only land routes",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Domestic food production that Singapore depends on": {
+          "value": "Domestic food production that Singapore depends on",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Limited fiscal room to support citizens housed in another country": {
+          "value": "Limited fiscal room to support citizens housed in another country",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Cannot be seen to exempt Singapore from a nationwide order": {
+          "value": "Cannot be seen to exempt Singapore from a nationwide order",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Malaysia's nationwide Movement Control Order runs from 18 to 31 March 2020."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the order being nationwide."
+        },
+        "State governments in Johor carry the political cost either way": {
+          "value": "State governments in Johor carry the political cost either way",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not exempt daily commuting from the Movement Control Order": {
+          "value": "Will not exempt daily commuting from the Movement Control Order",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "All Malaysians are barred from travelling abroad."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the travel ban; not a quoted statement."
+        },
+        "Will not leave Malaysian workers stranded without support": {
+          "value": "Will not leave Malaysian workers stranded without support",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
     }
-  ]
+  ],
+  "sources": [
+    {
+      "title": "PM: Malaysia in lockdown from Wed until March 31, all shops closed except for essential services",
+      "publisher": "Malay Mail, 16 March 2020",
+      "url": "https://www.malaymail.com/news/malaysia/2020/03/16/pm-malaysia-in-lockdown-from-wed-until-march-31-all-shops-closed-except-for/1847204",
+      "published": "2020-03-16",
+      "facts": [
+        "Malaysia's nationwide Movement Control Order runs from 18 to 31 March 2020.",
+        "All Malaysians are barred from travelling abroad; tourists and foreigners are barred from entering.",
+        "The order is made under the Prevention and Control of Infectious Diseases Act 1988 and the Police Act 1967.",
+        "Government and private premises close except essential services such as utilities, health and transport; shops close except supermarkets and grocery stores."
+      ]
+    },
+    {
+      "title": "Temporary housing support for employers affected by Malaysia's Movement Control Order",
+      "publisher": "Singapore Ministry of Manpower, 19 March 2020",
+      "url": "https://www.mom.gov.sg/newsroom/press-releases/2020/0319-temporary-housing-support-for-employers-affected-by-malaysias-movement-control-order",
+      "published": "2020-03-19"
+    },
+    {
+      "title": "Flow of goods, food supplies between Singapore, Malaysia to continue despite lockdown — PM Lee",
+      "publisher": "Philippine Daily Inquirer, March 2020",
+      "url": "https://newsinfo.inquirer.net/1243813/flow-of-goods-food-supplies-between-singapore-malaysia-to-continue-despite-lockdown-over-coronavirus-pm-lee/amp",
+      "published": ""
+    }
+  ],
+  "evidence_cutoff": "2020-03-16"
 }

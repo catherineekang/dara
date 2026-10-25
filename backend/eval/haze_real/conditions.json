@@ -1,0 +1,40 @@
+{
+  "scenario_id": "haze_real_v1",
+  "fetched_at": "2015-09-01T00:00:00+00:00",
+  "sources_queried": [
+    "pmo.gov.sg",
+    "cpc.ncep.noaa.gov"
+  ],
+  "facts": [
+    {
+      "party": "Singapore",
+      "summary": "Parliament was dissolved on 25 August 2015; nomination day is 1 September and polling day is 11 September 2015.",
+      "as_of": "2015-08-25",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.pmo.gov.sg",
+        "title": "Dissolution of Parliament on 25 August 2015",
+        "url": "https://www.pmo.gov.sg/Newsroom/dissolution-of-parliament-on-25-august-2015",
+        "published": "2015-08-25",
+        "who_said_it": "Prime Minister's Office, Singapore"
+      }
+    },
+    {
+      "party": "Indonesia",
+      "summary": "El Nino conditions are under way, with a greater than 90% chance of lasting through the 2015-16 northern winter.",
+      "as_of": "2015-08-13",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.cpc.ncep.noaa.gov",
+        "title": "ENSO Diagnostic Discussion, 13 August 2015",
+        "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_disc_aug2015/ensodisc.html",
+        "published": "2015-08-13",
+        "who_said_it": "NOAA Climate Prediction Center"
+      }
+    }
+  ]
+}

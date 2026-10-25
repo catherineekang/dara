@@ -1,0 +1,55 @@
+{
+  "scenario_id": "covid_my_2020_v1",
+  "fetched_at": "2020-03-16T00:00:00+00:00",
+  "sources_queried": [
+    "moh.gov.sg",
+    "malaymail.com"
+  ],
+  "facts": [
+    {
+      "party": "Singapore",
+      "summary": "Singapore has been at DORSCON Orange since 7 February 2020, after local cases appeared with no link to earlier cases or travel to China.",
+      "as_of": "2020-02-07",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.moh.gov.sg",
+        "title": "Risk assessment raised to DORSCON Orange",
+        "url": "https://www.moh.gov.sg/news-highlights/details/risk-assessment-raised-to-dorscon-orange",
+        "published": "2020-02-07",
+        "who_said_it": "Singapore Ministry of Health"
+      }
+    },
+    {
+      "party": "Malaysia",
+      "summary": "A new government under Prime Minister Muhyiddin Yassin was sworn in on 1 March 2020, two weeks before this crisis, after Mahathir Mohamad resigned on 24 February.",
+      "as_of": "2020-03-01",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.malaymail.com",
+        "title": "Muhyiddin takes oath as 8th PM before King",
+        "url": "https://www.malaymail.com/news/malaysia/2020/03/01/muhyiddin-takes-oath-as-8th-pm-before-king/1842321",
+        "published": "2020-03-01",
+        "who_said_it": "Malay Mail"
+      }
+    },
+    {
+      "party": "Malaysia",
+      "summary": "The Movement Control Order takes effect on 18 March 2020 and runs to 31 March, barring Malaysians from travelling abroad.",
+      "as_of": "2020-03-16",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.malaymail.com",
+        "title": "PM: Malaysia in lockdown from Wed until March 31",
+        "url": "https://www.malaymail.com/news/malaysia/2020/03/16/pm-malaysia-in-lockdown-from-wed-until-march-31-all-shops-closed-except-for/1847204",
+        "published": "2020-03-16",
+        "who_said_it": "Malay Mail, reporting the Prime Minister's announcement"
+      }
+    }
+  ]
+}

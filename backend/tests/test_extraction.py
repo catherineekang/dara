@@ -159,3 +159,29 @@ def test_the_brief_is_versioned_and_hashable():
     brief, _, _ = build_brief("s1", [doc(1, "2015-06-01")], PARTIES, FakeExtractor(), version=3)
     assert brief.version == 3 and len(brief.content_hash()) == 16
     assert "extracted from" in brief.note
+
+
+# --------------------------------------------------------------------------
+# Pasted documents -> the add-crisis form
+# --------------------------------------------------------------------------
+def test_prefill_keeps_each_element_and_its_source_numbered_like_the_form():
+    from crisis_debate.extraction import prefill
+
+    docs = [doc(1, "2015-08-01"), doc(2, "2015-07-01")]
+    out = prefill(docs, PARTIES, FakeExtractor(), cutoff="2015-09-01")
+    assert [i["name"] for i in out["issues"]] == ["concession maps", "enforcement"]
+    assert [s["name"] for s in out["sides"]] == PARTIES
+    sg = out["sides"][0]
+    assert sg["red_lines"] == ["Singapore red line"]
+    # d1 is the first usable document, so its quotes cite S1 on the case page
+    ev = sg["provenance"]["Singapore red line"]["evidence"]
+    assert ev and ev[0]["source_id"] == "S1"
+    assert [s["title"] for s in out["sources"]] == ["Doc 1", "Doc 2"]
+
+
+def test_prefill_labels_what_it_could_not_source_rather_than_dropping_it():
+    from crisis_debate.extraction import prefill
+
+    out = prefill([doc(1, "2015-08-01")], PARTIES, FakeExtractor(cite=False))
+    p = out["sides"][0]["provenance"]["Singapore red line"]
+    assert p["status"] == "unsupported"

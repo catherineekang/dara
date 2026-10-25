@@ -35,7 +35,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Sequence
 
-from crisis_debate import backtest, metrics, pipeline, scenario as scenario_mod, stress
+from crisis_debate import backtest, metrics, pipeline, scenario as scenario_mod, situational, stress
 from crisis_debate.agents import JudgeAgent, debate_call_count
 from crisis_debate.schemas import Scenario
 from crisis_debate.utilities import Frontier, score_package, utility_vector
@@ -109,8 +109,10 @@ def _judge_reliability(scenario: Scenario, backend, run, k: int) -> Dict[str, An
 
 def run_case(scenario: Scenario, factory: BackendFactory, *, rounds: int = 3,
              repeats: int = 3, judge_repeats: int = 3,
-             log_dir: Optional[Path] = None) -> Dict[str, Any]:
-    """Every condition, `repeats` times, on one case."""
+             log_dir: Optional[Path] = None,
+             conditions: Optional[situational.ConditionsSnapshot] = None) -> Dict[str, Any]:
+    """Every condition, `repeats` times, on one case. `conditions` is the case's
+    pinned snapshot: every condition and repeat reads the same world."""
     frontier = Frontier.build(scenario)
     truth = (backtest.load(scenario.scenario_id)
              if backtest.has_ground_truth(scenario.scenario_id) else None)
@@ -124,13 +126,15 @@ def run_case(scenario: Scenario, factory: BackendFactory, *, rounds: int = 3,
             backend = factory(scenario, condition, rep)
             log = (log_dir / f"{scenario.scenario_id}_{condition}_{rep}.jsonl") if log_dir else None
             run = pipeline.run(scenario, backend, condition=condition, rounds=rounds,
-                               priorities=(pipeline.RQ_PRIORITY,), log_path=log)
+                               priorities=(pipeline.RQ_PRIORITY,), log_path=log,
+                               conditions=conditions)
             rec = pipeline.rq_recommendation(run)
             pkg = rec.package()
             row: Dict[str, Any] = {
                 "condition": condition, "repeat": rep,
                 "calls": int(getattr(backend, "usage", {}).get("calls", 0)),
                 "illegal": len(run.illegal_packages),
+                "conditions_id": run.conditions_id,
                 "package": pkg,
             }
             if run.illegal_packages:
@@ -197,7 +201,8 @@ def run_experiment(cases: Sequence[str], factory: BackendFactory, *, rounds: int
         "rq_pair": [pipeline.RQ_AUDIENCE, pipeline.RQ_PRIORITY],
         "primaries": list(PRIMARIES),
         "cases": [run_case(scenario_mod.load(c), factory, rounds=rounds, repeats=repeats,
-                           judge_repeats=judge_repeats, log_dir=log_dir) for c in cases],
+                           judge_repeats=judge_repeats, log_dir=log_dir,
+                           conditions=situational.load_snapshot(c)) for c in cases],
     }
     if out_dir:
         out_dir.mkdir(parents=True, exist_ok=True)

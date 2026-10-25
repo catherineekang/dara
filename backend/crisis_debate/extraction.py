@@ -241,3 +241,49 @@ def build_brief(scenario_id: str, docs: Sequence[Document], parties: Sequence[st
                          note=f"extracted from {len(usable)} documents"
                               + (f", cutoff {cutoff}" if cutoff else ""))
     return brief, issue_set, report
+
+
+def prefill(docs: Sequence[Document], parties: Sequence[str], backend,
+            cutoff: Optional[str] = None) -> Dict:
+    """Documents in, a partly filled add-crisis form out (paper Table 2, real use:
+    issues and briefs "extracted from pasted documents").
+
+    The person still ranks the issues and marks each option: extraction finds
+    what is on the table and what each side has said, not how much it matters to
+    them. Every element keeps its support, renumbered to the form's own source
+    list (S1, S2, ...) so the citations on the case page link to the right
+    document; an element extraction could not source stays, labelled.
+    """
+    usable, after, undated = filter_by_cutoff(docs, cutoff)
+    brief, issue_set, report = build_brief("extracted", usable, parties, backend, cutoff)
+    tag = {d.source.source_id: f"S{n}" for n, d in enumerate(usable, start=1)}
+
+    def renumbered(s: Sourced) -> Sourced:
+        return s.model_copy(update={"evidence": [
+            e.model_copy(update={"source_id": tag.get(e.source_id, e.source_id)})
+            for e in s.evidence]})
+
+    sides = []
+    for pb in brief.parties:
+        interests = [s for s in pb.positional.interests if s.status != "unknown"]
+        red_lines = [s for s in pb.positional.red_lines if s.status != "unknown"]
+        facts = pb.structural.facts
+        sides.append({
+            "name": pb.name,
+            "interests": [s.value for s in interests],
+            "red_lines": [s.value for s in red_lines],
+            "resources": [s.value for s in facts],
+            "provenance": {s.value: renumbered(s).model_dump()
+                           for s in interests + red_lines + facts},
+        })
+    return {
+        "issues": [{"name": i.name.replace("_", " "), "options": [o.replace("_", " ") for o in i.options],
+                    "why": i.why} for i in issue_set.issues],
+        "sides": sides,
+        "sources": [{"title": d.source.title, "publisher": d.source.who_said_it,
+                     "url": d.source.url, "published": d.source.published} for d in usable],
+        "evidence_cutoff": cutoff or "",
+        "report": {"documents_in": len(docs), "documents_used": len(usable),
+                   "after_cutoff": after, "undated": undated, "elements": report.elements,
+                   "sourced": report.sourced, "unsupported": report.unsupported},
+    }

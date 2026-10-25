@@ -73,7 +73,7 @@ class ScriptedBackend:
         if output_format is Argument:
             return Argument(
                 country="(unset)",
-                position="scripted position",
+                position="scripted debater turn",
                 key_claims=[Claim(claim="scripted claim", evidence="scripted evidence")],
                 concessions=["scripted concession"],
                 red_lines=["scripted red line"],
@@ -117,5 +117,10 @@ class ScriptedBackend:
                 rationale="scripted rationale",
                 recommended_package=self._items(),
             )
+
+        if hasattr(output_format, "scripted"):
+            # Evaluation schemas carry their own placeholder, so the dry run
+            # exercises the evaluator without this module importing it.
+            return output_format.scripted(user)
 
         raise AssertionError(f"ScriptedBackend has no script for {output_format!r}")

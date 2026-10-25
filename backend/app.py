@@ -19,19 +19,22 @@ Run it with:  python app.py        (from backend/)
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import queue
 import re
 import threading
 import time
+import uuid
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional
 
 from flask import Flask, Response, jsonify, request
 
 from crisis_debate import cached, pipeline, providers, scenario as scenario_mod
-from crisis_debate import imagine as imagine_mod, intake as intake_mod
-from crisis_debate.schemas import AUDIENCE_BRIEF, READER_PRIORITY_BRIEF, Scenario
+from crisis_debate import extraction, imagine as imagine_mod, intake as intake_mod, situational
+from crisis_debate.provenance import Source
+from crisis_debate.schemas import AUDIENCE_BRIEF, READER_PRIORITY_BRIEF, RoundJudgment, Scenario
 from crisis_debate.utilities import (
     Frontier,
     score_package,
@@ -91,6 +94,20 @@ def _load(scenario_id: str) -> Scenario:
         raise ApiError(404, f"no scenario {scenario_id!r}")
     except Exception as exc:                      # malformed JSON, failed validation
         raise ApiError(422, f"scenario {scenario_id!r} is not loadable: {exc}")
+
+
+def _fingerprint(scenario: Scenario) -> str:
+    """What the human review gate confirms. Any change to the problem (an issue,
+    an option, a weight, a brief element) changes it, so a confirmation cannot
+    carry over to a problem nobody looked at."""
+    return hashlib.sha256(scenario.model_dump_json().encode("utf-8")).hexdigest()[:16]
+
+
+def _conditions(scenario_id: str):
+    try:
+        return situational.load_snapshot(scenario_id)
+    except Exception as exc:                      # a malformed snapshot is a 422, not a crash
+        raise ApiError(422, f"conditions for {scenario_id!r} are not loadable: {exc}")
 
 
 def _has_recording(scenario: Scenario) -> bool:
@@ -203,7 +220,30 @@ def get_scenario(scenario_id: str):
         # greys out the rest rather than letting a run die halfway through.
         "recorded_priorities": cached.recorded_priorities(s.scenario_id, pipeline.AUDIENCE),
         "user_created": scenario_id.startswith(USER_PREFIX),
+        "conditions": _conditions_view(_conditions(scenario_id)),
     })
+
+
+def _conditions_view(snap) -> Optional[Dict[str, Any]]:
+    if snap is None:
+        return None
+    return {"id": snap.snapshot_id, "pinned_at": snap.fetched_at,
+            "facts": [{"party": f.party, "summary": f.summary, "as_of": f.as_of,
+                       "source": f.source.title, "url": f.source.url}
+                      for f in snap.accepted()]}
+
+
+@app.post("/api/scenarios/<scenario_id>/review")
+def confirm_review(scenario_id: str):
+    """The human review gate (paper Fig. 1, stage 2), enforced here rather than
+    only in the browser: `/api/run` refuses a problem without this token, and
+    the token is a fingerprint of the problem, so editing the problem after
+    confirming it locks the run again."""
+    s = _load(scenario_id)
+    body = request.get_json(silent=True) or {}
+    if not body.get("confirm"):
+        raise ApiError(422, 'send {"confirm": true} once the issues, options and weights are checked')
+    return jsonify({"token": _fingerprint(s)})
 
 
 @app.post("/api/scenarios/<scenario_id>/score")
@@ -332,6 +372,45 @@ def intake_form():
     })
 
 
+@app.post("/api/extract")
+def extract_documents():
+    """Pasted documents in, a partly filled add-crisis form out.
+
+    `{"documents": [{"title", "text", "url"?, "published"?, "publisher"?}],
+      "parties": [you, them], "cutoff"?}`. Needs a live model: there is no
+    recording of documents nobody has seen, and a scripted answer would look
+    like an extraction while being nothing of the kind.
+    """
+    body = request.get_json(silent=True) or {}
+    docs_in = body.get("documents") or []
+    parties = [str(p).strip() for p in (body.get("parties") or []) if str(p).strip()]
+    if len(parties) != 2:
+        raise ApiError(422, "name both sides first: extraction needs to know whose positions to look for")
+    if not docs_in:
+        raise ApiError(422, "paste at least one document")
+    if not providers.has_openai_key():
+        raise ApiError(400, "reading documents needs a live model: set OPENAI_API_KEY in .env")
+    docs = []
+    for n, d in enumerate(docs_in, start=1):
+        text = str(d.get("text") or "").strip()
+        if not text:
+            raise ApiError(422, f"document {n} is empty")
+        docs.append(extraction.Document(text=text, source=Source(
+            source_id=f"doc{n}", title=str(d.get("title") or f"Document {n}"),
+            url=str(d.get("url") or ""), published=str(d.get("published") or ""),
+            who_said_it=str(d.get("publisher") or ""))))
+    cutoff = str(body.get("cutoff") or "") or None
+    try:
+        out = extraction.prefill(docs, parties, providers.OpenAIBackend(), cutoff)
+    except Exception as exc:
+        raise ApiError(502, f"extraction failed: {type(exc).__name__}: {exc}")
+    if not out["issues"]:
+        raise ApiError(422, "no negotiable issues were found in these documents"
+                       + (f" ({out['report']['after_cutoff']} were after the cutoff and "
+                          f"{out['report']['undated']} undated, so not read)" if cutoff else ""))
+    return jsonify(out)
+
+
 @app.delete("/api/scenarios/<scenario_id>")
 def delete_scenario(scenario_id: str):
     """Only user-created scenarios. The bundled cases are the experiment's
@@ -364,12 +443,45 @@ def _sse(event: Dict[str, Any]) -> str:
     return f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
 
 
+#: Runs paused for a human to check the judge, by run id. The worker thread
+#: waits on the slot's event; POST /api/runs/<id>/review fills it in.
+PAUSED: Dict[str, Dict[str, Any]] = {}
+REVIEW_TIMEOUT_S = 30 * 60
+
+
+def _apply_review(rj: RoundJudgment, reply: Dict[str, Any]) -> RoundJudgment:
+    """The reviewer's edits, applied to what they are allowed to change: the
+    judge's written verdicts, the unsupported claims it flagged and the open
+    trade-offs. Scores are left alone: a person can say what the judge missed,
+    but a hand-edited number would no longer be the judge's measurement."""
+    summaries = reply.get("summaries") or {}
+    flagged = reply.get("unsupported") or {}
+    judgments = [j.model_copy(update={
+        "summary": str(summaries.get(j.country, j.summary)),
+        "unsupported_claims": [str(x) for x in flagged.get(j.country, j.unsupported_claims)],
+    }) for j in rj.judgments]
+    unaddressed = reply.get("unaddressed")
+    return rj.model_copy(update={
+        "judgments": judgments,
+        "unaddressed_tradeoffs": ([str(x) for x in unaddressed] if isinstance(unaddressed, list)
+                                  else rj.unaddressed_tradeoffs),
+    })
+
+
 def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optional[str],
-                speed: float, priorities: str) -> Iterator[str]:
+                speed: float, priorities: str, review_token: str = "",
+                pause: bool = False) -> Iterator[str]:
     try:
         s = _load(scenario_id)
+        snapshot = _conditions(scenario_id)
     except ApiError as exc:
         yield _sse({"type": "error", "message": exc.message})
+        return
+
+    if review_token != _fingerprint(s):
+        yield _sse({"type": "error", "message":
+                    "Confirm the review first: nothing runs until a person has checked the "
+                    "issues, options and weights (and the problem has not changed since)."})
         return
 
     if condition not in pipeline.CONDITIONS:
@@ -408,16 +520,37 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
         "condition": condition, "rounds": rounds, "mode": mode, "note": note,
         "parties": names, "issues": [{"name": i.name, "options": i.options} for i in s.issues],
         "priorities": priority_list, "audience": pipeline.AUDIENCE,
+        "conditions_id": snapshot.snapshot_id if snapshot else "",
     })
 
     q: "queue.Queue[Any]" = queue.Queue()
     result: Dict[str, Any] = {}
+    run_id = uuid.uuid4().hex[:12]
+    keep_going = {"no_more_stops": False}
+
+    def review(r: int, rj: RoundJudgment):
+        """Pause after the judge, until the person sends back their check."""
+        if keep_going["no_more_stops"]:
+            return rj, ""
+        slot = {"event": threading.Event(), "reply": None, "round": r}
+        PAUSED[run_id] = slot
+        q.put(("review", {"run_id": run_id, "round": r, "of": rounds,
+                          "judgment": rj.model_dump()}))
+        try:
+            if not slot["event"].wait(REVIEW_TIMEOUT_S):
+                raise TimeoutError(f"no review of round {r} within {REVIEW_TIMEOUT_S // 60} minutes")
+        finally:
+            PAUSED.pop(run_id, None)
+        reply = slot["reply"] or {}
+        keep_going["no_more_stops"] = bool(reply.get("no_more_stops"))
+        return _apply_review(rj, reply), str(reply.get("note") or "").strip()
 
     def work() -> None:
         try:
             result["run"] = pipeline.run(s, backend, condition=condition, rounds=rounds,
                                          logger=QueueLogger(q),
-                                         priorities=priority_list)
+                                         priorities=priority_list, conditions=snapshot,
+                                         review=review if pause else None)
         except Exception as exc:                   # cache exhausted, provider error, bad key
             result["error"] = f"{type(exc).__name__}: {exc}"
         finally:
@@ -454,12 +587,18 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
                 "judgments": [
                     {"country": j["country"], "summary": j["summary"],
                      "scores": {x["criterion"]: x["score"] for x in j["scores"]},
-                     "total": sum(x["score"] for x in j["scores"])}
+                     "total": sum(x["score"] for x in j["scores"]),
+                     "unsupported": j.get("unsupported_claims", [])}
                     for j in payload["judgments"]
                 ],
                 "unaddressed": payload["unaddressed_tradeoffs"],
                 "elapsed": round(time.time() - started, 2),
             })
+        elif kind == "review":
+            yield _sse({"type": "review", "mode": mode, **payload})
+        elif kind == "intervention":
+            yield _sse({"type": "intervention", "round": payload["round"],
+                        "note": payload["note"], "after": payload["after"]})
         elif kind == "recommendation":
             package = {p["issue"]: p["option"] for p in payload["recommended_package"]}
             yield _sse({
@@ -495,6 +634,7 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
         "results": results,
         "objectives_diverged": len(packages) > 1,
         "usage": run.usage, "illegal_packages": run.illegal_packages,
+        "interventions": run.interventions, "conditions_id": run.conditions_id,
         "elapsed": round(time.time() - started, 2),
     })
 
@@ -525,9 +665,30 @@ def run_stream():
         args.get("provider") or None,
         speed,
         args.get("priorities", ",".join(pipeline.DEFAULT_PRIORITIES)),
+        review_token=args.get("review", ""),
+        pause=args.get("pause") == "1",
     )
     return Response(stream, mimetype="text/event-stream",
                     headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+@app.post("/api/runs/<run_id>/review")
+def review_judge(run_id: str):
+    """The person's check of one round's judgment (paper contribution 4).
+
+    `{"summaries": {country: text}, "unsupported": {country: [..]},
+      "unaddressed": [..], "note": "...", "no_more_stops": bool}`; every field
+    is optional, and an empty body approves the judgment unchanged.
+    """
+    slot = PAUSED.get(run_id)
+    if slot is None:
+        raise ApiError(404, "this run is not waiting for a review (it finished, timed out or was stopped)")
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        raise ApiError(422, "the review must be a JSON object")
+    slot["reply"] = body
+    slot["event"].set()
+    return jsonify({"ok": True, "round": slot["round"]})
 
 
 if __name__ == "__main__":

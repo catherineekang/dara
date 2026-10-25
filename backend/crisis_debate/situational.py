@@ -201,3 +201,15 @@ def render_for_prompt(snapshot: Optional[ConditionsSnapshot], party: str) -> str
         return ""
     lines = "\n".join(f"  - {f.describe()} (as of {f.as_of}, {f.source.title})" for f in mine)
     return f"\nCurrent conditions affecting {party}:\n{lines}\n"
+
+
+def load_snapshot(case: str) -> Optional[ConditionsSnapshot]:
+    """The pinned snapshot for a bundled case (`eval/<case>/conditions.json`),
+    or None when the case has none. Read from disk rather than fetched, so every
+    run of a case, in every condition, reads the same world."""
+    from crisis_debate.scenario import case_dir
+
+    path = case_dir(case) / "conditions.json"
+    if not path.exists():
+        return None
+    return ConditionsSnapshot.model_validate_json(path.read_text(encoding="utf-8"))

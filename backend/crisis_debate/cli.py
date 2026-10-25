@@ -5,6 +5,7 @@
     python -m crisis_debate.cli rehearse haze_real --open "transition_funding=none"
     python -m crisis_debate.cli run --scenario haze_real --condition B2
     python -m crisis_debate.cli experiment            # plan and cost; --dry-run / --live
+    python -m crisis_debate.cli evaluate              # the paper's full Section 5 evaluation
     python -m crisis_debate.cli run --scenario haze_real --condition B0 --dry-run
     python -m crisis_debate.cli scenarios
 """
@@ -208,6 +209,63 @@ def _cmd_experiment(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_evaluate(args: argparse.Namespace) -> int:
+    """The paper's full evaluation (Section 5), backend only.
+
+    Prints the plan and its call count, and spends nothing without --live.
+    Writes results.json, report.md and human_eval_sheet.csv to results/eval_<time>/.
+    """
+    from crisis_debate import evaluation
+    from crisis_debate.fakes import ScriptedBackend
+
+    if args.score_human:
+        for crit, s in evaluation.human_agreement(Path(args.score_human)).items():
+            print(f"  {crit:<28} n={s['n']:<4} MAE={s['mae']:<6} Spearman={s['spearman']}")
+        return 0
+
+    cases = [c.strip() for c in args.cases.split(",") if c.strip()]
+    opts = dict(include_rounds=not args.no_rounds, include_full_info=not args.no_full_info,
+                evaluator=not args.no_evaluator, include_probes=not args.no_probes)
+    total = 0
+    print("Planned model calls:")
+    for c in cases:
+        plan = evaluation.planned_calls(scenario_mod.load(c), repeats=args.repeats,
+                                        judge_repeats=args.judge_repeats, **opts)
+        total += plan["total"]
+        print(f"  {c}: {plan}")
+    print(f"  total: about {total} calls\n")
+
+    if args.live:
+        from crisis_debate.providers import OpenAIBackend, has_openai_key
+        if not has_openai_key():
+            print("--live needs OPENAI_API_KEY in .env")
+            return 2
+
+        def factory(sc, label, rep):
+            # The agents sample (repeats measure spread); the evaluator and the
+            # judge tests score at temperature 0 so they are as repeatable as possible.
+            cold = label in ("evaluator", "probes")
+            return OpenAIBackend(temperature=0.0 if cold else args.temperature)
+        mode = "live"
+    elif args.dry_run:
+        def factory(sc, label, rep):
+            return ScriptedBackend(scenario=sc)
+        mode = "DRY RUN (scripted agents, numbers are meaningless)"
+    else:
+        print("Nothing run. Add --dry-run to check the plumbing for free, "
+              "or --live to spend the calls above.")
+        return 0
+
+    result = evaluation.run_evaluation(cases, factory, repeats=args.repeats,
+                                       judge_repeats=args.judge_repeats, mode=mode,
+                                       out_dir=Path(args.out), **opts)
+    print(f"\nSpent {result['calls_spent']} calls, {result['tokens_spent']} tokens.")
+    print(f"Report:      {result['folder']}/report.md")
+    print(f"All numbers: {result['folder']}/results.json")
+    print(f"Human sheet: {result['folder']}/human_eval_sheet.csv ({result['human_rows']} rows to score)")
+    return 0
+
+
 def _cmd_providers(_: argparse.Namespace) -> int:
     """Show which path a run would take right now, without running anything."""
     from crisis_debate import cached as cache_mod
@@ -251,6 +309,23 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--dry-run", action="store_true", help="scripted agents, no cost")
     g.add_argument("--live", action="store_true", help="call OpenAI and spend the calls")
     e.set_defaults(func=_cmd_experiment)
+
+    v = sub.add_parser("evaluate", help="research: the paper's full Section 5 evaluation, written to results/")
+    v.add_argument("--cases", default="haze_real,covid_my_2020")
+    v.add_argument("--repeats", type=int, default=3)
+    v.add_argument("--judge-repeats", type=int, default=3)
+    v.add_argument("--temperature", type=float, default=0.7, help="live only, for the agents")
+    v.add_argument("--no-rounds", action="store_true", help="skip the 1- and 2-round ablation")
+    v.add_argument("--no-full-info", action="store_true", help="skip the information-transmission probe")
+    v.add_argument("--no-evaluator", action="store_true", help="skip the evaluator-model rubrics")
+    v.add_argument("--no-probes", action="store_true", help="skip contamination probes P1 and P3")
+    v.add_argument("--score-human", metavar="CSV",
+                   help="compare a filled-in human_eval_sheet.csv with the evaluator, then exit")
+    v.add_argument("--out", default="results")
+    gv = v.add_mutually_exclusive_group()
+    gv.add_argument("--dry-run", action="store_true", help="scripted agents, no cost")
+    gv.add_argument("--live", action="store_true", help="call the model and spend the calls")
+    v.set_defaults(func=_cmd_evaluate)
 
     r = sub.add_parser("run", help="run one condition on one scenario")
     r.add_argument("--scenario", required=True)

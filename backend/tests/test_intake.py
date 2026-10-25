@@ -119,3 +119,33 @@ def test_the_example_form_is_served_and_builds(client):
     res = client.get("/api/intake/example")
     assert res.status_code == 200
     assert intake.build(res.get_json()).focus_country == "Singapore"
+
+
+def test_the_cutoff_defaults_to_today_and_can_be_set(form):
+    from datetime import date
+
+    assert intake.build(form).evidence_cutoff == date.today().isoformat()
+    form["evidence_cutoff"] = "2015-09-01"
+    assert intake.build(form).evidence_cutoff == "2015-09-01"
+    form["evidence_cutoff"] = "last tuesday"
+    with pytest.raises(intake.IntakeError, match="cutoff"):
+        intake.build(form)
+
+
+def test_typed_elements_are_labelled_as_typed_not_sourced(form):
+    """Nothing typed into the form comes from a document: your side is yours,
+    the other side is your estimate of them."""
+    s = intake.build(form)
+    you, them = s.countries
+    assert {p.status for p in you.provenance.values()} == {"user_edited"}
+    assert {p.status for p in them.provenance.values()} == {"projected"}
+    assert set(you.provenance) == set(you.interests + you.resources + you.constraints + you.red_lines)
+
+
+def test_extracted_support_survives_the_form(form):
+    form["you"]["red_lines"] = ["No foreign court"]
+    form["you"]["provenance"] = {"No foreign court": {
+        "value": "No foreign court", "status": "sourced",
+        "evidence": [{"source_id": "S1", "quote": "a quote"}]}}
+    s = intake.build(form)
+    assert s.countries[0].provenance["No foreign court"].status == "sourced"

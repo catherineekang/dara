@@ -34,11 +34,13 @@ join the study set, so they cannot touch the research question.
 from __future__ import annotations
 
 import re
+from datetime import date
 from typing import Any, Dict, List, Sequence, Union
 
 from pydantic import BaseModel, Field
 
-from crisis_debate.schemas import CountryBrief, Issue, IssueValuation, Scenario
+from crisis_debate.provenance import Sourced
+from crisis_debate.schemas import CountryBrief, Issue, IssueValuation, Scenario, SourceLink
 
 MARKS = {"good": 1.0, "acceptable": 0.5, "unacceptable": 0.0}
 
@@ -57,6 +59,9 @@ class PartyView(BaseModel):
     red_lines: List[str] = Field(default_factory=list)
     resources: List[str] = Field(default_factory=list)
     constraints: List[str] = Field(default_factory=list)
+    # Support for elements that came from pasted documents (`/api/extract`).
+    # Anything not listed here was typed, and is labelled as such.
+    provenance: Dict[str, Sourced] = Field(default_factory=dict)
 
 
 class IssueForm(BaseModel):
@@ -72,6 +77,9 @@ class CrisisForm(BaseModel):
     issues: List[IssueForm]
     you: PartyView
     them: PartyView
+    # Paper Table 2: the user sets the cutoff; it defaults to today.
+    evidence_cutoff: str = ""
+    sources: List[SourceLink] = Field(default_factory=list)
 
 
 class IntakeError(ValueError):
@@ -147,9 +155,17 @@ def _party(form: CrisisForm, view: PartyView, issues: Dict[str, Issue],
         f"Most important to {view.name}: {names[ranked[0][0]]}"
         + (f", then {names[ranked[1][0]]}" if len(ranked) > 1 else "") + "."
     ]
+    # Nothing typed here comes from a document. Your own side is attributed to
+    # you; the other side is your estimate of them, so it is projected.
+    status, note = (("user_edited", "Entered by you.") if role == "your side"
+                    else ("projected", f"Your estimate of {view.name}, not a sourced position."))
+    elements = interests + list(view.resources) + list(view.constraints) + red_lines
+    provenance = {e: view.provenance.get(e) or Sourced(value=e, status=status, note=note,
+                                                       confidence=0.5)
+                  for e in elements}
     return CountryBrief(name=view.name, interests=interests, resources=list(view.resources),
                         constraints=list(view.constraints), red_lines=red_lines,
-                        valuations=valuations)
+                        valuations=valuations, provenance=provenance)
 
 
 def build(form: Union[CrisisForm, Dict[str, Any]]) -> Scenario:
@@ -187,7 +203,20 @@ def build(form: Union[CrisisForm, Dict[str, Any]]) -> Scenario:
         focus_country=you.name,
         issues=list(issues.values()),
         countries=[you, them],
+        evidence_cutoff=_cutoff(form.evidence_cutoff),
+        sources=form.sources,
     )
+
+
+def _cutoff(given: str) -> str:
+    """An ISO date, defaulting to today: in real use the crisis is still open."""
+    given = (given or "").strip()
+    if not given:
+        return date.today().isoformat()
+    try:
+        return date.fromisoformat(given).isoformat()
+    except ValueError:
+        raise IntakeError(f"the evidence cutoff {given!r} should be a date like 2026-10-25")
 
 
 # --------------------------------------------------------------------------

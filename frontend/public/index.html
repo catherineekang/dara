@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
 <link rel="stylesheet" href="/styles.css">
 <title>DARA</title>
 </head>
@@ -27,26 +30,58 @@
 
   <!-- ============ home ============ -->
   <section id="viewHome">
-    <div class="hero">
-      <span class="eyebrow">Crisis negotiation rehearsal</span>
-      <h1>Know what they will refuse before you ask.</h1>
-      <p class="lede px">Describe a negotiation you are about to walk into. DARA shows you the openings
-        most likely to land, what the other side will push back on, and lets you hear both sides argue
-        it out before you say a word in the room.</p>
-      <p class="lede rx">Each crisis is a multi-issue bargaining problem with a private utility function
-        per party. Agents argue it out, a judge scores how it was argued, and the settlement is
-        measured against the best one that was actually available.</p>
-    </div>
+    <header class="dossier">
+      <div class="dossier-text">
+        <span class="eyebrow">Briefing room · Crisis negotiation rehearsal</span>
+        <h1 class="treaty">Know what they will refuse <em>before you ask.</em></h1>
+        <p class="lede px">Describe a negotiation you are about to walk into. DARA shows you the openings
+          most likely to land, what the other side will push back on, and lets you hear both delegations
+          argue it out before you say a word in the room.</p>
+        <p class="lede rx">Each crisis is a multi-issue bargaining problem with a private utility function
+          per party. Agents argue it out, a judge scores how it was argued, and the settlement is
+          measured against the best one that was actually available.</p>
+        <div class="hero-cta">
+          <button class="go" type="button" id="toCases">Open a case file</button>
+          <a class="go ghost" href="#/add">Add a crisis</a>
+        </div>
+      </div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 240 240">
+          <defs><path id="sealPath" d="M120,120 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
+          <circle cx="120" cy="120" r="116" class="ring"/>
+          <circle cx="120" cy="120" r="108" class="ring thin"/>
+          <circle cx="120" cy="120" r="70" class="ring thin"/>
+          <g class="turn">
+            <text class="sealtext"><textPath href="#sealPath" textLength="548" lengthAdjust="spacing">DEBATE ✦ ADJUDICATE ✦ RECOMMEND ✦ ASSESS ✦</textPath></text>
+          </g>
+          <image href="/mark.png" x="74" y="86" width="92" height="68"/>
+        </svg>
+      </div>
+    </header>
+
+    <ol class="protocol" aria-label="How a rehearsal works">
+      <li><span class="pnum">I</span><div><b>The brief</b>
+        <span>Each delegation gets its interests, red lines and private priorities. Nothing runs until you have checked the problem.</span></div></li>
+      <li><span class="pnum">II</span><div><b>The debate</b>
+        <span>Two delegations argue over three rounds. An independent judge scores every round, and you can correct it.</span></div></li>
+      <li><span class="pnum">III</span><div><b>The advice</b>
+        <span>A recommender that never read the transcript drafts your opening position for each thing you want to protect.</span></div></li>
+    </ol>
 
     <div id="homeNote"></div>
 
-    <div class="card">
-      <h2>Cases <em id="caseCount">loading…</em></h2>
+    <section class="shelf" id="casesCard">
+      <div class="sechead"><h2>Case files</h2><em id="caseCount">loading…</em></div>
       <div class="gallery" id="gallery"></div>
-    </div>
+    </section>
+
+    <section class="shelf" id="recentCard">
+      <div class="sechead"><h2>Minutes of recent sessions</h2><em>your last 5 debates, kept in this browser</em></div>
+      <div id="recent"></div>
+    </section>
 
     <p class="status rx">
-      A <b>scenario</b> is the input — parties, issues, options and private valuations — and is
+      A <b>scenario</b> is the input (parties, issues, options and private valuations) and is
       exactly what the add-crisis form produces. A <b>recording</b> is the output of a past run,
       down to each agent's turn, kept so a debate can be replayed at no cost.
       <a class="back" href="/standalone/index.html">The no-install standalone console is here →</a>
@@ -60,7 +95,13 @@
     <div class="hero">
       <span class="eyebrow" id="runMeta"></span>
       <h1 id="runTitle"></h1>
-      <p class="lede" id="runLede"></p>
+      <div class="sides" id="runSides"></div>
+      <details class="context" open>
+        <summary>Background</summary>
+        <p id="runLede"></p>
+        <div class="src" id="runSource"></div>
+        <div class="src" id="runCutoff"></div>
+      </details>
       <div class="stats rx" id="runStats"></div>
     </div>
 
@@ -75,18 +116,24 @@
       <label class="f rx"><span class="fl">Rounds</span>
         <select id="rounds"><option>1</option><option>2</option><option selected>3</option></select>
       </label>
-      <label class="f grow"><span class="fl">Protect &#8212; 1</span>
+      <label class="f grow"><span class="fl"><span class="px">Your advice protects first</span><span class="rx">Protect 1</span></span>
         <select id="priority1"></select>
       </label>
-      <label class="f grow"><span class="fl">Protect &#8212; 2</span>
+      <label class="f grow"><span class="fl"><span class="px">Then protects</span><span class="rx">Protect 2</span></span>
         <select id="priority2"></select>
       </label>
-      <label class="f"><span class="fl">Playback</span>
+      <label class="f"><span class="fl">Playback <span class="tip" tabindex="0" role="note"
+          aria-label="How fast a recorded debate replays."
+          data-tip="How fast a recorded debate replays. Instant shows every turn at once; Real time paces turns as they were originally argued; 4× faster is in between. Live runs ignore this, because they go at the model's own speed.">?</span></span>
         <select id="speed">
           <option value="4">4× faster</option>
           <option value="1">Real time</option>
           <option value="0" selected>Instant</option>
         </select>
+      </label>
+      <label class="f chkf" title="After each round the run waits while you check the judge's verdicts. Full system only.">
+        <span class="fl">Your check</span>
+        <span class="chkrow"><input type="checkbox" id="pauseJudge" checked> Pause after each round</span>
       </label>
       <div class="barend">
         <span class="meta" id="replayNote"></span>
@@ -112,7 +159,7 @@
 
     <div id="paneRehearse" class="px" hidden>
       <div class="card px" id="imagineCard">
-        <h2>Your best openings <em>rehearsed in imagination — instant, no model call</em></h2>
+        <h2>Your best openings <em>rehearsed in imagination: instant, no model call</em></h2>
         <div id="imagineBody"><p class="status">Rehearsing…</p></div>
         <details class="whatif">
           <summary>Test your own opening</summary>
@@ -130,17 +177,22 @@
     <div id="paneDebate">
       <div class="card gate" id="gateCard">
         <h2>Review <em>confirm the problem before anything runs</em></h2>
-        <p class="gatelede">The debate, the advice and every number below are computed about
-          <b>whatever is confirmed here</b> &#8212; correctly, and about the wrong problem if this
-          is wrong. It is the last point where a missing issue is cheap to catch.</p>
+        <p class="gatelede">Please check the issues and options below before you start.
+          <b>The debate, the advice and every number on this page are based only on what is listed
+          here.</b> If something is wrong or missing, the results will be wrong too, so this is the
+          easiest point to fix it.</p>
         <div id="gateBody"></div>
         <div class="gatefoot">
           <button class="go" id="gateBtn" type="button">Confirm and unlock the run</button>
-          <span class="meta" id="gateState">not confirmed &#8212; the run is locked</span>
+          <span class="meta" id="gateState">Not confirmed yet. The run is locked.</span>
         </div>
       </div>
 
-      <div class="card"><div class="chatwrap"><div class="chat" id="chat"></div></div></div>
+      <div class="card"><h2>The debate</h2>
+        <div class="chatgrid">
+          <div class="chatwrap"><div class="chat" id="chat"></div></div>
+          <nav class="jump" id="jump" aria-label="Jump to a part of the debate" hidden></nav>
+        </div></div>
     </div>
 
     <div id="paneAnalysis" hidden>
@@ -164,7 +216,7 @@
 
     <div id="resultWrap">
       <div class="card" id="resultCard" hidden>
-        <h2>Result <em>one per priority — no single answer is "the" answer</em></h2>
+        <h2><span class="px">What the advice gets you</span><span class="rx">Result</span></h2>
         <div id="results"></div>
       </div>
     </div>

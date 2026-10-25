@@ -3,7 +3,9 @@
    relative and there is no CORS to configure. */
 
 const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+// The page uses no em dashes, including in server and model text it displays.
+const undash = (s) => String(s ?? "").replace(/\s*—\s*/g, ", ");
+const esc = (s) => undash(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
 const pretty = (s) => String(s ?? "").replace(/_/g, " ");
 const fmt = (n, d = 3) => Number(n).toFixed(d);
 const pkgLine = (pkg) => Object.entries(pkg || {}).map(([k, v]) => `${pretty(k)} = ${pretty(v)}`).join(" · ");
@@ -59,6 +61,7 @@ function setMode(mode) {
   refreshRunBtn();
 }
 document.querySelectorAll(".modeseg button").forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
+$("toCases").onclick = () => $("casesCard").scrollIntoView({ behavior: "smooth", block: "start" });
 
 /* --------------------------------------------------------------- router */
 function route() {
@@ -84,48 +87,72 @@ function drawProvider() {
     el.innerHTML = `<span class="dot"></span>live · ${esc(health.model)}`;
   } else {
     el.className = "pill rec";
-    el.title = "No OPENAI_API_KEY in .env — runs replay the recording in demo/";
+    el.title = "No OPENAI_API_KEY in .env, so runs replay the recording in demo/";
     el.innerHTML = '<span class="dot"></span>recorded';
   }
 }
 
 /* ----------------------------------------------------------------- home */
+/* "COVID-19 border and supply measures — Singapore · Malaysia (2020)" splits
+   into the name of the file and its year; the delegations are shown separately. */
+function caseTitle(title) {
+  const s = undash(title);
+  const m = s.match(/^(.*?)(?:,\s*[^,]*·[^,]*)?\s*\(([^)]*\d{4}[^)]*)\)\s*$/);
+  return m ? { name: m[1].trim(), when: m[2] } : { name: s, when: "" };
+}
+const CODES = { singapore: "SG", malaysia: "MY", indonesia: "ID", thailand: "TH", philippines: "PH",
+  vietnam: "VN", "viet nam": "VN", brunei: "BN", cambodia: "KH", laos: "LA", myanmar: "MM",
+  china: "CN", japan: "JP", india: "IN", australia: "AU", "united states": "US", "united kingdom": "UK" };
+const code = (name) => CODES[String(name).trim().toLowerCase()]
+  || String(name).trim().split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+
 async function loadHome() {
   try {
     const [cases, h] = await Promise.all([api("/scenarios"), api("/health")]);
     health = h;
     drawProvider();
-    $("caseCount").textContent = `${cases.length} loaded`;
+    $("caseCount").textContent = `${cases.length} on file`;
+    drawRecent();
 
     $("homeNote").innerHTML = h.mode === "recorded"
       ? `<div class="note" style="margin-bottom:20px">No <b>OPENAI_API_KEY</b> in <b>.env</b>, so runs
-         replay the recorded debate in <b>backend/demo/</b> — the same pipeline, at no cost. Add a
+         replay the recorded debate in <b>backend/demo/</b>: the same pipeline, at no cost. Add a
          key and the identical run calls the model live; nothing else changes.</div>`
       : "";
 
     const add = `<a class="case add" href="#/add">
-        <span class="plus">+</span><h3>Add a crisis</h3>
-        <p class="desc">Bring a negotiation DARA has never seen. Name the sides and the issues, then
-        mark each outcome good, OK or no for each side. No numbers.</p></a>`;
+        <span class="filetab">New file</span>
+        <span class="plus">+</span>
+        <h3>Add a crisis</h3>
+        <p class="desc">Bring a negotiation DARA has never seen. Name the delegations and the issues,
+          then mark each outcome good, OK or no for each side. No numbers needed.</p>
+        <span class="open">Start a file →</span></a>`;
 
-    $("gallery").innerHTML = add + cases.map((c) => `
-      <div class="case" role="button" tabindex="0" data-open="${esc(c.file)}">
-        <div class="top">
-          <div><h3>${esc(c.title)}</h3><div class="who">${esc(c.parties.join(" · "))}</div></div>
+    $("gallery").innerHTML = add + cases.map((c, k) => {
+      const t = caseTitle(c.title);
+      const [you, ...others] = [c.focus_country, ...c.parties.filter((p) => p !== c.focus_country)];
+      return `
+      <div class="case file" role="button" tabindex="0" data-open="${esc(c.file)}">
+        <span class="filetab">Case file No. ${String(k + 1).padStart(2, "0")}${t.when ? ` · ${esc(t.when)}` : ""}</span>
+        <div class="delegations">
+          <span class="roundel mine" title="${esc(you)}, the side you advise">${esc(code(you))}</span>
+          <span class="across">↔</span>
+          ${others.map((o) => `<span class="roundel" title="${esc(o)}">${esc(code(o))}</span>`).join("")}
           ${c.has_recording
-            ? '<span class="pill rec" title="A recorded run exists, so this plays with no key">recorded</span>'
-            : '<span class="pill off" title="No recorded run — needs a live model call">no recording</span>'}
+            ? '<span class="pill rec" title="A recorded debate exists, so this plays with no key">recorded</span>'
+            : '<span class="pill off" title="No recorded debate, so this needs a live model">live only</span>'}
         </div>
+        <h3>${esc(t.name)}</h3>
+        <p class="who">Advising ${esc(you)} · across the table: ${esc(others.join(", "))}</p>
         <p class="desc">${esc(c.description)}</p>
-        <div class="facts">
-          <div><b>${c.issues}</b><span>issues</span></div>
-          <div class="rx"><b>${c.settlements}</b><span>settlements</span></div>
-          <div class="rx"><b>${c.pareto_count}</b><span>on frontier</span></div>
-          <div class="rx"><b>${fmt(c.at_stake, 2)}</b><span>at stake</span></div>
-          ${c.user_created ? `<button class="mini" style="margin-left:auto;align-self:center"
-             data-delete="${esc(c.file)}">delete</button>` : ""}
+        <div class="filefoot">
+          <span>${c.issues} issues · ${c.settlements} possible settlements</span>
+          <span class="rx">${c.pareto_count} on the frontier · ${fmt(c.at_stake, 2)} at stake</span>
+          ${c.user_created ? `<button class="mini" data-delete="${esc(c.file)}">delete</button>` : ""}
+          <span class="open">Open file →</span>
         </div>
-      </div>`).join("");
+      </div>`;
+    }).join("");
 
     $("gallery").querySelectorAll("[data-open]").forEach((el) => {
       const go = () => { location.hash = `#/case/${el.dataset.open}`; };
@@ -159,9 +186,32 @@ async function loadCase(id) {
   }
   const s = detail.scenario, f = detail.frontier;
 
-  $("runMeta").textContent = `${s.countries.map((c) => c.name).join(" · ")} · advising ${s.focus_country}`;
-  $("runTitle").textContent = s.title;
-  $("runLede").textContent = s.description;
+  $("runMeta").textContent = s.countries.map((c) => c.name).join(" ↔ ");
+  $("runTitle").textContent = undash(s.title);
+  // Lead with whose side the user is on; the narrative is supporting context.
+  const you = s.countries.find((c) => c.name === s.focus_country) || s.countries[0];
+  // Crises added through the form may leave a list empty; skip its heading then.
+  const list = (c, label, items, cls = "") => (items || []).length
+    ? `<span class="sl">${label}</span><ul class="${cls}">${items.map((i) =>
+        `<li>${esc(i)} ${provChip(c.provenance?.[i])}</li>`).join("")}</ul>`
+    : "";
+  const side = (c, mine) => `
+    <div class="side${mine ? " mine" : ""}">
+      <span class="role">${mine ? "You represent" : "Across the table"}</span>
+      <h3>${esc(c.name)}</h3>
+      ${list(c, mine ? "What you need" : "What they need", c.interests)}
+      ${list(c, mine ? "Your red lines" : "Their red lines", c.red_lines, "red")}
+    </div>`;
+  $("runSides").innerHTML = side(you, true)
+    + s.countries.filter((c) => c !== you).map((c) => side(c, false)).join("");
+  $("runLede").textContent = undash(s.description);
+  const links = (s.sources || []).filter((x) => /^https?:\/\//.test(x.url));
+  const dateText = (d) => new Date(d + "T00:00:00").toLocaleDateString([], { day: "numeric", month: "short", year: "numeric" });
+  $("runCutoff").innerHTML = s.evidence_cutoff ? `<span class="sl">Evidence cutoff</span>
+    <p>${esc(dateText(s.evidence_cutoff))}. The debaters see nothing published after this date.</p>` : "";
+  $("runSource").innerHTML = links.length ? `<span class="sl">Sources</span><ol>${links.map((x) => `
+      <li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)} ↗</a>${
+        x.publisher ? `<span>, ${esc(x.publisher)}</span>` : ""}</li>`).join("")}</ol>` : "";
   $("runStats").innerHTML = `
     <div class="stat"><b>${f.settlements}</b><span>possible settlements</span></div>
     <div class="stat"><b>${f.pareto_count}</b><span>on the frontier</span></div>
@@ -195,6 +245,7 @@ async function loadCase(id) {
   board = { ...f.split_package };
   trail = [];
   $("chat").innerHTML = "";
+  drawJump();
   $("resultCard").hidden = true;
   // A new crisis is a new problem, so the previous confirmation cannot carry
   // over — that would be the gate approving something nobody looked at.
@@ -203,6 +254,13 @@ async function loadCase(id) {
   drawStages(); drawBoard(); drawParties(); drawPlot(); scoreBoard();
   showTab(isResearch() ? "debate" : "rehearse");
   drawImagine(id);
+
+  // Coming back to a case brings back the debate last run on it (or the one
+  // picked from the home page), rather than an empty box.
+  const mine = savedDebates().filter((d) => d.file === id);
+  const pick = mine.find((d) => d.key === pendingReplay) || mine[0];
+  pendingReplay = null;
+  if (pick) replayDebate(pick);
 }
 
 /* ---- imagined rehearsal (policymaker) ---- */
@@ -239,6 +297,21 @@ async function drawImagine(id) {
   } catch (e) { $("imagineBody").innerHTML = `<div class="err">${esc(e.message)}</div>`; }
 }
 
+/* ---- provenance ---- */
+/* Paper Fig. 1 stage 1: every brief element is labelled, never dropped. */
+const PROV = {
+  sourced: "Sourced", projected: "Projected",
+  unknown: "Unknown", user_edited: "Entered by you",
+};
+function provChip(p) {
+  // Only show a label when there is support to show; an unsourced element
+  // simply has none.
+  if (!p || p.status === "unsupported") return "";
+  const cites = (p.evidence || []).map((e) => cite(`[${e.source_id}]`)).join(" ");
+  const tip = [(p.evidence || []).map((e) => e.quote).join(" "), p.note].filter(Boolean).join(" ");
+  return `<span class="prov p-${esc(p.status)}" title="${esc(tip)}">${esc(PROV[p.status] || p.status)}${cites ? " " + cites : ""}</span>`;
+}
+
 /* ---- objectives ---- */
 function priorityLabel(id) {
   return ((health?.priorities || []).find((p) => p.id === id) || {}).label || id;
@@ -257,7 +330,7 @@ function syncPriorities() {
   [...b.options].forEach((o) => { o.disabled = off(o, a); });
   const n = replayable === null ? 0 : replayable.length;
   $("replayNote").textContent = replayable === null ? ""
-    : `recorded mode — ${n} of ${health.priorities.length} objectives are replayable without a key`;
+    : `recorded mode: ${n} of ${health.priorities.length} objectives are replayable without a key`;
 }
 
 /* ---- the human review gate ---- */
@@ -275,7 +348,7 @@ function drawGate() {
   // equal weights share a rank, so a tie entered on the form reads as a tie
   const distinct = [...new Set(Object.values(w))].sort((a, b) => b - a);
   const RANK = ["Most important", "2nd", "3rd", "4th", "5th", "6th"];
-  const rankOf = (name) => RANK[distinct.indexOf(w[name] ?? 0)] || "—";
+  const rankOf = (name) => RANK[distinct.indexOf(w[name] ?? 0)] || "n/a";
   $("gateBody").innerHTML = `
     <table class="gt">
       <thead><tr>
@@ -289,13 +362,27 @@ function drawGate() {
     </table>`;
 }
 
+/* The server holds the gate too: confirming fetches a fingerprint of this exact
+   problem, and /api/run refuses to start without it. */
+let reviewToken = "";
+const caseFile = () => location.hash.split("/").pop();
+async function toggleConfirmed() {
+  if (confirmed) return setConfirmed(false);
+  try {
+    const r = await api(`/scenarios/${caseFile()}/review`, { method: "POST", body: JSON.stringify({ confirm: true }) });
+    reviewToken = r.token;
+    setConfirmed(true);
+  } catch (e) { $("gateState").textContent = undash(e.message); }
+}
+
 function setConfirmed(v) {
   confirmed = v;
+  if (!v) reviewToken = "";
   $("gateCard").classList.toggle("ok", v);
-  $("gateBtn").textContent = v ? "Confirmed — reopen to change" : "Confirm and unlock the run";
+  $("gateBtn").textContent = v ? "Confirmed (click to change)" : "Confirm and unlock the run";
   $("gateState").textContent = v
-    ? `confirmed — ${detail ? detail.scenario.issues.length : 0} issues, ${detail ? detail.frontier.settlements : 0} possible settlements`
-    : "not confirmed — the run is locked";
+    ? `Confirmed: ${detail ? detail.scenario.issues.length : 0} issues, ${detail ? detail.frontier.settlements : 0} possible settlements. Next, press "Hear them argue it" above to start the debate.`
+    : "Not confirmed yet. The run is locked.";
   refreshRunBtn();
 }
 
@@ -345,7 +432,7 @@ function drawStages() {
     <div class="nodes">${g.items.map((st) => `<div class="node" data-s="${st.status}">
       <span class="dotrow"><i class="dot"></i><i class="bar2"></i></span>
       <span class="lbl">${esc(st.lbl)}</span>
-      <span class="t">${st.status === "done" ? (st.ms / 1000).toFixed(1) + "s" : st.status === "run" ? "running" : "—"}</span>
+      <span class="t">${st.status === "done" ? (st.ms / 1000).toFixed(1) + "s" : st.status === "run" ? "running" : ""}</span>
     </div>`).join("")}</div></div>`).join("");
 }
 function mark(id, status, ms) {
@@ -354,7 +441,29 @@ function mark(id, status, ms) {
 }
 
 /* ---- chat ---- */
-function bubble(side, name, round, text, pkg, concessions, score) {
+/* Agents cite the scenario's sources as [S1], [S2]…, numbered in the scenario's
+   own order, so each tag links to the document it names. */
+function cite(text) {
+  const src = detail?.scenario.sources || [];
+  return esc(text).replace(/\[S(\d+)\]/g, (m, n) => {
+    const s = src[n - 1];
+    return s && /^https?:\/\//.test(s.url)
+      ? `<a class="cite" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title)}">${m}</a>`
+      : m;
+  });
+}
+const sentence = (t) => { const s = String(t || "").trim(); return /[.!?]$/.test(s) ? s : s + "."; };
+function claimList(claims) {
+  // Recorded runs stand the position in as its own claim; that adds nothing.
+  const cl = (claims || []).filter((c) => c.evidence && c.evidence !== "recorded run");
+  return cl.length ? `<details class="claims"><summary>Why: the evidence behind this (${cl.length})</summary>
+    ${cl.map((c) => `<p>${cite(sentence(c.claim))} ${cite(sentence(c.evidence))}</p>`).join("")}</details>` : "";
+}
+function pkgList(pkg) {
+  return `<ul class="pkg">${Object.entries(pkg || {}).map(([k, v]) =>
+    `<li><span>${esc(caseLabel(k))}:</span> ${esc(pretty(v))}</li>`).join("")}</ul>`;
+}
+function bubble(side, name, round, text, pkg, concessions, score, claims) {
   const initials = name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   const legal = score && score.legal;
   const line = legal
@@ -362,13 +471,201 @@ function bubble(side, name, round, text, pkg, concessions, score) {
     : score ? `Not legal: ${esc((score.problems || []).join("; "))}` : "";
   return `<div class="msg ${side}"><div class="av">${esc(initials)}</div>
     <div class="bub"><div class="nm">${esc(name)} · round ${round}</div>
-      <div class="bd">${esc(text)}</div>
-      <div class="attach"><b>Proposed package</b>${esc(pkgLine(pkg))}
+      <div class="bd">${cite(text)}</div>
+      ${claimList(claims)}
+      <div class="attach"><b>${esc(name)}'s offer this round</b>${pkgList(pkg)}
         ${concessions && concessions.filter(Boolean).length ? `<span class="cede">Concedes: ${esc(concessions.filter(Boolean).join("; "))}</span>` : ""}
         <span class="cede rx" style="color:var(--ink-3)">${line}</span>
       </div></div></div>`;
 }
-function say(html) { $("chat").insertAdjacentHTML("beforeend", html); const c = $("chat"); c.scrollTop = c.scrollHeight; }
+function say(html) { $("chat").insertAdjacentHTML("beforeend", html); const c = $("chat"); c.scrollTop = c.scrollHeight; drawJump(); }
+
+/* ---- timeline ---- */
+/* A table of contents for the debate box: one stop per section tagged
+   data-jump, a click scrolls the box there, and the stop in view is lit. */
+function drawJump() {
+  const stops = [...$("chat").querySelectorAll("[data-jump]")];
+  const nav = $("jump");
+  nav.hidden = !stops.length;
+  nav.innerHTML = stops.map((el, i) => `<button type="button" data-i="${i}"
+      class="stop${el.dataset.sub ? " sub" : ""}"><i></i><span>${esc(el.dataset.jump)}</span></button>`).join("");
+  nav.querySelectorAll("[data-i]").forEach((b) => {
+    b.onclick = () => {
+      const c = $("chat");
+      c.scrollTo({ top: stops[+b.dataset.i].offsetTop - 6, behavior: "smooth" });
+    };
+  });
+  litJump();
+}
+function litJump() {
+  const c = $("chat");
+  const stops = [...c.querySelectorAll("[data-jump]")];
+  let at = 0;
+  stops.forEach((el, i) => { if (el.offsetTop <= c.scrollTop + 40) at = i; });
+  // At the very bottom the last stop is in view even if it starts lower down.
+  if (c.scrollTop + c.clientHeight >= c.scrollHeight - 4) at = stops.length - 1;
+  $("jump").querySelectorAll("[data-i]").forEach((b) => b.classList.toggle("on", +b.dataset.i === at));
+}
+$("chat").addEventListener("scroll", litJump, { passive: true });
+
+/* ---- your check of the judge ---- */
+/* Paper contribution 4: after each round the run waits while a person checks the
+   judge. What they leave here is what both sides hear next round and what the
+   recommender reads; scores stay the judge's own. */
+const lines = (xs) => (xs || []).join("\n");
+const unlines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boolean);
+/* By default the card reads like a message with one obvious answer ("looks
+   right"); the edit boxes only appear for someone who wants to change
+   something. Once answered it shrinks to one line so the debate flows on. */
+function reviewCard(ev) {
+  const r = ev.round, last = r >= ev.of;
+  const j = ev.judgment;
+  const open = j.unaddressed_tradeoffs || [];
+  const head = `<div class="sys review${replaying ? " done" : ""}" data-jump="Your check" data-sub="1"
+      data-round="${r}" id="rv-${ev.run_id}-${r}">`;
+  if (replaying) {
+    return `${head}<div class="rvdone">✓ Round ${r} checked during the run, no changes.</div></div>`;
+  }
+  return `${head}
+    <div class="rvfull">
+      <div class="rvstep">Your check · round ${r} of ${ev.of}</div>
+      <h4 class="rvq">Does the judge's verdict look right?</h4>
+      <p class="rvlede">${last ? "The recommendation is written from this."
+        : `Both sides hear this before round ${r + 1}.`} Change it only if the judge missed something.</p>
+      ${j.judgments.map((x) => `<div class="rvv">
+        <b>${esc(x.country)}</b>
+        <p class="rvread">${esc(x.summary)}</p>
+        ${(x.unsupported_claims || []).length ? `<p class="rvread rvflag">Flagged as unsupported: ${esc(x.unsupported_claims.join("; "))}</p>` : ""}
+        <textarea class="rvedit" data-sum="${esc(x.country)}" rows="3" hidden>${esc(x.summary)}</textarea>
+        <label class="lab rvedit" hidden>Claims with no source <i>one per line; leave empty if none</i>
+          <textarea data-uns="${esc(x.country)}" rows="2">${esc(lines(x.unsupported_claims))}</textarea></label>
+      </div>`).join("")}
+      ${open.length ? `<div class="rvopen rvread"><b>Still open</b><ul>${open.map((o) => `<li>${esc(o)}</li>`).join("")}</ul></div>` : ""}
+      <label class="lab rvedit" hidden>Still open <i>one per line</i>
+        <textarea data-unad rows="2">${esc(lines(open))}</textarea></label>
+      <label class="lab rvedit" hidden>Anything else to pass on <i>optional; read by the recommender</i>
+        <textarea data-note rows="2" placeholder="e.g. One side's point on funding deserved more weight."></textarea></label>
+      ${ev.mode === "recorded" ? `<p class="rvlede rvedit" hidden>This debate is a recording: your changes are saved with it, but cannot change what was recorded next.</p>` : ""}
+      <div class="rvactions">
+        <button class="go" type="button" data-ok>${last ? "Looks right, write the recommendation" : `Looks right, continue to round ${r + 1}`}</button>
+        <button class="go ghost" type="button" data-edit>Make changes</button>
+        <button class="linkbtn" type="button" data-skip>Continue and don't ask again</button>
+        <span class="meta" data-state></span>
+      </div>
+    </div>
+    <div class="rvdone" hidden></div>
+  </div>`;
+}
+function bindReview(ev) {
+  const r = ev.round, last = r >= ev.of;
+  const card = $(`rv-${ev.run_id}-${r}`);
+  const q = (sel) => card.querySelector(sel);
+  const boxes = [...card.querySelectorAll("textarea")];
+  const original = boxes.map((b) => b.value);
+  let editing = false;
+  const okText = () => editing
+    ? (last ? "Save and write the recommendation" : `Save and continue to round ${r + 1}`)
+    : (last ? "Looks right, write the recommendation" : `Looks right, continue to round ${r + 1}`);
+
+  q("[data-edit]").onclick = () => {
+    editing = !editing;
+    if (!editing) boxes.forEach((b, k) => { b.value = original[k]; });   // cancel = put it back
+    card.querySelectorAll(".rvedit").forEach((el) => { el.hidden = !editing; });
+    card.querySelectorAll(".rvread").forEach((el) => { el.hidden = editing; });
+    q("[data-edit]").textContent = editing ? "Cancel changes" : "Make changes";
+    q("[data-ok]").textContent = okText();
+    if (editing) q("[data-sum]").focus();
+  };
+
+  const send = async (skip) => {
+    // Send back only what the reviewer actually changed, so an untouched field
+    // can never register as an edit (the judge's own text may differ from what
+    // a text box hands back by a stray space or an empty line).
+    const edited = (el) => el.value.trim() !== original[boxes.indexOf(el)].trim();
+    const reply = { summaries: {}, unsupported: {}, no_more_stops: skip, note: q("[data-note]").value.trim() };
+    if (edited(q("[data-unad]"))) reply.unaddressed = unlines(q("[data-unad]").value);
+    card.querySelectorAll("[data-sum]").forEach((el) => { if (edited(el)) reply.summaries[el.dataset.sum] = el.value.trim(); });
+    card.querySelectorAll("[data-uns]").forEach((el) => { if (edited(el)) reply.unsupported[el.dataset.uns] = unlines(el.value); });
+    const changed = boxes.some(edited);
+    card.querySelectorAll("button").forEach((b) => { b.disabled = true; });
+    try {
+      await api(`/runs/${ev.run_id}/review`, { method: "POST", body: JSON.stringify(reply) });
+      const what = !changed ? ", no changes"
+        : `: you changed ${reply.note && boxes.slice(0, -1).some((b, k) => b.value.trim() !== original[k].trim())
+          ? "the verdict and left a note" : reply.note ? "nothing, but left a note" : "the verdict"}`;
+      q(".rvdone").textContent = `✓ Round ${r} checked${what}. `
+        + (skip ? "No more stops this run. " : "")
+        + (last ? "Writing the recommendation…" : `Round ${r + 1} is starting…`);
+      q(".rvfull").hidden = true;
+      q(".rvdone").hidden = false;
+      card.classList.add("done");
+      drawJump();
+    } catch (e) {
+      card.querySelectorAll("button").forEach((b) => { b.disabled = false; });
+      q("[data-state]").textContent = undash(e.message);
+    }
+  };
+  q("[data-ok]").onclick = () => send(false);
+  q("[data-skip]").onclick = () => send(true);
+  q("[data-ok]").focus({ preventScroll: true });
+}
+
+/* ---- saved debates ---- */
+/* The last five finished debates, kept in this browser so leaving the page
+   does not throw a paid run away. A per-viewer convenience: if storage is
+   unavailable the page works exactly as before, it just forgets. */
+const SAVED_KEY = "dara.debates";
+const SAVED_MAX = 5;
+let replaying = false;
+let pendingReplay = null;   // a saved debate's key, opened from the home page
+function savedDebates() {
+  try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; } catch { return []; }
+}
+function saveDebate(d) {
+  let all = [d, ...savedDebates()].slice(0, SAVED_MAX);
+  // A full store drops the oldest until the new debate fits.
+  while (all.length) {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify(all)); return; } catch { all = all.slice(0, -1); }
+  }
+}
+const savedWhen = (d) => new Date(d.key).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+function replayDebate(d) {
+  const parties = detail.scenario.countries.map((c) => c.name);
+  replaying = true;
+  stages = buildStages(d.cond, d.rounds, parties);
+  trail = [];
+  $("chat").innerHTML = "";
+  drawJump();
+  $("resultCard").hidden = true;
+  say(`<div class="divider">Saved debate from ${esc(savedWhen(d))}. Press "Hear them argue it" to run a new one.</div>`);
+  let i = 0;
+  d.events.forEach((ev) => { i = onEvent(ev, i); });
+  drawStages();
+  replaying = false;
+  showTab("debate");
+}
+function drawRecent() {
+  const all = savedDebates();
+  $("recent").innerHTML = all.length ? `<ol class="minutes">${all.map((d) => {
+    const when = new Date(d.key);
+    return `<li><button class="minute" type="button" data-key="${d.key}">
+      <span class="mdate"><b>${esc(when.toLocaleDateString([], { day: "numeric", month: "short" }))}</b>
+        <span>${esc(when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))}</span></span>
+      <span class="mbody"><b>${esc(caseTitle(d.title).name)}</b>
+        <span>Protecting ${esc(d.priorities.map((p) => priorityLabel(p).toLowerCase()).join(", then "))}</span></span>
+      <span class="open">Reopen →</span>
+    </button></li>`;
+  }).join("")}</ol>`
+    : `<p class="empty-minutes">No sessions yet. Open a case file and press "Hear them argue it": every finished
+       debate is minuted here so you can come back to it.</p>`;
+  $("recent").querySelectorAll("[data-key]").forEach((b) => {
+    b.onclick = () => {
+      const d = all.find((x) => String(x.key) === b.dataset.key);
+      pendingReplay = d.key;
+      location.hash = `#/case/${d.file}`;
+    };
+  });
+}
 
 /* ---- the run ---- */
 async function runCase() {
@@ -380,6 +677,7 @@ async function runCase() {
   stages = buildStages(cond, rounds, parties);
   trail = [];
   $("chat").innerHTML = "";
+  drawJump();
   $("runError").innerHTML = "";
   $("resultCard").hidden = true;
   $("runBtn").hidden = true; $("stopBtn").hidden = false;
@@ -390,9 +688,14 @@ async function runCase() {
     scenario: detail.scenario.scenario_id && location.hash.split("/").pop(),
     condition: cond, rounds: String(rounds), speed: $("speed").value,
     priorities: selectedPriorities().join(","),
+    review: reviewToken,
+    // Pause after each round so a person can check the judge (B2 only: B0 and
+    // B1 have no judge to check).
+    pause: cond === "B2" && $("pauseJudge").checked ? "1" : "0",
   });
 
   let recIndex = 0;
+  const log = [];
   try {
     const res = await fetch(`/api/run?${q}`, { signal: abort.signal, headers: { Accept: "text/event-stream" } });
     if (!res.ok || !res.body) throw new Error(`run failed: ${res.status}`);
@@ -412,9 +715,14 @@ async function runCase() {
           if (!line.startsWith("data:")) continue;
           let ev;
           try { ev = JSON.parse(line.slice(5).trim()); } catch { continue; }
+          log.push(ev);
           recIndex = onEvent(ev, recIndex);
         }
       }
+    }
+    if (log.some((ev) => ev.type === "done")) {
+      saveDebate({ key: Date.now(), file: location.hash.split("/").pop(), title: detail.scenario.title,
+                   cond, rounds, priorities: selectedPriorities(), events: log });
     }
   } catch (e) {
     if (!abort.signal.aborted) $("runError").innerHTML = `<div class="err">${esc(e.message)}</div>`;
@@ -431,15 +739,15 @@ function onEvent(ev, recIndex) {
   }
   if (ev.type === "start") {
     mark("setup", "done", 1); mark("frontier", "done", 1);
-    say(`<div class="divider"><span class="rx">${esc(ev.condition)} · </span>${esc(ev.mode)}</div>`);
+    say(`<div class="divider" data-jump="Intro"><span class="rx">${esc(ev.condition)} · </span>${esc(ev.mode)}</div>`);
     return recIndex;
   }
   if (ev.type === "argument") {
     const side = ev.country === detail.scenario.countries[0].name ? "left" : "right";
     mark(`r${ev.round}.${ev.country}`, "done", ev.elapsed * 1000);
     if (!$("chat").querySelector(`[data-r="${ev.round}"]`))
-      say(`<div class="divider" data-r="${ev.round}">Round ${ev.round}</div>`);
-    say(bubble(side, ev.country, ev.round, ev.position, ev.package, ev.concessions, ev.score));
+      say(`<div class="divider" data-r="${ev.round}" data-jump="Round ${ev.round}">Round ${ev.round}</div>`);
+    say(bubble(side, ev.country, ev.round, ev.position, ev.package, ev.concessions, ev.score, ev.claims));
     if (ev.score && ev.score.legal) {
       trail.push(detail.scenario.countries.map((c) => ev.score[`utility_${c.name}`] ?? 0));
       drawPlot();
@@ -448,13 +756,28 @@ function onEvent(ev, recIndex) {
   }
   if (ev.type === "judgment") {
     mark(`r${ev.round}.judge`, "done", ev.elapsed * 1000);
-    say(`<div class="sys"><div class="hd">Judge · round ${ev.round}</div>
+    say(`<div class="sys" data-jump="Judge" data-sub="1"><div class="hd">Judge · round ${ev.round}</div>
       ${ev.judgments.map((j) => `<div class="row"><span class="who2">${esc(j.country)}</span>
         <span class="pk rx">${j.total}/25</span><span class="sm">${esc(j.summary)}</span>
         <span class="rx">${Object.entries(j.scores).map(([k, v]) => `<span class="sc">${esc(pretty(k))} ${v}</span>`).join("")}</span>
+        ${(j.unsupported || []).length ? `<span class="unsup">Not supported by any source: ${esc(j.unsupported.join("; "))}</span>` : ""}
       </div>`).join("")}
       ${ev.unaddressed.length ? `<div class="un">Unaddressed: ${esc(ev.unaddressed.join("; "))}</div>` : ""}
     </div>`);
+    return recIndex;
+  }
+  if (ev.type === "review") {
+    say(reviewCard(ev));
+    if (!replaying) bindReview(ev);
+    return recIndex;
+  }
+  if (ev.type === "intervention") {
+    // Live, the card already says what was changed. Replayed, it learns it here.
+    const done = [...document.querySelectorAll(`.sys.review[data-round="${ev.round}"] .rvdone`)].pop();
+    if (replaying && done) {
+      done.textContent = `✓ Round ${ev.round} checked during the run: the verdict was changed`
+        + (ev.note ? " and a note was left for the recommender." : ".");
+    }
     return recIndex;
   }
   if (ev.type === "recommendation") {
@@ -462,8 +785,8 @@ function onEvent(ev, recIndex) {
     const label = priorityLabel(ev.priority);
     if (ev.index === 0) {
       board = { ...ev.package };
-      say(`<div class="sys final reccompare">
-        <div class="hd">Recommendations — one per objective, same crisis, same reader</div>
+      say(`<div class="sys final reccompare" data-jump="Recommendation">
+        <div class="hd">Recommendations: one per objective, same crisis, same reader</div>
         <div class="reccols" id="recCols"></div></div>`);
     }
     const cols = $("recCols");
@@ -471,9 +794,9 @@ function onEvent(ev, recIndex) {
       cols.insertAdjacentHTML("beforeend", `<div class="reccard">
         <div class="top"><span class="sc prio">${esc(label)}</span></div>
         <h4>${esc(ev.headline)}</h4>
-        <div class="bd">${esc(ev.rationale)}</div>
+        <div class="bd">${cite(ev.rationale)}</div>
         ${ev.options.map((o) => `<div class="opt2">If ${esc(o.condition)} → ${esc(o.action)} <em>${esc(pretty(o.priority_tag))}</em></div>`).join("")}
-        <div class="pk">${esc(pkgLine(ev.package))}</div></div>`);
+        </div>`);
     }
     drawBoard(); drawParties(); scoreBoard();
     return recIndex + 1;
@@ -482,6 +805,7 @@ function onEvent(ev, recIndex) {
     mark("score", "done", 1);
     $("pipeMeta").textContent = `${fmt(ev.elapsed, 1)}s · ${ev.usage.calls || 0} calls`;
     drawResults(ev);
+    if (replaying) return recIndex;
     if (isResearch()) showTab("analysis");
     else $("resultCard").scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -490,16 +814,29 @@ function onEvent(ev, recIndex) {
 
 function drawResults(ev) {
   $("resultCard").hidden = false;
+  drawJump();
+  const you = detail.scenario.focus_country;
+  const pctOf = (s, u) => (s.focus_utility_best > 1e-9 ? Math.round((u / s.focus_utility_best) * 100) : null);
   const cards = ev.results.map((r) => {
     const label = priorityLabel(r.priority);
     const s = r.score;
-    const share = (u) => s.focus_utility_best > 1e-9 ? `${Math.round((u / s.focus_utility_best) * 100)}%` : "—";
+    // One bar: how much of the best deal this opening gets you, with a marker
+    // where meeting halfway on every issue would land.
+    const got = pctOf(s, s.focus_utility), split = pctOf(s, s.focus_utility_split);
+    const gap = got != null && split != null ? got - split : null;
     return `<div class="reccard">
-      <div class="top"><span class="sc prio">${esc(label)}</span></div>
+      <div class="top"><span class="prio-lead">If you protect</span> <span class="sc prio">${esc(label)}</span></div>
       <h4>${esc(r.headline)}</h4>
-      ${s.legal ? `<div class="stats px">
-        <div class="stat"><b>${share(s.focus_utility)}</b><span>of your best case</span></div>
-        <div class="stat"><b>${share(s.focus_utility_split)}</b><span>if you just split every issue</span></div>
+      ${s.legal && got != null ? `<div class="gain px">
+        <div class="gnum"><b>${got}%</b><span>of the best deal ${esc(you)} could get</span></div>
+        <div class="gbar" role="img" aria-label="${got}% of the best deal; splitting every issue gets ${split}%">
+          <i style="width:${Math.max(0, Math.min(100, got))}%"></i>
+          <span class="gsplit" style="left:${Math.max(0, Math.min(100, split))}%"></span>
+        </div>
+        <div class="gscale"><span>0%</span><span class="gsplitlbl" style="left:${Math.max(0, Math.min(100, split))}%">meet halfway: ${split}%</span><span>100%</span></div>
+        <p class="gnote">${gap > 0 ? `${gap} points better than meeting halfway on every issue.`
+          : gap < 0 ? `${-gap} points worse than meeting halfway on every issue.`
+          : "The same as meeting halfway on every issue."}</p>
       </div>` : ""}
       ${s.legal ? `<dl class="ro rx">
         <dt>For ${esc(s.focus_country || "")}</dt>
@@ -510,18 +847,24 @@ function drawResults(ev) {
         <dt>Integrative gain</dt><dd>${fmt(s.integrative_gain, 2)}</dd>
         <dt>Pareto-optimal</dt><dd>${s.is_pareto_optimal ? '<span class="tick y">yes</span>' : '<span class="tick n">no</span>'}</dd>
       </dl>` : `<p class="withheld">Not legal: ${esc((s.problems || []).join("; "))}</p>`}
-      <div class="pk">${esc(pkgLine(r.package))}</div>
       <button class="mini rx" data-board='${esc(JSON.stringify(r.package))}'>put on the board</button>
     </div>`;
   }).join("");
 
-  const verdict = ev.objectives_diverged
-    ? `<p class="diverge"><b>The two objectives open differently</b> on the same crisis, for the same
-       reader. The gap between these boxes is the price of the choice: whichever one you take, the
-       other column is what you gave up to take it. That trade is the thing to walk into the room
-       knowing.</p>`
-    : `<p class="diverge"><b>Both objectives open the same way</b> on this crisis. That is a finding
-       rather than a fault — here you are not being asked to trade one against the other.</p>`;
+  // The takeaway, in one plain sentence for the policymaker.
+  const scored = ev.results.filter((r) => r.score.legal)
+    .map((r) => ({ label: priorityLabel(r.priority).toLowerCase(), got: pctOf(r.score, r.score.focus_utility) }));
+  const plain = !ev.objectives_diverged
+    ? `<b>Both priorities lead to the same opening</b>, so here you do not have to choose between them.`
+    : scored.length === 2
+      ? `<b>Your two priorities lead to different openings.</b> Protecting ${esc(scored[0].label)} gets
+         ${esc(you)} ${scored[0].got}% of its best deal; protecting ${esc(scored[1].label)} gets
+         ${scored[1].got}%. Choose the one that matters more: the other card shows what that choice gives up.`
+      : `<b>Your priorities lead to different openings.</b> Choose the one that matters more.`;
+  const verdict = `<p class="diverge px">${plain}</p>
+    <p class="diverge rx">${ev.objectives_diverged
+      ? "<b>The two objectives open differently</b> on the same crisis, for the same reader. The gap between the columns is the price of the choice."
+      : "<b>Both objectives open the same way</b> on this crisis: a finding, not a fault."}</p>`;
 
   $("results").innerHTML = `<div class="reccols">${cards}</div>${verdict}
     <p class="status rx"><b>${esc(ev.condition)}</b>, ${esc(ev.mode)} · ${ev.usage.calls || 0} calls · ${fmt(ev.elapsed, 1)}s</p>
@@ -666,12 +1009,14 @@ const blankIssue = (rank) => ({
 let intake = null;          // the form's state; survives going to review and back
 let intakePreview = null;   // the last /api/intake response
 
+const today = () => new Date().toISOString().slice(0, 10);
+const blankSide = (name) => ({ name, red: "", interests: [], resources: [], provenance: {} });
 function freshIntake() {
   return {
-    title: "", situation: "",
-    you: { name: "Singapore", red: "" },
-    them: { name: "", red: "" },
+    title: "", situation: "", cutoff: today(), sources: "",
+    you: blankSide("Singapore"), them: blankSide(""),
     issues: [blankIssue(1), blankIssue(2)],
+    docs: [{ title: "", url: "", published: today(), text: "" }],
   };
 }
 
@@ -679,9 +1024,11 @@ function freshIntake() {
 function intakeFromForm(f) {
   const s = {
     title: f.title || "", situation: f.situation || "",
-    you: { name: f.you.name, red: (f.you.red_lines || []).join("; ") },
-    them: { name: f.them.name, red: (f.them.red_lines || []).join("; ") },
+    cutoff: f.evidence_cutoff || today(), sources: "",
+    you: { ...blankSide(f.you.name), red: (f.you.red_lines || []).join("; ") },
+    them: { ...blankSide(f.them.name), red: (f.them.red_lines || []).join("; ") },
     issues: [],
+    docs: [{ title: "", url: "", published: today(), text: "" }],
   };
   const rankOf = (ranking, name) => {
     const ix = ranking.findIndex((e) => (Array.isArray(e) ? e : [e]).includes(name));
@@ -726,13 +1073,59 @@ function intakePayload() {
     return {
       name: p.name.trim(), ranking, options,
       red_lines: p.red.split(";").map((x) => x.trim()).filter(Boolean),
+      interests: p.interests, resources: p.resources, provenance: p.provenance,
     };
   };
   return {
     title: intake.title.trim(), situation: intake.situation.trim(),
     issues: issues.map((i) => ({ name: i.name, options: i.keep.map(([o]) => o) })),
     you: side("you"), them: side("them"),
+    evidence_cutoff: intake.cutoff,
+    sources: parseSources(intake.sources),
   };
+}
+
+/* One source per line: "Title | link | 2020-03-16 | publisher" (all but the
+   link optional). Lines without a web link are dropped: a source the reader
+   cannot open is not one they can check. */
+function parseSources(text) {
+  return String(text || "").split("\n").map((line) => {
+    const [title, url, published, publisher] = line.split("|").map((x) => (x || "").trim());
+    return { title: title || url, url, published: /^\d{4}-\d{2}-\d{2}$/.test(published || "") ? published : "", publisher: publisher || "" };
+  }).filter((s) => /^https?:\/\//.test(s.url));
+}
+const sourceLines = (sources) => sources.map((s) =>
+  [s.title, s.url, s.published, s.publisher].join(" | ").replace(/( \| )+$/, "")).join("\n");
+
+/* Pasted documents -> issues and both briefs, each element keeping its source. */
+async function readDocuments() {
+  const msg = (x) => { $("dMsg").textContent = undash(x); };
+  const docs = intake.docs.filter((d) => d.text.trim());
+  if (!intake.you.name.trim() || !intake.them.name.trim()) return msg("Name both sides in step 2 first.");
+  if (!docs.length) return msg("Paste the text of at least one document.");
+  msg("Reading the documents… this takes a minute.");
+  $("dRead").disabled = true;
+  try {
+    const out = await api("/extract", { method: "POST", body: JSON.stringify({
+      documents: docs, parties: [intake.you.name.trim(), intake.them.name.trim()], cutoff: intake.cutoff }) });
+    intake.issues = out.issues.slice(0, MAX_ISSUES).map((i, ix) => ({
+      name: i.name, options: i.options.slice(0, MAX_OPTIONS),
+      you: { rank: ix + 1, marks: i.options.slice(0, MAX_OPTIONS).map(() => "") },
+      them: { rank: ix + 1, marks: i.options.slice(0, MAX_OPTIONS).map(() => "") },
+    }));
+    ["you", "them"].forEach((who, k) => {
+      const s = out.sides[k];
+      Object.assign(intake[who], { interests: s.interests, resources: s.resources,
+        provenance: s.provenance, red: s.red_lines.join("; ") });
+    });
+    intake.sources = sourceLines(out.sources);
+    const r = out.report;
+    drawAddForm();
+    $("dMsg").textContent = `Read ${r.documents_used} of ${r.documents_in} documents`
+      + (r.after_cutoff ? ` (${r.after_cutoff} after the cutoff, not read)` : "")
+      + `: ${out.issues.length} issues, ${r.sourced} of ${r.elements} positions backed by a quote. `
+      + "Now rank the issues and mark each outcome below.";
+  } catch (e) { msg(e.message); $("dRead").disabled = false; }
 }
 
 function drawAddForm() {
@@ -759,7 +1152,7 @@ function drawAddForm() {
   const issueCard = (i, ix) => `<div class="icard">
     <div class="ihead">
       <input type="text" class="iname" data-ix="${ix}" value="${esc(i.name)}"
-        placeholder="Issue ${ix + 1} — e.g. Who enforces the rules">
+        placeholder="Issue ${ix + 1}, e.g. Who enforces the rules">
       ${n > 2 ? `<button type="button" class="mini" data-rmissue="${ix}" aria-label="Remove issue ${ix + 1}">remove</button>` : ""}
     </div>
     <div class="ogrid">
@@ -786,10 +1179,12 @@ function drawAddForm() {
       <button type="button" class="mini" id="nExample">Fill in the haze example</button></div>
 
     <div class="step"><div class="sh">Step 1 · What is happening</div>
-      <input type="text" id="nTitle" value="${esc(intake.title)}" placeholder="Short title — e.g. Johor River drought shortfall">
-      <textarea id="nSum" placeholder="One or two sentences on the situation.">${esc(intake.situation)}</textarea></div>
+      <input type="text" id="nTitle" value="${esc(intake.title)}" placeholder="Short title, e.g. Johor River drought shortfall">
+      <textarea id="nSum" placeholder="One or two sentences on the situation.">${esc(intake.situation)}</textarea>
+      <label class="lab">Evidence cutoff <i>nothing published after this date is used; today for a crisis that is still open</i>
+        <input type="date" id="nCut" value="${esc(intake.cutoff)}" max="${today()}"></label></div>
 
-    <div class="step"><div class="sh">Step 2 · Who is at the table <i>— DARA advises the first</i></div>
+    <div class="step"><div class="sh">Step 2 · Who is at the table <i>(DARA advises the first)</i></div>
       <div class="two">
         <label class="lab">You<input type="text" id="nA" value="${esc(intake.you.name)}"></label>
         <label class="lab">The other side<input type="text" id="nB" value="${esc(intake.them.name)}" placeholder="e.g. Malaysia"></label>
@@ -801,13 +1196,37 @@ function drawAddForm() {
           <input type="text" id="nBr" value="${esc(intake.them.red)}"></label>
       </div></div>
 
-    <div class="step"><div class="sh">Step 3 · What is on the table <i>— and how each side sees every outcome</i></div>
+    <details class="step docs" ${intake.docs.some((d) => d.text) ? "open" : ""}>
+      <summary class="sh">Optional · Fill this in from documents <i>(needs a live model)</i></summary>
+      <div class="note">Paste statements, press releases or articles. DARA finds the issues and what each
+        side has said, and keeps a quote for every position it can source. You still rank the issues
+        and mark the outcomes.</div>
+      ${intake.docs.map((d, k) => `<div class="doc">
+        <div class="two">
+          <label class="lab">Title<input type="text" data-doc="${k}" data-f="title" value="${esc(d.title)}"></label>
+          <label class="lab">Published<input type="date" data-doc="${k}" data-f="published" value="${esc(d.published)}"></label>
+        </div>
+        <label class="lab">Link <i>optional</i><input type="url" data-doc="${k}" data-f="url" value="${esc(d.url)}" placeholder="https://"></label>
+        <label class="lab">Text<textarea data-doc="${k}" data-f="text" rows="5">${esc(d.text)}</textarea></label>
+      </div>`).join("")}
+      <div class="gatefoot">
+        <button type="button" class="go ghost sm" id="dAdd">+ Another document</button>
+        <button type="button" class="go sm" id="dRead">Read these documents</button>
+        <span class="msg2" id="dMsg" role="status"></span>
+      </div>
+    </details>
+
+    <div class="step"><div class="sh">Step 3 · What is on the table <i>(and how each side sees every outcome)</i></div>
       <div class="note"><b>Good</b> = they would be happy with it. <b>OK</b> = they could live with it.
-        <b>No</b> = they would walk away rather than accept it. For the other side, give your best guess —
+        <b>No</b> = they would walk away rather than accept it. For the other side, give your best guess:
         DARA tests how much the advice depends on that guess.</div>
       ${intake.issues.map(issueCard).join("")}
       ${n < MAX_ISSUES ? `<button type="button" class="go ghost sm" id="nAddIssue">+ Add an issue</button>` : ""}
     </div>
+
+    <div class="step"><div class="sh">Step 4 · Sources <i>(optional, shown under the background as links)</i></div>
+      <label class="lab">One per line: title | link | date published | publisher
+        <textarea id="nSrc" rows="3" placeholder="PM announces Movement Control Order | https://example.com/article | 2020-03-16 | Malay Mail">${esc(intake.sources)}</textarea></label></div>
 
     <div class="foot"><span class="msg2" id="nMsg" role="status"></span>
       <a class="go ghost" href="#/" style="display:grid;place-items:center">Cancel</a>
@@ -819,6 +1238,13 @@ function drawAddForm() {
   bind("nSum", (v) => (intake.situation = v));
   bind("nAr", (v) => (intake.you.red = v));
   bind("nBr", (v) => (intake.them.red = v));
+  bind("nCut", (v) => (intake.cutoff = v));
+  bind("nSrc", (v) => (intake.sources = v));
+  $("addForm").querySelectorAll("[data-doc]").forEach((el) => {
+    el.oninput = () => { intake.docs[el.dataset.doc][el.dataset.f] = el.value; };
+  });
+  $("dAdd").onclick = () => { intake.docs.push({ title: "", url: "", published: today(), text: "" }); drawAddForm(); };
+  $("dRead").onclick = readDocuments;
   $("nA").oninput = (e) => { intake.you.name = e.target.value; relabel(); };
   $("nB").oninput = (e) => { intake.them.name = e.target.value; relabel(); };
   const form = $("addForm");
@@ -861,7 +1287,7 @@ function drawAddForm() {
   };
   $("nExample").onclick = async () => {
     try { intake = intakeFromForm(await api("/intake/example")); drawAddForm(); }
-    catch (e) { $("nMsg").textContent = e.message; }
+    catch (e) { $("nMsg").textContent = undash(e.message); }
   };
   $("nReview").onclick = reviewCrisis;
 }
@@ -895,7 +1321,7 @@ function intakeProblem(p) {
 }
 
 async function reviewCrisis() {
-  const msg = (t) => { $("nMsg").textContent = t; };
+  const msg = (t) => { $("nMsg").textContent = undash(t); };
   const payload = intakePayload();
   const problem = intakeProblem(payload);
   if (problem) return msg(problem);
@@ -937,7 +1363,7 @@ function renderOpenings(rehearsals, label, titles) {
       `<span class="chip"><i>${esc(label(i))}</i> ${esc(label(o))}</span>`).join("")}</div>
     <div class="stats">
       <div class="stat"><b>${pct(reh.accept_rate)}</b><span>chance they accept it as it stands</span></div>
-      <div class="stat"><b>${pct(reh.expected_share)}</b><span>of your best case — where you likely land</span></div>
+      <div class="stat"><b>${pct(reh.expected_share)}</b><span>of your best case: where you likely land</span></div>
       <div class="stat"><b>${pct(reh.worst_share)}</b><span>in the worst imagined case</span></div>
       <div class="stat"><b>${pct(reh.split_share)}</b><span>if you just split every issue</span></div>
     </div>
@@ -972,7 +1398,7 @@ function drawReview() {
     </div>
     <div class="foot"><span class="msg2" id="rMsg" role="status"></span>
       <button class="go ghost" id="rBack" type="button">← Change answers</button>
-      <button class="go" id="rSave" type="button">Looks right — save</button></div>`;
+      <button class="go" id="rSave" type="button">Looks right, save</button></div>`;
 
   $("rBack").onclick = () => { drawAddForm(); window.scrollTo(0, 0); };
   $("rSave").onclick = async () => {
@@ -982,13 +1408,13 @@ function drawReview() {
         body: JSON.stringify({ form: intakePayload(), confirm: true }) });
       intake = null; intakePreview = null;
       location.hash = `#/case/${res.id}`;
-    } catch (e) { $("rMsg").textContent = e.message; }
+    } catch (e) { $("rMsg").textContent = undash(e.message); }
   };
   window.scrollTo(0, 0);
 }
 
 /* ----------------------------------------------------------------- boot */
-$("gateBtn").onclick = () => setConfirmed(!confirmed);
+$("gateBtn").onclick = toggleConfirmed;
 // Changing what the advice protects does not invalidate the problem, so it does
 // not reopen the gate; it only has to keep the two selects distinct.
 $("priority1").onchange = () => { syncPriorities(); stages = []; };

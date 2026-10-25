@@ -8,9 +8,12 @@ without a key takes.
 from __future__ import annotations
 
 import json
+import threading
+import time
 
 import pytest
 
+import app as app_module
 from app import app
 from crisis_debate import scenario as scenario_mod
 
@@ -197,12 +200,99 @@ def test_user_scenarios_can_be_deleted(cleanup_user_scenarios):
 # --------------------------------------------------------------------------
 # run
 # --------------------------------------------------------------------------
-def _events(**params):
+def _confirm(scenario_id):
+    """What a person does at the review gate before anything runs."""
+    res = client.post(f"/api/scenarios/{scenario_id}/review", json={"confirm": True})
+    assert res.status_code == 200
+    return res.get_json()["token"]
+
+
+def _events(confirmed=True, **params):
+    if confirmed and "review" not in params:
+        try:
+            params["review"] = _confirm(params["scenario"])
+        except AssertionError:
+            pass                                    # an unknown scenario: the run reports it
     res = client.get("/api/run", query_string=params)
     assert res.status_code == 200
     return [json.loads(line[5:].strip())
             for line in res.get_data(as_text=True).splitlines()
             if line.startswith("data:")]
+
+
+def test_a_run_is_refused_until_the_review_is_confirmed():
+    """Paper Fig. 1 stage 2: nothing downstream runs until a person confirms the
+    problem. Enforced by the server, not just the page."""
+    events = _events(confirmed=False, scenario="haze_real", condition="B2")
+    assert [e["type"] for e in events] == ["error"]
+    assert "review" in events[0]["message"].lower()
+
+
+def test_a_confirmation_does_not_carry_over_to_a_changed_problem():
+    events = _events(scenario="haze_real", condition="B2", review="0000000000000000")
+    assert [e["type"] for e in events] == ["error"]
+
+
+def test_a_run_reads_the_cases_pinned_conditions():
+    events = _events(scenario="haze_real", condition="B2", rounds=3)
+    start = next(e for e in events if e["type"] == "start")
+    done = next(e for e in events if e["type"] == "done")
+    assert start["conditions_id"] and start["conditions_id"] == done["conditions_id"]
+
+
+def test_a_reviewer_can_edit_the_judge_after_each_round():
+    """Paper contribution 4. The run pauses after every judgment; the edited
+    verdict is what carries forward, and the intervention is logged."""
+    token = _confirm("haze_real")
+    answered = []
+
+    def answer():
+        # Answer each pause as it appears, from a second thread, the way a
+        # person in the browser would.
+        while len(answered) < 3:
+            for run_id, slot in list(app_module.PAUSED.items()):
+                if slot["round"] not in answered:
+                    answered.append(slot["round"])
+                    client.post(f"/api/runs/{run_id}/review", json={
+                        "summaries": {"Singapore": f"edited after round {slot['round']}"},
+                        "note": "watch the funding issue" if slot["round"] == 1 else ""})
+            time.sleep(0.01)
+
+    t = threading.Thread(target=answer, daemon=True)
+    t.start()
+    res = client.get("/api/run", query_string={"scenario": "haze_real", "condition": "B2",
+                                               "rounds": 3, "review": token, "pause": "1"})
+    events = [json.loads(l[5:]) for l in res.get_data(as_text=True).splitlines()
+              if l.startswith("data:")]
+    t.join(timeout=5)
+    kinds = [e["type"] for e in events]
+    assert kinds.count("review") == 3
+    assert kinds.count("intervention") == 3
+    done = next(e for e in events if e["type"] == "done")
+    assert done["interventions"] == 3
+
+
+def test_a_reviewer_can_stop_the_pauses_for_the_rest_of_the_run():
+    token = _confirm("haze_real")
+
+    def answer():
+        for _ in range(500):
+            for run_id in list(app_module.PAUSED):
+                client.post(f"/api/runs/{run_id}/review", json={"no_more_stops": True})
+                return
+            time.sleep(0.01)
+
+    t = threading.Thread(target=answer, daemon=True)
+    t.start()
+    res = client.get("/api/run", query_string={"scenario": "haze_real", "condition": "B2",
+                                               "rounds": 3, "review": token, "pause": "1"})
+    kinds = [json.loads(l[5:])["type"] for l in res.get_data(as_text=True).splitlines()
+             if l.startswith("data:")]
+    assert kinds.count("review") == 1 and "done" in kinds
+
+
+def test_reviewing_a_run_that_is_not_paused_is_a_404():
+    assert client.post("/api/runs/nope/review", json={}).status_code == 404
 
 
 def test_b2_streams_a_whole_debate_in_order():

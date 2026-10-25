@@ -126,7 +126,7 @@ def test_recommender_never_sees_the_transcript_in_b2(scenario):
     # the barrier must hold for EVERY tailored recommendation, not just the
     # first: one leak is as fatal to ablation B1 as several
     for call in rec_calls:
-        assert "scripted position" not in call["user"]
+        assert "scripted debater turn" not in call["user"]
         assert "Judge assessments" in call["user"]
 
 
@@ -134,7 +134,7 @@ def test_recommender_does_see_the_transcript_in_b1(scenario):
     backend = ScriptedBackend(scenario)
     pipeline.run(scenario, backend, condition="B1")
     rec_calls = [c for c in backend.calls if c["schema"] == "Recommendation"]
-    assert "scripted position" in rec_calls[0]["user"]
+    assert "scripted debater turn" in rec_calls[0]["user"]
 
 
 def test_round_one_sees_no_opponent_and_later_rounds_do(scenario):
@@ -173,9 +173,11 @@ def test_country_agents_differ_only_by_brief(scenario):
         # the legitimate reason that the briefs differ.
         skeleton = skeleton.replace(
             format_valuations(brief, scenario.issues), "<VALUATIONS>")
+        # An element is rendered with its provenance label, which is part of
+        # the brief too: mask the labelled form, not just the bare text.
         for item in (brief.interests + brief.resources
                      + brief.constraints + brief.red_lines):
-            skeleton = skeleton.replace(item, "<X>")
+            skeleton = skeleton.replace(brief.label(item), "<X>")
         skeletons.append(skeleton.replace(brief.name, "<COUNTRY>"))
 
     assert len(set(skeletons)) == 1, "country prompts differ by more than the brief"
@@ -294,3 +296,66 @@ def test_the_budget_gap_between_b0_and_b2_is_reported(scenario):
     assert b2.usage["calls"] > b0.usage["calls"], (
         "a B2 win is confounded with spending more; the gap must be visible"
     )
+
+
+# --------------------------------------------------------------------------
+# Provenance, cutoff and the judge's inputs (paper §3–4)
+# --------------------------------------------------------------------------
+def test_every_brief_element_carries_a_provenance_label(scenario):
+    """Paper Fig. 1 stage 1: each element is labelled, never dropped."""
+    for c in scenario.countries:
+        for el in c.interests + c.resources + c.constraints + c.red_lines:
+            assert el in c.provenance, f"{c.name}: {el!r} has no provenance"
+            p = c.provenance[el]
+            assert p.status in ("sourced", "projected", "unsupported", "unknown", "user_edited")
+            if p.status == "sourced":
+                assert p.evidence, f"{el!r} is marked sourced with no evidence"
+
+
+def test_an_unsourced_element_is_labelled_in_the_agents_prompt(scenario):
+    backend = ScriptedBackend(scenario)
+    pipeline.run(scenario, backend, condition="B2", rounds=1)
+    system = next(c["system"] for c in backend.calls if c["schema"] == "Argument")
+    assert "[UNSUPPORTED" in system
+
+
+def test_the_cutoff_lives_in_the_scenario_file_and_agrees_with_the_leak_scan():
+    from crisis_debate.contamination import CUTOFFS
+
+    for case in ("haze_real", "covid_my_2020"):
+        s = scenario_mod.load(case)
+        assert s.evidence_cutoff, f"{case} has no evidence_cutoff"
+        assert CUTOFFS[s.scenario_id] == s.evidence_cutoff
+
+
+def test_no_source_after_the_cutoff_reaches_an_agent():
+    from crisis_debate.agents import agent_sources
+
+    for case in ("haze_real", "covid_my_2020"):
+        s = scenario_mod.load(case)
+        for _, src in agent_sources(s):
+            assert src.published and src.published <= s.evidence_cutoff
+
+
+def test_the_judge_sees_the_previous_round_and_the_sources(scenario):
+    """Position consistency is scored against the agent's own previous round, and
+    fact-checking needs the sources the agents were allowed to cite."""
+    backend = ScriptedBackend(scenario)
+    pipeline.run(scenario, backend, condition="B2", rounds=2)
+    judge_calls = [c["user"] for c in backend.calls if c["schema"] == "RoundJudgment"]
+    assert "(round 1: none)" in judge_calls[0]
+    assert "scripted debater turn" in judge_calls[1].split("Round 2 arguments")[0]
+    assert "[S1]" in judge_calls[0]
+
+
+def test_the_pinned_conditions_reach_the_agents_and_are_recorded():
+    from crisis_debate import situational
+
+    s = scenario_mod.load("haze_real")
+    snap = situational.load_snapshot("haze_real")
+    assert snap is not None and all(f.as_of <= s.evidence_cutoff for f in snap.facts)
+    backend = ScriptedBackend(s)
+    run = pipeline.run(s, backend, condition="B2", rounds=1, conditions=snap)
+    assert run.conditions_id == snap.snapshot_id
+    users = [c["user"] for c in backend.calls if c["schema"] == "Argument"]
+    assert any("Current conditions affecting Singapore" in u for u in users)

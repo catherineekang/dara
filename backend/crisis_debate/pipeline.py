@@ -15,7 +15,7 @@ import json
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from crisis_debate.agents import (
     Backend,
@@ -33,6 +33,13 @@ from crisis_debate.situational import (
 from crisis_debate.utilities import validate_package
 
 CONDITIONS = ("B0", "B1", "B2")
+
+#: Paper contribution 4: a human may inspect and intervene at the judge stage.
+#: Called after each round's judgment with (round, judgment); returns the
+#: judgment to carry forward (edited or not) and an optional note for the
+#: recommender. The debaters' next-round feedback and the recommender both read
+#: what this returns, so an edit after round 1 shapes rounds 2 and 3.
+JudgeReview = Callable[[int, RoundJudgment], Tuple[RoundJudgment, str]]
 
 
 class RunLogger:
@@ -127,6 +134,8 @@ def run_debate_rounds(
     use_judge: bool = True,
     logger: Optional[RunLogger] = None,
     conditions: Optional[ConditionsSnapshot] = None,
+    review: Optional[Callable[[int, RoundJudgment], RoundJudgment]] = None,
+    full_information: bool = False,
 ) -> tuple[List[List[Argument]], List[RoundJudgment]]:
     """Run the debate. Returns (arguments per round, judgments per round).
 
@@ -135,7 +144,9 @@ def run_debate_rounds(
     answering a moving target and the round would not be a fair comparison.
     """
     logger = logger or RunLogger()
-    agents = [CountryAgent(brief=b, backend=backend) for b in scenario.countries]
+    agents = [CountryAgent(brief=b, backend=backend,
+                           revealed=scenario.opponents(b.name) if full_information else ())
+              for b in scenario.countries]
     judge = JudgeAgent(backend=backend) if use_judge else None
 
     all_args: List[List[Argument]] = []
@@ -168,8 +179,10 @@ def run_debate_rounds(
         all_args.append(round_args)
 
         if judge is not None:
-            rj = judge.judge(scenario, r, round_args)
+            rj = judge.judge(scenario, r, round_args, previous=prev_args)
             logger.log("judgment", rj)
+            if review is not None:
+                rj = review(r, rj)
             all_judgments.append(rj)
 
     return all_args, all_judgments
@@ -186,6 +199,8 @@ def run(
     priorities: Sequence[str] = DEFAULT_PRIORITIES,
     audience: str = AUDIENCE,
     conditions: Optional[ConditionsSnapshot] = None,
+    review: Optional[JudgeReview] = None,
+    full_information: bool = False,
 ) -> DebateRun:
     """Run one condition end to end.
 
@@ -245,9 +260,25 @@ def run(
         )
 
     use_judge = condition == "B2"
+    notes: List[str] = []
+    stepped_in: List[int] = []
+
+    def reviewed(r: int, rj: RoundJudgment) -> RoundJudgment:
+        """Apply the human review and log any intervention, so a run that a
+        person steered is never mistaken for one they only watched."""
+        edited, note = review(r, rj)
+        if note:
+            notes.append(f"After round {r}: {note}")
+        if note or edited.model_dump() != rj.model_dump():
+            stepped_in.append(r)
+            logger.log("intervention", {"round": r, "before": rj.model_dump(),
+                                        "after": edited.model_dump(), "note": note})
+        return edited
+
     all_args, judgments = run_debate_rounds(
         scenario, backend, rounds=rounds, use_judge=use_judge, logger=logger,
-        conditions=conditions,
+        conditions=conditions, review=reviewed if (use_judge and review) else None,
+        full_information=full_information,
     )
 
     recommender = RecommenderAgent(backend=backend)
@@ -255,7 +286,8 @@ def run(
     for priority in priorities:
         if use_judge:
             rec = recommender.recommend(scenario, judgments,
-                                        audience=audience, priority=priority)
+                                        audience=audience, priority=priority,
+                                        reviewer_note="\n".join(notes))
         else:
             rec = recommender.recommend_from_transcript(scenario, all_args,
                                                         audience=audience, priority=priority)
@@ -269,4 +301,5 @@ def run(
         illegal_packages=_package_problems(scenario, all_args, recs),
         conditions_id=conditions.snapshot_id if conditions else "",
         conditions_report=reachable_report(scenario, conditions) if conditions else {},
+        interventions=len(stepped_in),
     )

@@ -38,6 +38,7 @@ def find_env(name: str = ".env") -> Path:
             return d / name
     return ROOT / name
 DEFAULT_MODEL = "gpt-4o"
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 def load_env(path: Optional[Path] = None) -> None:
@@ -53,6 +54,16 @@ def load_env(path: Optional[Path] = None) -> None:
 def openai_key() -> str:
     load_env()
     return (os.getenv("OPENAI_API_KEY") or "").strip()
+
+
+def base_url() -> Optional[str]:
+    """Where the OpenAI-compatible API lives. OPENAI_BASE_URL wins; an
+    OpenRouter key (sk-or-…) implies OpenRouter; otherwise OpenAI itself."""
+    load_env()
+    explicit = (os.getenv("OPENAI_BASE_URL") or "").strip()
+    if explicit:
+        return explicit
+    return OPENROUTER_BASE_URL if openai_key().startswith("sk-or-") else None
 
 
 def has_openai_key() -> bool:
@@ -89,17 +100,27 @@ class OpenAIBackend:
             load_env()
             self.model = os.getenv("OPENAI_MODEL", self.model)
             self.temperature = float(os.getenv("OPENAI_TEMPERATURE", self.temperature))
+            url = base_url()
+            # OpenRouter names models by vendor ("openai/gpt-4o").
+            if url == OPENROUTER_BASE_URL and "/" not in self.model:
+                self.model = f"openai/{self.model}"
             self.llm = ChatOpenAI(model=self.model, temperature=self.temperature,
-                                  api_key=openai_key())
+                                  api_key=openai_key(), base_url=url)
 
     def parse(self, *, system: str, user: str, output_format: Type, max_tokens: int = 16000,
               tag: Optional[str] = None):
         from langchain_core.messages import HumanMessage, SystemMessage
 
-        structured = self.llm.with_structured_output(output_format)
-        result = structured.invoke([SystemMessage(content=system), HumanMessage(content=user)])
+        structured = self.llm.with_structured_output(output_format, include_raw=True)
+        out = structured.invoke([SystemMessage(content=system), HumanMessage(content=user)])
         self.usage["calls"] += 1
-        return result
+        # Token counts for the cost and latency reporting (paper Table 4).
+        meta = getattr(out.get("raw"), "usage_metadata", None) or {}
+        self.usage["input"] += int(meta.get("input_tokens", 0) or 0)
+        self.usage["output"] += int(meta.get("output_tokens", 0) or 0)
+        if out.get("parsing_error") is not None or out.get("parsed") is None:
+            raise ValueError(f"model reply did not fit {output_format.__name__}: {out.get('parsing_error')}")
+        return out["parsed"]
 
 
 def backend_from_env(scenario: Scenario, *, force: Optional[str] = None,
@@ -129,5 +150,6 @@ def backend_from_env(scenario: Scenario, *, force: Optional[str] = None,
         if not has_openai_key():
             raise RuntimeError("--provider openai was requested but OPENAI_API_KEY is not set in .env")
         b = OpenAIBackend()
-        return b, f"LIVE — OpenAI {b.model} via LangChain, billed to your key."
+        via = "OpenRouter" if base_url() == OPENROUTER_BASE_URL else "OpenAI"
+        return b, f"LIVE — {via} {b.model} via LangChain, billed to your key."
     return cached()
