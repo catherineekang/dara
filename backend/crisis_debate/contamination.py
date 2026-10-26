@@ -55,7 +55,10 @@ class Marker:
 # to predict. Markers are events a source published before the cutoff could not
 # have reported.
 CUTOFFS: Dict[str, str] = {"haze_real_v1": "2015-09-01",
-            "covid_my_2020_v1": "2020-03-16"}
+            "covid_my_2020_v1": "2020-03-16",
+            "gfc_2008_v1": "2008-10-27",
+            # an open crisis: the cutoff is the day the case was framed
+            "haze_2026_v1": "2026-10-26"}
 
 MARKERS: Dict[str, List[Marker]] = {
     "haze_real_v1": [
@@ -68,6 +71,16 @@ MARKERS: Dict[str, List[Marker]] = {
                 r"announced (a |the )?moratorium"]),
         Marker("Paris Agreement", "2015-12-12", [r"paris agreement", r"\bCOP\s?21\b"]),
         Marker("post-cutoff year references", "2016+", [r"\b201[6-9]\b", r"\b202\d\b"]),
+    ],
+    "gfc_2008_v1": [
+        Marker("The 29 October 2008 swap lines with emerging economies", "2008-10-29",
+               [r"brazil, mexico,? (and )?korea", r"swap lines? with (brazil|mexico|korea)",
+                r"\$?30 billion (swap|facility|line)"]),
+        Marker("Federal Reserve quantitative easing", "2008-11-25", [r"quantitative easing", r"\bQE1?\b"]),
+        Marker("G20 London summit", "2009-04-02", [r"london summit", r"g-?20 (summit )?in london"]),
+        Marker("Chiang Mai Initiative Multilateralisation", "2010-03",
+               [r"chiang mai initiative multilateral", r"\bCMIM\b"]),
+        Marker("post-cutoff year references", "2009+", [r"\b(2009|201\d|202\d)\b"]),
     ],
     "covid_my_2020_v1": [
         Marker("Periodic Commuting Arrangement", "2020-08",

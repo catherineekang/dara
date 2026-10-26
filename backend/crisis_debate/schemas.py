@@ -325,6 +325,9 @@ class Recommendation(BaseModel):
     headline: str
     options: List[Option]
     rationale: str
+    # For a reader who is not a diplomat: what to propose, what to ask for and
+    # why, in two or three plain sentences.
+    plain_summary: str = ""
     # The package the team should open with. This is what gets scored against
     # the Pareto frontier; without it the recommendation is unmeasurable prose.
     recommended_package: List[PackageItem]

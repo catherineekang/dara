@@ -1,0 +1,40 @@
+{
+  "scenario_id": "gfc_2008_v1",
+  "fetched_at": "2008-10-27T00:00:00+00:00",
+  "sources_queried": [
+    "mof.gov.sg",
+    "bnm.gov.my"
+  ],
+  "facts": [
+    {
+      "party": "Singapore",
+      "summary": "A government guarantee of all bank deposits, backed by S$150 billion of reserves, has been in force since 16 October 2008.",
+      "as_of": "2008-10-16",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.mof.gov.sg",
+        "title": "MOF and MAS joint press statement on deposit guarantee",
+        "url": "https://www.mof.gov.sg/news-resources/newsroom/ministry-of-finance-mof-and-monetary-authority-of-singapore-mas-joint-press-statement/",
+        "published": "2008-10-16",
+        "who_said_it": "Ministry of Finance and MAS"
+      }
+    },
+    {
+      "party": "Indonesia",
+      "summary": "Malaysia, its other large neighbour, has guaranteed all deposits since 16 October 2008, adding to the pull on Indonesian deposits.",
+      "as_of": "2008-10-16",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.bnm.gov.my",
+        "title": "Malaysia takes pre-emptive measures",
+        "url": "https://www.bnm.gov.my/-/malaysia-takes-pre-emptive-measures",
+        "published": "2008-10-16",
+        "who_said_it": "Bank Negara Malaysia"
+      }
+    }
+  ]
+}

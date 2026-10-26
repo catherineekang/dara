@@ -359,3 +359,142 @@ def test_the_pinned_conditions_reach_the_agents_and_are_recorded():
     assert run.conditions_id == snap.snapshot_id
     users = [c["user"] for c in backend.calls if c["schema"] == "Argument"]
     assert any("Current conditions affecting Singapore" in u for u in users)
+
+
+# --------------------------------------------------------------------------
+# A sentence where an option name belongs (seen in the first live evaluation)
+# --------------------------------------------------------------------------
+class _SentenceFirst(ScriptedBackend):
+    """Writes a sentence into the package on its first recommendation, the way
+    the live model did, then complies when told what went wrong."""
+
+    def parse(self, *, system, user, output_format, max_tokens=16000, tag=None):
+        out = super().parse(system=system, user=user, output_format=output_format, tag=tag)
+        if output_format is Recommendation and "not on the menu" not in user:
+            bad = out.recommended_package[0].model_copy(
+                update={"option": "Propose aggregated maps by district as a compromise."})
+            return out.model_copy(update={"recommended_package": [bad] + out.recommended_package[1:]})
+        return out
+
+
+def test_an_option_written_as_a_sentence_is_asked_for_again_not_edited(scenario):
+    backend = _SentenceFirst(scenario)
+    run = pipeline.run(scenario, backend, condition="B0", priorities=("none",))
+    assert run.illegal_packages == []
+    retries = [c for c in backend.calls if c["schema"] == "Recommendation" and "not on the menu" in c["user"]]
+    assert len(retries) == 1
+    assert "Propose aggregated maps by district" in retries[0]["user"]
+
+
+class _AlwaysSentence(_SentenceFirst):
+    def parse(self, *, system, user, output_format, max_tokens=16000, tag=None):
+        out = ScriptedBackend.parse(self, system=system, user=user, output_format=output_format, tag=tag)
+        if output_format is Recommendation:
+            bad = out.recommended_package[0].model_copy(update={"option": "a sentence"})
+            return out.model_copy(update={"recommended_package": [bad] + out.recommended_package[1:]})
+        return out
+
+
+def test_a_second_bad_reply_is_still_recorded_as_illegal(scenario):
+    run = pipeline.run(scenario, _AlwaysSentence(scenario), condition="B0", priorities=("none",))
+    assert run.illegal_packages, "a reply that is still illegal must be recorded, never coerced"
+
+
+def test_b2_recommender_sees_the_final_offers_but_still_no_arguments(scenario):
+    """Option (b): the deal on the table reaches the advice; the prose does not."""
+    backend = ScriptedBackend(scenario)
+    run = pipeline.run(scenario, backend, condition="B2", rounds=3)
+    rec_user = next(c["user"] for c in backend.calls if c["schema"] == "Recommendation")
+    assert "final offer" in rec_user
+    for a in run.rounds[-1]:
+        assert f"{a.country}: " + ", ".join(f"{k}={v}" for k, v in a.package().items()) in rec_user
+    for marker in ("scripted debater turn", "scripted claim", "scripted concession", "scripted red line"):
+        assert marker not in rec_user
+
+
+# --------------------------------------------------------------------------
+# Every bundled case, not just the first two
+# --------------------------------------------------------------------------
+@pytest.mark.parametrize("case", ["haze_real", "covid_my_2020", "haze_2026", "gfc_2008"])
+def test_every_case_is_framed_completely(case):
+    from crisis_debate import situational
+    from crisis_debate.agents import agent_sources
+    from crisis_debate.contamination import CUTOFFS
+
+    s = scenario_mod.load(case)
+    assert s.evidence_cutoff and CUTOFFS[s.scenario_id] == s.evidence_cutoff
+    assert len(s.issues) == 4 and all(len(i.options) == 3 for i in s.issues)
+    for c in s.countries:
+        assert abs(sum(v.weight for v in c.valuations) - 1.0) < 1e-6
+        for el in c.interests + c.resources + c.constraints + c.red_lines:
+            assert el in c.provenance
+    for _, src in agent_sources(s):                 # nothing after the cutoff reaches an agent
+        assert src.published and src.published <= s.evidence_cutoff
+    snap = situational.load_snapshot(case)
+    assert snap is not None and all(f.as_of <= s.evidence_cutoff for f in snap.facts)
+
+
+@pytest.mark.parametrize("case", ["haze_2026", "gfc_2008"])
+def test_new_cases_run_end_to_end(case):
+    s = scenario_mod.load(case)
+    run = pipeline.run(s, ScriptedBackend(s), condition="B2", rounds=3, priorities=("none",))
+    assert not run.illegal_packages and len(run.rounds) == 3
+
+
+def test_baseline_and_recommender_get_the_same_plain_language_rule(scenario):
+    """B0 and B2 must be asked for the same kind of advice, or a difference in
+    the rubric would be a difference in instructions, not in deliberation."""
+    for condition in ("B0", "B2"):
+        backend = ScriptedBackend(scenario)
+        pipeline.run(scenario, backend, condition=condition, rounds=1, priorities=("casualty_minimisation",))
+        system = next(c["system"] for c in backend.calls if c["schema"] == "Recommendation")
+        for phrase in ("WRITE FOR A BUSY MINISTER", "plain_summary",
+                       "never name the other\nside's concession as yours"):
+            assert phrase in system, (condition, phrase)
+
+
+def test_old_recordings_without_plain_fields_still_load():
+    rec = Recommendation(focus_country="Singapore", audience="policymaker", priority="cost",
+                         headline="h", options=[], rationale="r", recommended_package=[])
+    assert rec.plain_summary == ""
+
+
+def test_from_round_two_each_side_sees_its_own_last_offer_and_is_asked_to_trade(scenario):
+    backend = ScriptedBackend(scenario)
+    pipeline.run(scenario, backend, condition="B2", rounds=2)
+    users = [c["user"] for c in backend.calls if c["schema"] == "Argument"]
+    round_two = users[len(scenario.countries):]
+    for u in round_two:
+        own = u.split("Your own argument and package from the previous round:")[1].split("The judge's")[0]
+        assert "scripted debater turn" in own
+        for rule in ("what you changed since your last round", "at least one trade that links two issues",
+                     "different package from your last one"):
+            assert rule in u
+    assert "Your own argument" not in users[0]           # round 1 has no previous round
+
+
+def test_debaters_run_warmer_than_the_judge_and_recommender(monkeypatch):
+    from crisis_debate.providers import OpenAIBackend
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test-not-real")
+    monkeypatch.delenv("OPENAI_TEMPERATURE", raising=False)
+    monkeypatch.delenv("OPENAI_DEBATER_TEMPERATURE", raising=False)
+    b = OpenAIBackend(temperature=0.0)
+    assert b.temperature == 0.0 and b.debater_temperature == 0.7
+    assert b.debater_llm is not b.llm
+    same = OpenAIBackend(temperature=0.7)               # the evaluation's agents: one setting
+    assert same.debater_llm is same.llm
+
+
+@pytest.mark.parametrize("condition", ["B0", "B1", "B2"])
+def test_every_condition_advises_with_the_clients_brief_and_cost_rules(scenario, condition):
+    """The adviser must see its own client's red lines, and every condition the
+    same ones, or B0 and B2 would differ in what they were told."""
+    backend = ScriptedBackend(scenario)
+    pipeline.run(scenario, backend, condition=condition, rounds=1, priorities=("cost",))
+    call = next(c for c in backend.calls if c["schema"] == "Recommendation")
+    me = scenario.brief(scenario.focus_country)
+    assert "Your client's own brief" in call["user"]
+    assert all(r in call["user"] for r in me.red_lines)
+    assert 'spending is never "saving"' in call["system"]
+    assert "who is causing the problem" in call["system"]

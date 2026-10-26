@@ -1,0 +1,40 @@
+{
+  "scenario_id": "haze_2026_v1",
+  "fetched_at": "2026-10-26T00:00:00+00:00",
+  "sources_queried": [
+    "news4jax.com (AP)",
+    "mediaselangor.com"
+  ],
+  "facts": [
+    {
+      "party": "Singapore",
+      "summary": "Notices have been issued to ten Indonesia-based companies; the minister expects the haze to ease in three to four weeks with the inter-monsoon season.",
+      "as_of": "2026-10-19",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "www.news4jax.com",
+        "title": "Singapore expands crackdown on Indonesian companies linked to haze",
+        "url": "https://www.news4jax.com/business/2026/10/19/singapore-expands-crackdown-on-indonesian-companies-linked-to-haze/",
+        "published": "2026-10-19",
+        "who_said_it": "Associated Press"
+      }
+    },
+    {
+      "party": "Indonesia",
+      "summary": "Hotspots rose to 793 nationwide from 437 a day earlier, with more than 60,000 personnel already deployed.",
+      "as_of": "2026-10-11",
+      "effect": "none",
+      "confidence": 1.0,
+      "accepted": true,
+      "source": {
+        "source_id": "mediaselangor.com",
+        "title": "Indonesia, Malaysia maintain talks as transboundary haze persists",
+        "url": "https://mediaselangor.com/en/2026/10/400561",
+        "published": "2026-10-11",
+        "who_said_it": "Media Selangor"
+      }
+    }
+  ]
+}

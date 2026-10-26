@@ -33,7 +33,7 @@ from crisis_debate.schemas import (
     RoundJudgment,
     Scenario,
 )
-from crisis_debate.utilities import format_valuations
+from crisis_debate.utilities import format_valuations, validate_package
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -66,7 +66,38 @@ def _fmt_brief(brief: CountryBrief) -> str:
 
 def _fmt_issues(issues: Sequence[Issue]) -> str:
     """The settlement menu. Public: both sides know what is on the table."""
-    return "\n".join(f"  {i.name}: one of {i.options}" for i in issues)
+    menu = "\n".join(f"  {i.name}: one of {i.options}" for i in issues)
+    if not issues:
+        return menu
+    return (menu + f"\n  (In any package, write each option's name exactly as listed, "
+                   f"e.g. {issues[0].name}={issues[0].options[0]}, never a sentence.)")
+
+
+PACKAGE_RETRY = """
+
+Your previous reply named options that are not on the menu:
+{problems}
+Reply again with the same content, but in the package give every issue exactly one
+option NAME copied from the menu above (for example {example}), never a sentence."""
+
+
+def _parse_with_legal_package(backend, scenario: Scenario, *, system: str, user: str,
+                              output_format, **kw):
+    """Ask once more when a reply names options that are not on the menu.
+
+    A model sometimes writes a sentence ("Propose aggregated maps by district…")
+    where an option name belongs, which leaves the run unscorable. One retry,
+    with the problem spelled out, recovers it. The reply is never edited: if the
+    retry is still illegal it is recorded as illegal, exactly as before."""
+    out = backend.parse(system=system, user=user, output_format=output_format, **kw)
+    problems = validate_package(scenario, out.package())
+    if not problems:
+        return out
+    first = scenario.issues[0]
+    return backend.parse(system=system, output_format=output_format, **kw,
+                         user=user + PACKAGE_RETRY.format(
+                             problems="\n".join(f"  - {p}" for p in problems),
+                             example=f"{first.name}={first.options[0]}"))
 
 
 def agent_sources(scenario: Scenario) -> List[tuple]:
@@ -166,6 +197,10 @@ fragments. Link each point to the last with connectors such as "because",
 and source tags into those sentences. Write each claim's evidence as a full
 sentence that explains why the claim holds. Do not use em dashes; use commas,
 colons or full stops instead.
+State every proposal the way a negotiator would say it: what you offer or ask,
+who does it (name the agency or ministry where the scenario or sources name it),
+and what problem it solves. Never write the menu's option names (the words joined
+by underscores) in your prose; the exact option names belong only in the package.
 
 Every argument must commit to a concrete package: one option per issue, the deal
 you are actually proposing this round. Argue for it in prose and state it."""
@@ -189,6 +224,9 @@ This is round {round_index} of 3.
 Opposing arguments from the previous round:
 {opposing}
 
+Your own argument and package from the previous round:
+{own_previous}
+
 The judge's assessment of your own previous argument:
 {own_feedback}
 
@@ -196,8 +234,21 @@ Trade-offs the judge recorded as unaddressed by either side:
 {unaddressed}
 
 Respond to the opposing arguments and revise your position. Address at least one
-unaddressed trade-off. Do not repeat your previous argument unchanged; if you
-still hold a position, defend it against what was actually said."""
+unaddressed trade-off.
+
+LOOK FOR THE DEAL, NOT ONLY THE ARGUMENT:
+  - Open with one sentence saying what you changed since your last round, or why
+    you are holding firm and what would make you move.
+  - From what the other side actually argued, name what they seem to care about
+    most, and aim your offer at it.
+  - Put forward at least one trade that links two issues: give ground on an issue
+    that matters less to you to gain on one that matters more, as a conditional
+    offer ("if you accept X, we will do Y").
+  - Propose a different package from your last one, unless you explain why your
+    last package is still the best one available.
+Stay within the rules: facts only from the scenario and the listed sources,
+options only from the menu, and never cross your red lines. Do not repeat your
+previous argument unchanged."""
 
 
 @dataclass
@@ -215,6 +266,7 @@ class CountryAgent:
         round_index: int,
         previous_opposing: Optional[Sequence[Argument]] = None,
         own_feedback: Optional[str] = None,
+        previous_own: Optional[Argument] = None,
         unaddressed: Optional[Sequence[str]] = None,
         conditions: str = "",
     ) -> Argument:
@@ -244,10 +296,12 @@ class CountryAgent:
                 conditions=conditions,
                 round_index=round_index,
                 opposing=_fmt_arguments(previous_opposing or []),
+                own_previous=_fmt_arguments([previous_own]) if previous_own else "(none recorded)",
                 own_feedback=own_feedback or "(none recorded)",
                 unaddressed="; ".join(unaddressed or []) or "(none recorded)",
             )
-        arg = self.backend.parse(system=system, user=user, output_format=Argument)
+        arg = _parse_with_legal_package(self.backend, scenario, system=system, user=user,
+                                        output_format=Argument)
         # The model is told which country it is, but the field is authoritative
         # for every downstream metric, so pin it rather than trust the response.
         return arg.model_copy(update={"country": self.brief.name})
@@ -276,6 +330,8 @@ Score every argument on each of these criteria, 1 to 5:
 
 Every score needs a justification that cites something specific in the argument.
 A score you cannot justify from the text is a score you should not give.
+Write summaries in plain words a policymaker can follow: describe what a side
+proposed, never by the menu's option names (words joined by underscores).
 
 Fact-check as you go. For each argument, list in unsupported_claims every factual
 claim (a figure, a date, a legal provision, an event) that neither the scenario
@@ -352,8 +408,39 @@ thought through.
 Where the judge scored the arguments poorly, treat that as a weakness to fix,
 not a point to repeat.
 
-Give a one-line headline naming the trade this advice makes, so it can be told
-apart at a glance from advice written for a different priority.
+Give a one-line headline of at most 15 words, written from the point of view of
+the country you advise. It must say in plain, concrete words what that country
+gives and what it gets, and the gain must serve what the reader is trying to
+protect. A concession is only one your country can make: never name the other
+side's concession as yours. No abstractions such as "regional cooperation" or
+"balanced approach". The shape to aim for: "Give up [what we concede] to get
+[what we gain], protecting [the priority]".
+It should be told apart at a glance from advice written for a different priority.
+
+WRITE FOR A BUSY MINISTER, NOT A DIPLOMAT. Be brief: the reader is rehearsing a
+negotiation and should take in your advice in under a minute.
+  - plain_summary: at most two short sentences: what to offer, what to ask for
+    in return, and how that protects the priority.
+  - At most three options. Each condition is something the other side says or
+    does that the team can observe, and it must differ from the action. Each
+    action, in at most 25 words, says who gives what to whom and how that serves
+    the priority.
+  - Name the responsible agency or ministry wherever the scenario or the sources
+    name it; never invent one. Use figures from the scenario or sources where
+    they exist; never invent one.
+  - rationale: at most two sentences. The first says who is causing the problem
+    and who should bear its cost; advise from that.
+  - Never present something that costs your country as serving a priority it
+    works against: spending is never "saving". Anything your country gives up
+    (money, authority, information) is a conditional trade that names what it
+    buys: "only if they ...".
+  - Count what the crisis itself costs your country (for example health care,
+    protective equipment, lost work), not only what is paid at the table.
+    Spending is justified only when it avoids a larger cost, and say which.
+  - Never write the menu's option names (words joined by underscores) in any
+    text; say what the option does in plain words. Avoid "sovereignty",
+    "regional cooperation" or "balanced approach" unless you say what they mean
+    concretely in this crisis.
 
 Also commit to one opening package: exactly one option per issue, the deal to
 table first."""
@@ -366,9 +453,12 @@ Negotiable issues:
 
 You are advising: {focus}
 
+Your client's own brief (its interests, constraints and red lines):
+{client}
+
 Judge assessments across the three rounds:
 {assessments}
-{reviewer}
+{offers}{reviewer}
 Produce the conditional options."""
 
 RECOMMENDER_USER_TRANSCRIPT = """Crisis scenario:
@@ -379,10 +469,21 @@ Negotiable issues:
 
 You are advising: {focus}
 
+Your client's own brief (its interests, constraints and red lines):
+{client}
+
 Full debate transcript:
 {transcript}
 
 Produce the conditional options."""
+
+
+def _fmt_offers(offers: Optional[Dict[str, Dict[str, str]]]) -> str:
+    if not offers:
+        return ""
+    lines = "\n".join(f"  {country}: " + ", ".join(f"{k}={v}" for k, v in pkg.items())
+                      for country, pkg in offers.items())
+    return f"\nEach side's final offer, from the last round (packages only, no arguments):\n{lines}\n"
 
 
 def _fmt_judgments(judgments: Sequence[RoundJudgment]) -> str:
@@ -427,19 +528,29 @@ class RecommenderAgent:
     def recommend(self, scenario: Scenario, judgments: Sequence[RoundJudgment],
                   *, audience: str = "policymaker",
                   priority: str = "casualty_minimisation",
-                  reviewer_note: str = "") -> Recommendation:
+                  reviewer_note: str = "",
+                  final_offers: Optional[Dict[str, Dict[str, str]]] = None) -> Recommendation:
         """Judge-only path (condition B2). Note there is no transcript parameter:
-        the information barrier is enforced by this signature."""
+        the information barrier is enforced by this signature.
+
+        `final_offers` is each side's last proposed package, as option names
+        only: no position, no claims, no concessions, nothing argued. Without it
+        the recommender could not see the deal on the table and fell back to
+        splitting every issue (first live evaluation, haze case), so the debate's
+        value never reached the advice. The barrier still holds for the prose."""
         user = RECOMMENDER_USER_JUDGE.format(
             scenario=scenario.description,
             issues=_fmt_issues(scenario.issues),
             focus=scenario.focus_country,
+            client=_fmt_brief(scenario.brief(scenario.focus_country)),
             assessments=_fmt_judgments(judgments),
+            offers=_fmt_offers(final_offers),
             # Paper contribution 4: a human may intervene at the judge stage.
             reviewer=(f"\nNote from the human reviewer, who checked the assessments "
                       f"above:\n{reviewer_note}\n" if reviewer_note else ""),
         )
-        rec = self.backend.parse(
+        rec = _parse_with_legal_package(
+            self.backend, scenario,
             system=recommender_system(scenario, audience, priority),
             user=user, output_format=Recommendation, tag=(audience, priority))
         # audience and priority are ours, not the model's: they were the
@@ -460,9 +571,11 @@ class RecommenderAgent:
             scenario=scenario.description,
             issues=_fmt_issues(scenario.issues),
             focus=scenario.focus_country,
+            client=_fmt_brief(scenario.brief(scenario.focus_country)),
             transcript=transcript,
         )
-        rec = self.backend.parse(
+        rec = _parse_with_legal_package(
+            self.backend, scenario,
             system=recommender_system(scenario, audience, priority),
             user=user, output_format=Recommendation, tag=(audience, priority))
         return rec.model_copy(update={"focus_country": scenario.focus_country,
@@ -480,9 +593,42 @@ WHAT THEY ARE TRYING TO PROTECT: {priority_brief}
 
 Produce conditional options: each pairs a condition the team can observe with the
 action to take when it holds, tagged with the priority it serves, the concession
-it requires, and its principal risk. Give a one-line headline naming the trade
-this advice makes. Also commit to one opening package: exactly one option per
-issue."""
+it requires, and its principal risk. Also commit to one opening package: exactly one option per
+issue.
+
+Give a one-line headline of at most 15 words, written from the point of view of
+the country you advise. It must say in plain, concrete words what that country
+gives and what it gets, and the gain must serve what the reader is trying to
+protect. A concession is only one your country can make: never name the other
+side's concession as yours. No abstractions such as "regional cooperation" or
+"balanced approach". The shape to aim for: "Give up [what we concede] to get
+[what we gain], protecting [the priority]".
+
+WRITE FOR A BUSY MINISTER, NOT A DIPLOMAT. Be brief: the reader is rehearsing a
+negotiation and should take in your advice in under a minute.
+  - plain_summary: at most two short sentences: what to offer, what to ask for
+    in return, and how that protects the priority.
+  - At most three options. Each condition is something the other side says or
+    does that the team can observe, and it must differ from the action. Each
+    action, in at most 25 words, says who gives what to whom and how that serves
+    the priority.
+  - Name the responsible agency or ministry wherever the scenario or the sources
+    name it; never invent one. Use figures from the scenario or sources where
+    they exist; never invent one.
+  - rationale: at most two sentences. The first says who is causing the problem
+    and who should bear its cost; advise from that.
+  - Never present something that costs your country as serving a priority it
+    works against: spending is never "saving". Anything your country gives up
+    (money, authority, information) is a conditional trade that names what it
+    buys: "only if they ...".
+  - Count what the crisis itself costs your country (for example health care,
+    protective equipment, lost work), not only what is paid at the table.
+    Spending is justified only when it avoids a larger cost, and say which.
+  - Never write the menu's option names (words joined by underscores) in any
+    text; say what the option does in plain words. Avoid "sovereignty",
+    "regional cooperation" or "balanced approach" unless you say what they mean
+    concretely in this crisis.
+"""
 
 BASELINE_USER = """Crisis scenario:
 {scenario}
@@ -491,6 +637,9 @@ Negotiable issues:
 {issues}
 
 You are advising: {focus}
+
+Your client's own brief (its interests, constraints and red lines):
+{client}
 
 Other parties to the negotiation:
 {others}
@@ -514,12 +663,14 @@ def baseline_recommendation(scenario: Scenario, backend: Backend, *,
     user = BASELINE_USER.format(
         scenario=scenario.description, issues=_fmt_issues(scenario.issues),
         focus=scenario.focus_country, others=others, sources=_fmt_sources(scenario),
+        client=_fmt_brief(scenario.brief(scenario.focus_country)),
     )
     system = BASELINE_SYSTEM.format(
         audience_brief=AUDIENCE_BRIEF[audience].format(focus=scenario.focus_country),
         priority_brief=READER_PRIORITY_BRIEF[priority],
     )
-    rec = backend.parse(system=system, user=user, output_format=Recommendation, tag=(audience, priority))
+    rec = _parse_with_legal_package(backend, scenario, system=system, user=user,
+                                    output_format=Recommendation, tag=(audience, priority))
     return rec.model_copy(update={"focus_country": scenario.focus_country,
                                   "audience": audience, "priority": priority})
 

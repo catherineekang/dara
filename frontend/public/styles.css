@@ -2543,3 +2543,40 @@ h1.treaty em {
   font-size: 13.5px;
   color: var(--ink-2);
 }
+
+/* ---- recommendation, in plain words --------------------------------------- */
+.reccard .plain {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.recsec {
+  margin-top: 12px;
+}
+.recsec > b {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+.recsec ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.recsec li + li {
+  margin-top: 4px;
+}
+.recsec .when {
+  font-weight: 600;
+}
+
+/* The policymaker view shows no package box; with no concession it is empty. */
+body:not(.research) .attach.nocede {
+  display: none;
+}

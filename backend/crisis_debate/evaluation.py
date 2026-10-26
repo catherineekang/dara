@@ -152,7 +152,11 @@ Also count:
   new_claims         how many of them this country had NOT already made in an
                      earlier round (in round 1, all of them are new)
   unsupported_claims every factual claim (figure, date, legal provision, event)
-                     that neither the scenario nor the listed sources supports"""
+                     that is supported by NONE of: the scenario text, the listed
+                     sources, or the speaking country's own brief. Restating the
+                     country's own interests, resources, constraints or red lines
+                     is supported; so is an opinion, a proposal or an argument.
+                     List only checkable facts that nothing above backs up."""
 
 RECOMMENDATION_RUBRIC = """Score the recommendation, written for {focus}, on:
   feasibility                 the options could actually be carried out
@@ -498,7 +502,8 @@ def planned_calls(scenario: Scenario, *, repeats: int, include_rounds: bool = Tr
 
 def run_case(case_name: str, factory: BackendFactory, *, repeats: int, judge_repeats: int,
              include_rounds: bool, include_full_info: bool, evaluator: bool,
-             include_probes: bool, log: Callable[[str], None] = print) -> Dict[str, Any]:
+             include_probes: bool, log: Callable[[str], None] = print,
+             checkpoint: Optional[Path] = None) -> Dict[str, Any]:
     scenario = scenario_mod.load(case_name)
     case = scenario.scenario_id
     snap = situational.load_snapshot(case_name)        # pinned: every run reads the same world
@@ -560,6 +565,11 @@ def run_case(case_name: str, factory: BackendFactory, *, repeats: int, judge_rep
                     side_backends.append(jb)
                     judge_out = judge_tests(scenario, run, jb, judge_repeats)
             rows.append(row)
+            if checkpoint is not None:
+                # Saved as each run finishes, so a crash late in a long, paid
+                # evaluation loses one run rather than all of them.
+                with checkpoint.open("a", encoding="utf-8") as f:
+                    f.write(json.dumps({"case": case, **row}, ensure_ascii=False) + "\n")
 
     out = {
         "scenario_id": case, "title": scenario.title,
@@ -882,11 +892,13 @@ def run_evaluation(cases: Sequence[str], factory: BackendFactory, *, repeats: in
                    include_probes: bool = True, mode: str = "",
                    out_dir: Path = Path("results"), log: Callable[[str], None] = print) -> Dict[str, Any]:
     stamp = time.strftime("%Y%m%d_%H%M%S")
-    folder = out_dir / f"eval_{stamp}"
+    tag = "live" if mode == "live" else "dryrun" if "DRY RUN" in mode else "test"
+    folder = out_dir / f"eval_{stamp}_{tag}"
     folder.mkdir(parents=True, exist_ok=True)
     results = [run_case(c, factory, repeats=repeats, judge_repeats=judge_repeats,
                         include_rounds=include_rounds, include_full_info=include_full_info,
-                        evaluator=evaluator, include_probes=include_probes, log=log)
+                        evaluator=evaluator, include_probes=include_probes, log=log,
+                        checkpoint=folder / "runs_so_far.jsonl")
                for c in cases]
     rows = [r for c in results for r in c["runs"]]
     result = {

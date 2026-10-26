@@ -559,10 +559,25 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
     thread = threading.Thread(target=work, daemon=True)
     thread.start()
 
+    started = time.time()
+    try:
+        yield from _drain(q, mode, condition, names, enrich, started, priority_list, result, thread)
+    finally:
+        # The browser stopped listening (Stop, a closed tab): if the run is
+        # waiting for a person, let it go on without stopping again, so it
+        # finishes and frees its thread instead of waiting out the timeout.
+        keep_going["no_more_stops"] = True
+        slot = PAUSED.get(run_id)
+        if slot is not None and slot["reply"] is None:
+            slot["reply"] = {"no_more_stops": True}   # the reply sets the flag, so carry it
+            slot["event"].set()
+
+
+def _drain(q, mode, condition, names, enrich, started, priority_list, result, thread) -> Iterator[str]:
+    """Turn the pipeline's events into server-sent events, in order."""
     round_index = 0
     seen_args = 0
     rec_index = 0
-    started = time.time()
     while True:
         item = q.get()
         if item is None:
@@ -608,6 +623,7 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
                 "headline": payload["headline"],
                 "index": rec_index, "of": len(priority_list),
                 "rationale": payload["rationale"], "options": payload["options"],
+                "plain_summary": payload.get("plain_summary", ""),
                 "package": package, "score": enrich(package),
                 "elapsed": round(time.time() - started, 2),
             })
@@ -625,6 +641,7 @@ def _run_events(scenario_id: str, condition: str, rounds: int, provider: Optiona
     # counts, which is the thing this design removes.
     results = [
         {"priority": rec.priority, "audience": rec.audience, "headline": rec.headline,
+         "plain_summary": rec.plain_summary,
          "package": rec.package(), "score": enrich(rec.package())}
         for rec in run.recommendations
     ]

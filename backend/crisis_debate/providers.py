@@ -38,6 +38,9 @@ def find_env(name: str = ".env") -> Path:
             return d / name
     return ROOT / name
 DEFAULT_MODEL = "gpt-4o"
+CALL_TIMEOUT_S = 120      # one model call; a hung request fails instead of freezing a run
+API_RETRIES = 3           # rate limits and server errors, retried with backoff
+FORMAT_RETRIES = 1        # a reply that does not fit the schema is asked for once more
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
@@ -87,7 +90,12 @@ class OpenAIBackend:
 
     model: str = DEFAULT_MODEL
     temperature: float = 0.0
+    # The debaters only. A delegation at temperature 0 tends to make the same
+    # move every round; the judge and the recommender stay at `temperature` so
+    # scoring and advice stay as repeatable as possible.
+    debater_temperature: Optional[float] = None
     llm: Any = None
+    debater_llm: Any = None
     usage: Dict[str, int] = field(default_factory=lambda: {"input": 0, "output": 0, "calls": 0})
     is_cached: bool = False
 
@@ -104,23 +112,39 @@ class OpenAIBackend:
             # OpenRouter names models by vendor ("openai/gpt-4o").
             if url == OPENROUTER_BASE_URL and "/" not in self.model:
                 self.model = f"openai/{self.model}"
-            self.llm = ChatOpenAI(model=self.model, temperature=self.temperature,
-                                  api_key=openai_key(), base_url=url)
+            # A call that hangs fails after CALL_TIMEOUT_S instead of freezing the
+            # run; rate limits and server errors are retried with backoff.
+            common = dict(api_key=openai_key(), base_url=url,
+                          timeout=CALL_TIMEOUT_S, max_retries=API_RETRIES)
+            self.llm = ChatOpenAI(model=self.model, temperature=self.temperature, **common)
+            if self.debater_temperature is None:
+                self.debater_temperature = float(os.getenv("OPENAI_DEBATER_TEMPERATURE",
+                                                           max(self.temperature, 0.7)))
+            self.debater_llm = (self.llm if self.debater_temperature == self.temperature else
+                                ChatOpenAI(model=self.model, temperature=self.debater_temperature,
+                                           **common))
 
     def parse(self, *, system: str, user: str, output_format: Type, max_tokens: int = 16000,
               tag: Optional[str] = None):
         from langchain_core.messages import HumanMessage, SystemMessage
 
-        structured = self.llm.with_structured_output(output_format, include_raw=True)
-        out = structured.invoke([SystemMessage(content=system), HumanMessage(content=user)])
-        self.usage["calls"] += 1
-        # Token counts for the cost and latency reporting (paper Table 4).
-        meta = getattr(out.get("raw"), "usage_metadata", None) or {}
-        self.usage["input"] += int(meta.get("input_tokens", 0) or 0)
-        self.usage["output"] += int(meta.get("output_tokens", 0) or 0)
-        if out.get("parsing_error") is not None or out.get("parsed") is None:
-            raise ValueError(f"model reply did not fit {output_format.__name__}: {out.get('parsing_error')}")
-        return out["parsed"]
+        llm = self.debater_llm if (output_format.__name__ == "Argument" and self.debater_llm) else self.llm
+        structured = llm.with_structured_output(output_format, include_raw=True)
+        messages = [SystemMessage(content=system), HumanMessage(content=user)]
+        # A reply that does not fit the schema is asked for once more before the
+        # run fails: models occasionally drop a field or return malformed JSON.
+        for attempt in range(1 + FORMAT_RETRIES):
+            out = structured.invoke(messages)
+            self.usage["calls"] += 1
+            # Token counts for the cost and latency reporting (paper Table 4).
+            meta = getattr(out.get("raw"), "usage_metadata", None) or {}
+            self.usage["input"] += int(meta.get("input_tokens", 0) or 0)
+            self.usage["output"] += int(meta.get("output_tokens", 0) or 0)
+            if out.get("parsing_error") is None and out.get("parsed") is not None:
+                return out["parsed"]
+            self.usage["format_retries"] = self.usage.get("format_retries", 0) + 1
+        raise ValueError(f"model reply did not fit {output_format.__name__} after "
+                         f"{1 + FORMAT_RETRIES} attempts: {out.get('parsing_error')}")
 
 
 def backend_from_env(scenario: Scenario, *, force: Optional[str] = None,

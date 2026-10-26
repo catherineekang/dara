@@ -443,3 +443,21 @@ def test_a_scenario_with_no_recording_reports_the_reason(cleanup_user_scenarios)
     assert events[-1]["type"] in ("error", "done")
     if events[-1]["type"] == "done":
         assert events[-1]["mode"] == "live"
+
+
+def test_a_client_that_leaves_releases_a_paused_run():
+    """Pressing Stop while a check card waits must not leave the run waiting out
+    its timeout: the run carries on without stopping and finishes."""
+    s = scenario_mod.load("haze_real")
+    stream = app_module._run_events("haze_real", "B2", 3, None, 0.0, "casualty_minimisation",
+                                    review_token=app_module._fingerprint(s), pause=True)
+    for chunk in stream:
+        if '"type": "review"' in chunk:
+            break
+    assert app_module.PAUSED, "the run should be waiting for a person"
+    stream.close()                                   # the browser stopped listening
+    for _ in range(300):
+        if not app_module.PAUSED:
+            break
+        time.sleep(0.01)
+    assert not app_module.PAUSED

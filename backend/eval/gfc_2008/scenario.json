@@ -1,0 +1,401 @@
+{
+  "scenario_id": "gfc_2008_v1",
+  "title": "Global financial crisis, deposit flight — Singapore · Indonesia (2008)",
+  "focus_country": "Singapore",
+  "evidence_cutoff": "2008-10-27",
+  "description": "In October 2008 the global financial crisis reached Southeast Asian banking. On 13 October Indonesia raised its deposit insurance from Rp100 million to Rp2 billion per depositor per bank and issued emergency regulations widening Bank Indonesia's funding and creating a financial safety net. Three days later Singapore and Malaysia went further, guaranteeing all bank deposits without limit until 2010; Singapore's guarantee is backed by S$150 billion of reserves. Indonesian savers now had a reason to move money to Singapore, while Indonesia, which ended a costly blanket guarantee from the 1998 crisis only in the mid-2000s, does not want to return to one. Singapore and Indonesia must settle how Singapore's guarantee treats new deposits from Indonesia, whether Indonesia widens its own guarantee, whether Singapore offers liquidity support, and whether the two governments speak to markets together. Positions are reconstructed from the public record and are not official.",
+  "issues": [
+    {
+      "name": "singapore_guarantee_scope",
+      "options": [
+        "guarantee_unchanged",
+        "report_large_inflows_to_indonesia",
+        "cap_cover_for_new_nonresident_deposits"
+      ]
+    },
+    {
+      "name": "indonesia_deposit_guarantee",
+      "options": [
+        "stay_at_rp2_billion",
+        "higher_limit_for_retail_savers",
+        "blanket_guarantee_like_neighbours"
+      ]
+    },
+    {
+      "name": "liquidity_support",
+      "options": [
+        "no_bilateral_support",
+        "standby_swap_line",
+        "large_bilateral_swap"
+      ]
+    },
+    {
+      "name": "public_communication",
+      "options": [
+        "say_nothing",
+        "separate_statements",
+        "joint_statement_of_confidence"
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Singapore",
+      "interests": [
+        "Keep its banks and its standing as a financial centre stable",
+        "Not be seen to drain deposits from a neighbour in a crisis",
+        "Keep the region calm so contagion does not return to Singapore"
+      ],
+      "resources": [
+        "A blanket deposit guarantee backed by S$150 billion of reserves",
+        "Large official foreign reserves",
+        "A close working relationship with Malaysia, which made the same guarantee the same day"
+      ],
+      "constraints": [
+        "Treating depositors differently by residency would undercut trust in Singapore as a financial centre",
+        "Markets read any public disagreement between neighbours as a sign of trouble",
+        "Any lending to a neighbour is backed by national reserves and must be justified at home"
+      ],
+      "red_lines": [
+        "Will not exclude depositors from its guarantee because of their nationality",
+        "Will not make an open-ended lending commitment"
+      ],
+      "valuations": [
+        {
+          "issue": "singapore_guarantee_scope",
+          "weight": 0.35,
+          "option_values": {
+            "guarantee_unchanged": 1.0,
+            "report_large_inflows_to_indonesia": 0.3,
+            "cap_cover_for_new_nonresident_deposits": 0.0
+          }
+        },
+        {
+          "issue": "indonesia_deposit_guarantee",
+          "weight": 0.2,
+          "option_values": {
+            "stay_at_rp2_billion": 0.0,
+            "higher_limit_for_retail_savers": 0.4,
+            "blanket_guarantee_like_neighbours": 1.0
+          }
+        },
+        {
+          "issue": "liquidity_support",
+          "weight": 0.2,
+          "option_values": {
+            "no_bilateral_support": 1.0,
+            "standby_swap_line": 0.45,
+            "large_bilateral_swap": 0.0
+          }
+        },
+        {
+          "issue": "public_communication",
+          "weight": 0.25,
+          "option_values": {
+            "say_nothing": 0.2,
+            "separate_statements": 0.4,
+            "joint_statement_of_confidence": 1.0
+          }
+        }
+      ],
+      "provenance": {
+        "Keep its banks and its standing as a financial centre stable": {
+          "value": "Keep its banks and its standing as a financial centre stable",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Not be seen to drain deposits from a neighbour in a crisis": {
+          "value": "Not be seen to drain deposits from a neighbour in a crisis",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Keep the region calm so contagion does not return to Singapore": {
+          "value": "Keep the region calm so contagion does not return to Singapore",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S3",
+              "quote": "MAS cited continuing stresses in global financial markets."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the MAS statement."
+        },
+        "A blanket deposit guarantee backed by S$150 billion of reserves": {
+          "value": "A blanket deposit guarantee backed by S$150 billion of reserves",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "The guarantee is backed by S$150 billion of government reserves."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Large official foreign reserves": {
+          "value": "Large official foreign reserves",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "A close working relationship with Malaysia, which made the same guarantee the same day": {
+          "value": "A close working relationship with Malaysia, which made the same guarantee the same day",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Malaysia guarantees all deposits until December 2010, consistent with regional initiatives."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Treating depositors differently by residency would undercut trust in Singapore as a financial centre": {
+          "value": "Treating depositors differently by residency would undercut trust in Singapore as a financial centre",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Any lending to a neighbour is backed by national reserves and must be justified at home": {
+          "value": "Any lending to a neighbour is backed by national reserves and must be justified at home",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not exclude depositors from its guarantee because of their nationality": {
+          "value": "Will not exclude depositors from its guarantee because of their nationality",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not make an open-ended lending commitment": {
+          "value": "Will not make an open-ended lending commitment",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Markets read any public disagreement between neighbours as a sign of trouble": {
+          "value": "Markets read any public disagreement between neighbours as a sign of trouble",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
+    },
+    {
+      "name": "Indonesia",
+      "interests": [
+        "Stop deposits leaving Indonesian banks for Singapore and Malaysia",
+        "Keep the fiscal cost of guarantees down, after the blanket guarantee of 1998",
+        "Secure US-dollar liquidity it cannot get from the Federal Reserve"
+      ],
+      "resources": [
+        "Deposit insurance raised to Rp2 billion per depositor per bank on 13 October",
+        "Emergency regulations for a financial safety net and wider Bank Indonesia funding",
+        "The largest economy and banking market in Southeast Asia"
+      ],
+      "constraints": [
+        "A new blanket guarantee would revive the moral hazard and fiscal cost of 1998",
+        "Its foreign reserves are smaller than its short-term dollar needs in a run",
+        "Emergency regulations need parliament's approval to become law"
+      ],
+      "red_lines": [
+        "Will not return to an unlimited blanket guarantee without parliament",
+        "Will not accept conditions on its domestic banking policy as the price of support"
+      ],
+      "valuations": [
+        {
+          "issue": "singapore_guarantee_scope",
+          "weight": 0.25,
+          "option_values": {
+            "guarantee_unchanged": 0.0,
+            "report_large_inflows_to_indonesia": 0.45,
+            "cap_cover_for_new_nonresident_deposits": 1.0
+          }
+        },
+        {
+          "issue": "indonesia_deposit_guarantee",
+          "weight": 0.25,
+          "option_values": {
+            "stay_at_rp2_billion": 1.0,
+            "higher_limit_for_retail_savers": 0.7,
+            "blanket_guarantee_like_neighbours": 0.0
+          }
+        },
+        {
+          "issue": "liquidity_support",
+          "weight": 0.3,
+          "option_values": {
+            "no_bilateral_support": 0.0,
+            "standby_swap_line": 0.5,
+            "large_bilateral_swap": 1.0
+          }
+        },
+        {
+          "issue": "public_communication",
+          "weight": 0.2,
+          "option_values": {
+            "say_nothing": 0.1,
+            "separate_statements": 0.4,
+            "joint_statement_of_confidence": 1.0
+          }
+        }
+      ],
+      "provenance": {
+        "Stop deposits leaving Indonesian banks for Singapore and Malaysia": {
+          "value": "Stop deposits leaving Indonesian banks for Singapore and Malaysia",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Singapore guaranteed all deposits of individuals and non-bank customers."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Indonesia's stated aim of preventing capital flight to neighbours is reported in later case studies."
+        },
+        "Keep the fiscal cost of guarantees down, after the blanket guarantee of 1998": {
+          "value": "Keep the fiscal cost of guarantees down, after the blanket guarantee of 1998",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Secure US-dollar liquidity it cannot get from the Federal Reserve": {
+          "value": "Secure US-dollar liquidity it cannot get from the Federal Reserve",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S4",
+              "quote": "The Fed's swap lines are with nine central banks in advanced economies; no Southeast Asian central bank is among them."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Deposit insurance raised to Rp2 billion per depositor per bank on 13 October": {
+          "value": "Deposit insurance raised to Rp2 billion per depositor per bank on 13 October",
+          "status": "projected",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Stated in the case background; the contemporary newsletter (ABNR, October 2008) is not exactly dated, so it is not shown to the agents."
+        },
+        "Emergency regulations for a financial safety net and wider Bank Indonesia funding": {
+          "value": "Emergency regulations for a financial safety net and wider Bank Indonesia funding",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "The largest economy and banking market in Southeast Asia": {
+          "value": "The largest economy and banking market in Southeast Asia",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "A new blanket guarantee would revive the moral hazard and fiscal cost of 1998": {
+          "value": "A new blanket guarantee would revive the moral hazard and fiscal cost of 1998",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Its foreign reserves are smaller than its short-term dollar needs in a run": {
+          "value": "Its foreign reserves are smaller than its short-term dollar needs in a run",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Emergency regulations need parliament's approval to become law": {
+          "value": "Emergency regulations need parliament's approval to become law",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not return to an unlimited blanket guarantee without parliament": {
+          "value": "Will not return to an unlimited blanket guarantee without parliament",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not accept conditions on its domestic banking policy as the price of support": {
+          "value": "Will not accept conditions on its domestic banking policy as the price of support",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
+    }
+  ],
+  "sources": [
+    {
+      "title": "MOF and MAS joint press statement on deposit guarantee, 16 October 2008",
+      "publisher": "Ministry of Finance and Monetary Authority of Singapore",
+      "url": "https://www.mof.gov.sg/news-resources/newsroom/ministry-of-finance-mof-and-monetary-authority-of-singapore-mas-joint-press-statement/",
+      "published": "2008-10-16",
+      "facts": [
+        "Singapore guaranteed all Singapore-dollar and foreign-currency deposits of individual and non-bank customers in MAS-licensed banks, finance companies and merchant banks, until 31 December 2010.",
+        "The guarantee is backed by S$150 billion of government reserves."
+      ]
+    },
+    {
+      "title": "Malaysia takes pre-emptive measures, 16 October 2008",
+      "publisher": "Bank Negara Malaysia",
+      "url": "https://www.bnm.gov.my/-/malaysia-takes-pre-emptive-measures",
+      "published": "2008-10-16",
+      "facts": [
+        "Malaysia's government guarantees all ringgit and foreign-currency deposits at banks regulated by Bank Negara Malaysia, through its deposit insurer PIDM, until December 2010.",
+        "Bank Negara described the measures as consistent with regional initiatives to preserve confidence in respective financial systems."
+      ]
+    },
+    {
+      "title": "Monetary Policy Statement, 10 October 2008",
+      "publisher": "Monetary Authority of Singapore",
+      "url": "https://www.mas.gov.sg/news/monetary-policy-statements/2008/monetary-policy-statement-10-oct-08",
+      "published": "2008-10-10",
+      "facts": [
+        "MAS shifted to a zero percent appreciation of the S$NEER policy band, with no re-centring and no change to its width.",
+        "MAS cited a weakening external economy and continuing stresses in global financial markets."
+      ]
+    },
+    {
+      "title": "Federal Reserve and other central banks expand swap lines (press release)",
+      "publisher": "Board of Governors of the Federal Reserve System, 29 September 2008",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20080929a.htm",
+      "published": "2008-09-29",
+      "facts": [
+        "The Federal Reserve raised its US-dollar swap lines with nine central banks, all in advanced economies, to US$620 billion; no Southeast Asian central bank is among them."
+      ]
+    },
+    {
+      "title": "Indonesia's response to the global financial crisis (ABNR News, October 2008)",
+      "publisher": "Ali Budiardjo, Nugroho, Reksodiputro, hosted by Bank Indonesia",
+      "url": "https://www.bi.go.id/en/iru/highlight-news/Documents/62a63fe2493f463280239142765e3df4BreakingNewsABNRlawOctober2008.pdf",
+      "published": "",
+      "facts": []
+    },
+    {
+      "title": "Indonesia Deposit Insurance Corporation (case study)",
+      "publisher": "Yale Program on Financial Stability",
+      "url": "https://newbagehot.yale.edu/docs/indonesia-deposit-insurance-corporation",
+      "published": "",
+      "facts": []
+    }
+  ]
+}

@@ -146,3 +146,59 @@ def test_example_template_is_committed_and_carries_no_key():
     text = path.read_text(encoding="utf-8")
     assert "OPENAI_API_KEY=" in text
     assert "sk-" not in text, ".env.example must never contain a real key"
+
+
+# --------------------------------------------------------------------------
+# Robustness of live calls
+# --------------------------------------------------------------------------
+class _FlakyStructured:
+    """Returns a malformed reply first, then a good one."""
+
+    def __init__(self, good, bad_times=1):
+        self.good, self.left, self.calls = good, bad_times, 0
+
+    def invoke(self, messages):
+        self.calls += 1
+        if self.left:
+            self.left -= 1
+            return {"raw": None, "parsed": None, "parsing_error": "missing field"}
+        return {"raw": None, "parsed": self.good, "parsing_error": None}
+
+
+class _FakeLLM:
+    def __init__(self, structured):
+        self.structured = structured
+
+    def with_structured_output(self, schema, include_raw=False):
+        return self.structured
+
+
+def test_a_malformed_reply_is_asked_for_once_more():
+    from crisis_debate.providers import OpenAIBackend
+    from crisis_debate.schemas import Claim
+
+    good = Claim(claim="c", evidence="e")
+    flaky = _FlakyStructured(good)
+    b = OpenAIBackend(llm=_FakeLLM(flaky))
+    assert b.parse(system="s", user="u", output_format=Claim) == good
+    assert flaky.calls == 2 and b.usage["format_retries"] == 1
+
+
+def test_two_malformed_replies_fail_loudly_not_silently():
+    import pytest as _pytest
+    from crisis_debate.providers import OpenAIBackend
+    from crisis_debate.schemas import Claim
+
+    b = OpenAIBackend(llm=_FakeLLM(_FlakyStructured(None, bad_times=5)))
+    with _pytest.raises(ValueError, match="did not fit Claim"):
+        b.parse(system="s", user="u", output_format=Claim)
+
+
+def test_live_calls_have_a_time_limit_and_retries(monkeypatch):
+    from crisis_debate import providers
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test-not-real")
+    b = providers.OpenAIBackend(temperature=0.0)
+    for llm in (b.llm, b.debater_llm):
+        assert llm.request_timeout == providers.CALL_TIMEOUT_S
+        assert llm.max_retries == providers.API_RETRIES

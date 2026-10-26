@@ -1,0 +1,474 @@
+{
+  "scenario_id": "haze_2026_v1",
+  "title": "Transboundary haze — Singapore · Indonesia (2026)",
+  "focus_country": "Singapore",
+  "evidence_cutoff": "2026-10-26",
+  "description": "Since August 2026, fires in Indonesia, mostly in Kalimantan and Sumatra, have sent haze across Singapore and Malaysia in what reporting calls the worst fire season in a decade. In October Singapore's environment agency issued preventive measures notices to ten Indonesia-based companies under its 2014 haze act, though no company has ever been prosecuted under it. Indonesia says it has deployed more than 60,000 personnel and dozens of aircraft, its president has pledged to expose foreign companies he says are also responsible, and Jakarta has given mixed signals on accepting outside help. The two governments must settle who holds companies accountable, whether foreign firefighting help is accepted and under whose command, what fire and concession data Indonesia shares with Singapore, and who pays for peatland restoration. The crisis is ongoing: there is no known outcome. Positions are reconstructed from public reporting and are not official.",
+  "issues": [
+    {
+      "name": "firm_accountability",
+      "options": [
+        "indonesian_enforcement_only",
+        "joint_investigation_shared_evidence",
+        "singapore_haze_act_enforcement"
+      ]
+    },
+    {
+      "name": "firefighting_assistance",
+      "options": [
+        "indonesian_resources_only",
+        "foreign_assets_under_indonesian_command",
+        "joint_singapore_indonesia_task_force"
+      ]
+    },
+    {
+      "name": "hotspot_and_concession_data",
+      "options": [
+        "national_summaries_only",
+        "hotspot_data_shared_with_singapore",
+        "concession_maps_shared_with_singapore"
+      ]
+    },
+    {
+      "name": "peatland_restoration_funding",
+      "options": [
+        "indonesia_funds_alone",
+        "joint_singapore_indonesia_fund",
+        "singapore_conditional_cofunding"
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Singapore",
+      "interests": [
+        "End repeated Unhealthy-band air for its residents this season and the next",
+        "Hold the companies that own the burning land accountable, not only the state",
+        "Get fire and concession data it can act on before the next dry season"
+      ],
+      "resources": [
+        "A haze law that reaches conduct outside Singapore, with daily fines",
+        "Firefighting aircraft and personnel it has already offered",
+        "Fiscal room to co-fund prevention if it sees measurable results"
+      ],
+      "constraints": [
+        "Cannot investigate or enforce inside Indonesian territory",
+        "No company has ever been prosecuted under its haze act, so the threat is untested",
+        "Open confrontation with Jakarta has cost cooperation before"
+      ],
+      "red_lines": [
+        "Will not drop its haze act or the notices already issued",
+        "Will not fund restoration without measurable reductions in fires"
+      ],
+      "valuations": [
+        {
+          "issue": "firm_accountability",
+          "weight": 0.3,
+          "option_values": {
+            "indonesian_enforcement_only": 0.1,
+            "joint_investigation_shared_evidence": 0.45,
+            "singapore_haze_act_enforcement": 1.0
+          }
+        },
+        {
+          "issue": "firefighting_assistance",
+          "weight": 0.2,
+          "option_values": {
+            "indonesian_resources_only": 0.1,
+            "foreign_assets_under_indonesian_command": 0.6,
+            "joint_singapore_indonesia_task_force": 1.0
+          }
+        },
+        {
+          "issue": "hotspot_and_concession_data",
+          "weight": 0.35,
+          "option_values": {
+            "national_summaries_only": 0.0,
+            "hotspot_data_shared_with_singapore": 0.35,
+            "concession_maps_shared_with_singapore": 1.0
+          }
+        },
+        {
+          "issue": "peatland_restoration_funding",
+          "weight": 0.15,
+          "option_values": {
+            "indonesia_funds_alone": 1.0,
+            "joint_singapore_indonesia_fund": 0.4,
+            "singapore_conditional_cofunding": 0.15
+          }
+        }
+      ],
+      "provenance": {
+        "End repeated Unhealthy-band air for its residents this season and the next": {
+          "value": "End repeated Unhealthy-band air for its residents this season and the next",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Hold the companies that own the burning land accountable, not only the state": {
+          "value": "Hold the companies that own the burning land accountable, not only the state",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Singapore issued preventive measures notices to seven companies (16 October) and three more (19 October)."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Get fire and concession data it can act on before the next dry season": {
+          "value": "Get fire and concession data it can act on before the next dry season",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "A haze law that reaches conduct outside Singapore, with daily fines": {
+          "value": "A haze law that reaches conduct outside Singapore, with daily fines",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S6",
+              "quote": "Section 4: the Act extends to conduct outside Singapore. Section 5(2)(a): a fine of up to S$100,000 for every day of haze pollution."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Firefighting aircraft and personnel it has already offered": {
+          "value": "Firefighting aircraft and personnel it has already offered",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Malaysia and Singapore have offered help fighting the fires."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "The source says help was offered; the specific assets are inferred."
+        },
+        "Fiscal room to co-fund prevention if it sees measurable results": {
+          "value": "Fiscal room to co-fund prevention if it sees measurable results",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Cannot investigate or enforce inside Indonesian territory": {
+          "value": "Cannot investigate or enforce inside Indonesian territory",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S5",
+              "quote": "Article 27: disputes are settled amicably by consultation or negotiation; there is no court or tribunal."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "No company has ever been prosecuted under its haze act, so the threat is untested": {
+          "value": "No company has ever been prosecuted under its haze act, so the threat is untested",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "No company has ever been prosecuted under Singapore's 2014 haze act."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Open confrontation with Jakarta has cost cooperation before": {
+          "value": "Open confrontation with Jakarta has cost cooperation before",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Will not drop its haze act or the notices already issued": {
+          "value": "Will not drop its haze act or the notices already issued",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S2",
+              "quote": "Singapore issued notices to ten companies in October 2026."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the notices just issued; not a quoted statement."
+        },
+        "Will not fund restoration without measurable reductions in fires": {
+          "value": "Will not fund restoration without measurable reductions in fires",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        }
+      }
+    },
+    {
+      "name": "Indonesia",
+      "interests": [
+        "Put out the fires with Indonesian command over operations on its own soil",
+        "Keep enforcement against companies in Indonesian hands",
+        "Secure money for peatland restoration and smallholder alternatives"
+      ],
+      "resources": [
+        "More than 60,000 firefighting personnel and 61 aircraft already deployed",
+        "Sole legal authority over land and concessions in Indonesia",
+        "Its own arrests and prosecutions of people found starting fires"
+      ],
+      "constraints": [
+        "Fires are spread across Kalimantan and Sumatra, beyond what it can stop quickly",
+        "Domestic politics reward standing up to foreign criticism",
+        "Concession data touches powerful domestic and foreign-owned firms"
+      ],
+      "red_lines": [
+        "No foreign court or agency acting against companies on Indonesian soil without Indonesian consent",
+        "No foreign command over operations on Indonesian territory"
+      ],
+      "valuations": [
+        {
+          "issue": "firm_accountability",
+          "weight": 0.35,
+          "option_values": {
+            "indonesian_enforcement_only": 1.0,
+            "joint_investigation_shared_evidence": 0.4,
+            "singapore_haze_act_enforcement": 0.0
+          }
+        },
+        {
+          "issue": "firefighting_assistance",
+          "weight": 0.15,
+          "option_values": {
+            "indonesian_resources_only": 0.5,
+            "foreign_assets_under_indonesian_command": 1.0,
+            "joint_singapore_indonesia_task_force": 0.0
+          }
+        },
+        {
+          "issue": "hotspot_and_concession_data",
+          "weight": 0.15,
+          "option_values": {
+            "national_summaries_only": 1.0,
+            "hotspot_data_shared_with_singapore": 0.45,
+            "concession_maps_shared_with_singapore": 0.15
+          }
+        },
+        {
+          "issue": "peatland_restoration_funding",
+          "weight": 0.35,
+          "option_values": {
+            "indonesia_funds_alone": 0.0,
+            "joint_singapore_indonesia_fund": 0.35,
+            "singapore_conditional_cofunding": 1.0
+          }
+        }
+      ],
+      "provenance": {
+        "Put out the fires with Indonesian command over operations on its own soil": {
+          "value": "Put out the fires with Indonesian command over operations on its own soil",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Keep enforcement against companies in Indonesian hands": {
+          "value": "Keep enforcement against companies in Indonesian hands",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "Secure money for peatland restoration and smallholder alternatives": {
+          "value": "Secure money for peatland restoration and smallholder alternatives",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "More than 60,000 firefighting personnel and 61 aircraft already deployed": {
+          "value": "More than 60,000 firefighting personnel and 61 aircraft already deployed",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S3",
+              "quote": "More than 60,000 personnel had been deployed, with 61 aircraft on standby."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Sole legal authority over land and concessions in Indonesia": {
+          "value": "Sole legal authority over land and concessions in Indonesia",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S5",
+              "quote": "Article 3(1): parties keep the sovereign right to exploit their own resources."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Its own arrests and prosecutions of people found starting fires": {
+          "value": "Its own arrests and prosecutions of people found starting fires",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Prabowo said people found starting fires had been arrested."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Fires are spread across Kalimantan and Sumatra, beyond what it can stop quickly": {
+          "value": "Fires are spread across Kalimantan and Sumatra, beyond what it can stop quickly",
+          "status": "sourced",
+          "evidence": [
+            {
+              "source_id": "S4",
+              "quote": "1,211 hotspots: 1,180 in Kalimantan, 18 in Sumatra."
+            }
+          ],
+          "confidence": 1.0,
+          "note": ""
+        },
+        "Domestic politics reward standing up to foreign criticism": {
+          "value": "Domestic politics reward standing up to foreign criticism",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Prabowo pledged to expose foreign companies he said were also responsible."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred from the president's public response."
+        },
+        "Concession data touches powerful domestic and foreign-owned firms": {
+          "value": "Concession data touches powerful domestic and foreign-owned firms",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "No foreign court or agency acting against companies on Indonesian soil without Indonesian consent": {
+          "value": "No foreign court or agency acting against companies on Indonesian soil without Indonesian consent",
+          "status": "unsupported",
+          "evidence": [],
+          "confidence": 0.5,
+          "note": "Reconstructed by the authors from the public record; no pre-cutoff source is attached yet."
+        },
+        "No foreign command over operations on Indonesian territory": {
+          "value": "No foreign command over operations on Indonesian territory",
+          "status": "projected",
+          "evidence": [
+            {
+              "source_id": "S1",
+              "quote": "Jakarta has given mixed signals on accepting outside help."
+            }
+          ],
+          "confidence": 0.5,
+          "note": "Inferred; not a quoted statement."
+        }
+      }
+    }
+  ],
+  "sources": [
+    {
+      "title": "Southeast Asia's toxic haze spurs calls for legal action against polluters",
+      "publisher": "Al Jazeera, 22 October 2026",
+      "url": "https://www.aljazeera.com/economy/2026/10/22/southeast-asias-toxic-haze-spurs-calls-for-legal-action-against-polluters",
+      "published": "2026-10-22",
+      "facts": [
+        "Fires in Indonesia are estimated to have burned more than 2 million hectares this season (Al Jazeera estimate).",
+        "Singapore's National Environment Agency has issued notices to 10 Indonesia-based firms this season; no company has ever been prosecuted under Singapore's 2014 haze act.",
+        "The ASEAN haze agreement's coordinating office in Jakarta only opened in April 2026, and the treaty has no judicial enforcement body.",
+        "President Prabowo Subianto pledged to expose foreign companies he said were also responsible, said people found starting fires had been arrested, and said the government would step up its response.",
+        "Malaysia and Singapore have refrained from criticising Indonesia and have offered help fighting the fires; Jakarta has given mixed signals on accepting outside help."
+      ]
+    },
+    {
+      "title": "Singapore expands crackdown on Indonesian companies linked to haze",
+      "publisher": "Associated Press, 19 October 2026",
+      "url": "https://www.news4jax.com/business/2026/10/19/singapore-expands-crackdown-on-indonesian-companies-linked-to-haze/",
+      "published": "2026-10-19",
+      "facts": [
+        "Singapore issued preventive measures notices to seven companies linked to fires in Sumatra (16 October) and three more with concessions in Kalimantan (19 October).",
+        "The notices require the companies to send firefighters to their land, stop burning and submit plans to prevent recurrence; they are not a finding of legal responsibility.",
+        "Singapore's environment minister said the haze could persist and reach hazardous levels, with improvement expected in three to four weeks as the inter-monsoon season arrives."
+      ]
+    },
+    {
+      "title": "Indonesia, Malaysia maintain talks as transboundary haze persists",
+      "publisher": "Media Selangor, 11 October 2026",
+      "url": "https://mediaselangor.com/en/2026/10/400561",
+      "published": "2026-10-11",
+      "facts": [
+        "Malaysia's Prime Minister Anwar Ibrahim contacted President Prabowo about the haze and said Malaysia was ready to help.",
+        "Anwar asked for a meeting of ASEAN environment ministers to coordinate the response.",
+        "Indonesia's foreign minister said more than 60,000 personnel had been deployed, with 61 aircraft on standby (44 for water-bombing, 17 for patrols and weather modification).",
+        "Indonesia's forestry ministry reported 793 hotspots nationwide, up from 437 the previous day; Central Kalimantan had the most, 288."
+      ]
+    },
+    {
+      "title": "DOE: Transboundary haze thickens, 1,211 hotspots detected in southern Asean, mostly in Kalimantan",
+      "publisher": "Malay Mail, 30 August 2026",
+      "url": "https://www.malaymail.com/news/malaysia/2026/08/30/doe-transboundary-haze-thickens-1211-hotspots-detected-in-southern-asean-mostly-in-kalimantan/233272",
+      "published": "2026-08-30",
+      "facts": [
+        "1,211 hotspots were detected in the southern ASEAN region: 1,180 in Kalimantan, 18 in Sumatra and 13 in Malaysia."
+      ]
+    },
+    {
+      "title": "ASEAN Agreement on Transboundary Haze Pollution (2002), full text",
+      "publisher": "University of Oslo treaty library",
+      "url": "https://jus.uio.no/english/services/library/treaties/06/6-03/asean_transboundary_pollution.html",
+      "published": "2002-06-10",
+      "facts": [
+        "Article 3(1): parties keep the sovereign right to exploit their own resources, with a duty not to cause environmental damage to other states.",
+        "Article 8(1): each party's monitoring centre must send fire and haze data to the ASEAN Co-ordinating Centre at agreed intervals.",
+        "Article 27: disputes are settled amicably by consultation or negotiation; there is no court or tribunal."
+      ]
+    },
+    {
+      "title": "Transboundary Haze Pollution Act 2014 (No. 24 of 2014)",
+      "publisher": "Singapore Statutes Online, via FAOLEX",
+      "url": "https://faolex.fao.org/docs/pdf/sin137119.pdf",
+      "published": "2014-09-25",
+      "facts": [
+        "Section 4: the Act extends to conduct outside Singapore.",
+        "Section 5(2)(a): a fine of up to S$100,000 for every day of haze pollution in Singapore; section 5(5): the aggregate fine is capped at S$2 million.",
+        "Section 8: an entity owning or occupying land where a fire burns is presumed to have caused the haze, and ownership can be proved from maps supplied by a foreign government."
+      ]
+    },
+    {
+      "title": "Haze press conference: opening remarks by Ms Grace Fu",
+      "publisher": "Ministry of Sustainability and the Environment, Singapore, 16 October 2026",
+      "url": "https://www.mse.gov.sg/latest-news/haze-press-conference---ms-grace-fu/",
+      "published": "2026-10-16",
+      "facts": [
+        "Singapore offered Indonesia civilian firefighting assistance and cloud-seeding support; the minister had not yet heard back.",
+        "The Chief Executive Officer of Singapore's National Environment Agency (NEA) wrote to and called her Indonesian counterparts to offer support.",
+        "NEA will issue preventive measures notices to seven companies, will issue notices to more, and will consider further action under the haze act where the evidence warrants.",
+        "Singapore began distributing haze masks to vulnerable Singaporeans on 14 October; about 10% of those eligible had collected them.",
+        "Groups named as more vulnerable to haze: seniors, pregnant women, young children, and people with chronic heart or lung conditions.",
+        "The minister said the haze episode may last a few more weeks, improving with the inter-monsoon period in about three to four weeks."
+      ]
+    },
+    {
+      "title": "Indonesia's haze response draws ire at home and abroad",
+      "publisher": "The Jakarta Post, via Asia News Network, 19 October 2026",
+      "url": "https://asianews.network/indonesias-haze-response-draws-ire-at-home-and-abroad/",
+      "published": "2026-10-19",
+      "facts": [
+        "Indonesia's foreign minister said President Prabowo had approved accepting foreign assistance, with offers being discussed at the technical level at BNPB, Indonesia's disaster management agency.",
+        "A Malaysian politician called for ASEAN financial pressure on the companies behind the fires; Malaysia's foreign minister called a formal protest a last resort."
+      ]
+    }
+  ]
+}

@@ -44,3 +44,11 @@ def test_full_information_shows_each_agent_the_other_table_only_in_the_probe():
     sys_full = [c["system"] for c in full.calls if c["schema"] == "Argument"]
     assert not any("PROBE ONLY" in x for x in sys_private)
     assert all("PROBE ONLY" in x for x in sys_full)
+
+
+def test_each_run_is_saved_as_it_finishes(tmp_path):
+    out = evaluation.run_evaluation(["covid_my_2020"], lambda sc, label, rep: ScriptedBackend(scenario=sc),
+                                    repeats=1, judge_repeats=2, mode="test", out_dir=tmp_path,
+                                    include_rounds=False, include_full_info=False, log=lambda _: None)
+    lines = (tmp_path / out["folder"].split("/")[-1] / "runs_so_far.jsonl").read_text().splitlines()
+    assert len(lines) == 3 and all(json.loads(l)["case"] == "covid_my_2020_v1" for l in lines)

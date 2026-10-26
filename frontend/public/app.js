@@ -443,9 +443,12 @@ function mark(id, status, ms) {
 /* ---- chat ---- */
 /* Agents cite the scenario's sources as [S1], [S2]…, numbered in the scenario's
    own order, so each tag links to the document it names. */
+// Model text should not contain option names (concession_maps_to_asean_centre),
+// but if one slips through, show it as words rather than an identifier.
+const unslug = (s) => String(s ?? "").replace(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/g, (m) => m.replace(/_/g, " "));
 function cite(text) {
   const src = detail?.scenario.sources || [];
-  return esc(text).replace(/\[S(\d+)\]/g, (m, n) => {
+  return esc(unslug(text)).replace(/\[S(\d+)\]/g, (m, n) => {
     const s = src[n - 1];
     return s && /^https?:\/\//.test(s.url)
       ? `<a class="cite" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title)}">${m}</a>`
@@ -469,12 +472,15 @@ function bubble(side, name, round, text, pkg, concessions, score, claims) {
   const line = legal
     ? `joint ${fmt(score.joint_utility)} · ${score.is_pareto_optimal ? "on the frontier" : "off the frontier"} · recovered ${(score.joint_value_recovered * 100).toFixed(1)}%`
     : score ? `Not legal: ${esc((score.problems || []).join("; "))}` : "";
+  // The package's option names are for scoring; the policymaker reads the prose.
+  const cedes = (concessions || []).filter(Boolean);
   return `<div class="msg ${side}"><div class="av">${esc(initials)}</div>
     <div class="bub"><div class="nm">${esc(name)} · round ${round}</div>
       <div class="bd">${cite(text)}</div>
       ${claimList(claims)}
-      <div class="attach"><b>${esc(name)}'s offer this round</b>${pkgList(pkg)}
-        ${concessions && concessions.filter(Boolean).length ? `<span class="cede">Concedes: ${esc(concessions.filter(Boolean).join("; "))}</span>` : ""}
+      <div class="attach${cedes.length ? "" : " nocede"}">
+        <div class="rx"><b>${esc(name)}'s offer this round</b>${pkgList(pkg)}</div>
+        ${cedes.length ? `<span class="cede">Concedes: ${esc(cedes.join("; "))}</span>` : ""}
         <span class="cede rx" style="color:var(--ink-3)">${line}</span>
       </div></div></div>`;
 }
@@ -758,7 +764,7 @@ function onEvent(ev, recIndex) {
     mark(`r${ev.round}.judge`, "done", ev.elapsed * 1000);
     say(`<div class="sys" data-jump="Judge" data-sub="1"><div class="hd">Judge · round ${ev.round}</div>
       ${ev.judgments.map((j) => `<div class="row"><span class="who2">${esc(j.country)}</span>
-        <span class="pk rx">${j.total}/25</span><span class="sm">${esc(j.summary)}</span>
+        <span class="pk rx">${j.total}/25</span><span class="sm">${cite(j.summary)}</span>
         <span class="rx">${Object.entries(j.scores).map(([k, v]) => `<span class="sc">${esc(pretty(k))} ${v}</span>`).join("")}</span>
         ${(j.unsupported || []).length ? `<span class="unsup">Not supported by any source: ${esc(j.unsupported.join("; "))}</span>` : ""}
       </div>`).join("")}
@@ -794,8 +800,7 @@ function onEvent(ev, recIndex) {
       cols.insertAdjacentHTML("beforeend", `<div class="reccard">
         <div class="top"><span class="sc prio">${esc(label)}</span></div>
         <h4>${esc(ev.headline)}</h4>
-        <div class="bd">${cite(ev.rationale)}</div>
-        ${ev.options.map((o) => `<div class="opt2">If ${esc(o.condition)} → ${esc(o.action)} <em>${esc(pretty(o.priority_tag))}</em></div>`).join("")}
+        ${recBody(ev)}
         </div>`);
     }
     drawBoard(); drawParties(); scoreBoard();
@@ -810,6 +815,20 @@ function onEvent(ev, recIndex) {
     else $("resultCard").scrollIntoView({ behavior: "smooth", block: "start" });
   }
   return recIndex;
+}
+
+/* One recommendation, readable by someone who is not a diplomat: the plain
+   summary first, then what to propose at the table; the reasoning folds away. Older recordings have no plain
+   summary, so their rationale is shown as before. */
+function recBody(r) {
+  const plain = r.plain_summary
+    ? `<p class="plain">${cite(r.plain_summary)}</p>`
+    : `<div class="bd">${cite(r.rationale)}</div>`;
+  const options = (r.options || []).length ? `<div class="recsec"><b>What to propose at the table</b>
+    <ul>${r.options.map((o) => `<li><span class="when">If ${cite(String(o.condition).trim().replace(/^if\s+/i, "").replace(/[.:;,\s]+$/, ""))}:</span> ${cite(o.action)}</li>`).join("")}</ul></div>` : "";
+  const why = r.plain_summary && r.rationale
+    ? `<details class="claims"><summary>Why: the reasoning</summary><p>${cite(r.rationale)}</p></details>` : "";
+  return plain + options + why;
 }
 
 function drawResults(ev) {
@@ -827,13 +846,14 @@ function drawResults(ev) {
     return `<div class="reccard">
       <div class="top"><span class="prio-lead">If you protect</span> <span class="sc prio">${esc(label)}</span></div>
       <h4>${esc(r.headline)}</h4>
+      ${r.plain_summary ? `<p class="plain">${cite(r.plain_summary)}</p>` : ""}
       ${s.legal && got != null ? `<div class="gain px">
-        <div class="gnum"><b>${got}%</b><span>of the best deal ${esc(you)} could get</span></div>
+        <div class="gnum"><b>${got}%</b><span>of what ${esc(you)} would get if it won on every issue</span></div>
         <div class="gbar" role="img" aria-label="${got}% of the best deal; splitting every issue gets ${split}%">
           <i style="width:${Math.max(0, Math.min(100, got))}%"></i>
           <span class="gsplit" style="left:${Math.max(0, Math.min(100, split))}%"></span>
         </div>
-        <div class="gscale"><span>0%</span><span class="gsplitlbl" style="left:${Math.max(0, Math.min(100, split))}%">meet halfway: ${split}%</span><span>100%</span></div>
+        <div class="gscale"><span>0%</span><span class="gsplitlbl" style="left:${Math.max(0, Math.min(100, split))}%">meeting halfway: ${split}%</span><span>wins everything</span></div>
         <p class="gnote">${gap > 0 ? `${gap} points better than meeting halfway on every issue.`
           : gap < 0 ? `${-gap} points worse than meeting halfway on every issue.`
           : "The same as meeting halfway on every issue."}</p>

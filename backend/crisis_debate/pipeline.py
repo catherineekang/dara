@@ -169,6 +169,7 @@ def run_debate_rounds(
             arg = agent.argue(
                 scenario, r,
                 previous_opposing=opposing,
+                previous_own=next((a for a in prev_args if a.country == agent.brief.name), None),
                 own_feedback=own_feedback,
                 unaddressed=unaddressed,
                 # stage 4: what is true right now that constrains THIS party
@@ -287,7 +288,9 @@ def run(
         if use_judge:
             rec = recommender.recommend(scenario, judgments,
                                         audience=audience, priority=priority,
-                                        reviewer_note="\n".join(notes))
+                                        reviewer_note="\n".join(notes),
+                                        final_offers={a.country: a.package() for a in all_args[-1]}
+                                        if all_args else None)
         else:
             rec = recommender.recommend_from_transcript(scenario, all_args,
                                                         audience=audience, priority=priority)
