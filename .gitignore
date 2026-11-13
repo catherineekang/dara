@@ -24,3 +24,10 @@ briefs/
 
 # Experiment output (crisis_debate.cli experiment)
 backend/results/
+
+# Final report (LaTeX source and PDF are kept out of the repo)
+report/
+
+# Experiment byproducts (results JSONs are committed; these are not)
+backend/experiments/results/logs/
+*.checkpoint.jsonl

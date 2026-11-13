@@ -1,0 +1,622 @@
+{
+ "case": "covid_my_2020",
+ "repeat": 2,
+ "label": "B2 · mirrored briefs",
+ "seconds": 189.3,
+ "usage": {
+  "input": 84895,
+  "output": 23972,
+  "calls": 10,
+  "cost_microusd": 436948,
+  "ms": 189304
+ },
+ "model": "claude-sonnet-5-5",
+ "illegal": [],
+ "package": {
+  "commuter_arrangement": "stay_in_singapore_with_support",
+  "accommodation_cost": "shared_between_states",
+  "goods_and_food_flow": "unrestricted_cargo",
+  "health_screening": "testing_and_quarantine"
+ },
+ "dynamics": {
+  "position_similarity_between_rounds": {
+   "n": 4,
+   "mean": 0.739,
+   "sd": 0.0552,
+   "min": 0.694,
+   "max": 0.8147,
+   "cv": 0.0747
+  },
+  "issues_moved_between_rounds": {
+   "n": 4,
+   "mean": 1.0,
+   "sd": 0.0,
+   "min": 1.0,
+   "max": 1.0,
+   "cv": 0.0
+  },
+  "cross_agent_text_similarity_by_round": [
+   0.681,
+   0.795,
+   0.7978
+  ],
+  "package_agreement_by_round": [
+   0.75,
+   0.75,
+   0.75
+  ]
+ },
+ "transcript": [
+  [
+   {
+    "country": "Singapore",
+    "position": "Singapore proposes that Malaysian workers in essential sectors be offered voluntary lodging in Singapore, backed by a cost-sharing arrangement, while all freight keeps moving and every remaining crossing is tested. We start here because Malaysia's order runs from 18 to 31 March 2020 and bars Malaysians from travelling abroad [S1], so an open daily commute is no longer legally available on the Malaysian side. About 300,000 Malaysians cross each day, concentrated in healthcare, construction, manufacturing and transport [Background]. Hospitals and building sites cannot lose a large part of their shifts overnight, and Singapore has been at DORSCON Orange since 7 February 2020 [Background]. Housing workers here keeps those services staffed and ends the daily flow of people across the Causeway. This is also the safest way to avoid importing transmission.\n\nThe most damaging objection is that Singapore cannot compel Malaysian citizens to relocate, and that housing 300,000 people is unaffordable. We answer that the stay is voluntary and Singapore will use hotel and dormitory capacity that can be requisitioned, so no one is forced. Singapore will pay its share of accommodation, but we ask Malaysia to share the cost, because Malaysian employers and workers gain from keeping jobs and wages intact. In return for that offer, we ask Malaysia to keep food and supply trucks moving freely, since Malaysia's own order keeps supermarkets and grocery stores open [S1] and cargo is the one flow that carries no commuter transmission risk. Anyone who still crosses, including drivers and any workers who cannot stay, must pass testing at the checkpoints with quarantine where needed. Singapore will not accept unscreened daily crossings or any arrangement that leaves essential services unstaffed.",
+    "key_claims": [
+     {
+      "claim": "Roughly 300,000 Malaysians commute daily into Singapore, concentrated in healthcare, construction, manufacturing and transport, so a sudden stop would leave essential services short of staff.",
+      "evidence": "The scenario background gives the figure of about 300,000 daily commuters in these sectors [Background], which explains why Singapore must secure staffing through accommodation rather than a closed border."
+     },
+     {
+      "claim": "Malaysia's own order bars Malaysians from travelling abroad from 18 to 31 March 2020, so the daily commute cannot continue as before and lodging in Singapore is the workable alternative.",
+      "evidence": "The Malay Mail report states the Movement Control Order runs from 18 to 31 March 2020 and bars all Malaysians from travelling abroad [S1], so a voluntary stay is the way to keep workers in their jobs."
+     },
+     {
+      "claim": "Freight can keep moving without added risk because Malaysia's order exempts supermarkets, grocery stores and essential services such as health and transport.",
+      "evidence": "The Malay Mail report says shops close except supermarkets and grocery stores, and that utilities, health and transport stay open [S1], so unrestricted cargo is consistent with Malaysia's own rules and protects Singapore's road-supplied fresh food and eggs."
+     },
+     {
+      "claim": "Strict health screening is justified because Singapore has been at DORSCON Orange since 7 February 2020, after local cases appeared with no link to earlier cases or travel to China.",
+      "evidence": "The scenario's current conditions record the DORSCON Orange level since 7 February 2020 [Background], so testing and quarantine at the checkpoints is needed to avoid importing new transmission."
+     }
+    ],
+    "concessions": [
+     "If Malaysia accepts voluntary lodging in Singapore with a cost-sharing arrangement and free movement of freight, Singapore will fund the use of requisitioned hotel and dormitory capacity up front.",
+     "If Malaysia agrees to full testing at the checkpoints, Singapore will staff and run the screening infrastructure at its own cost."
+    ],
+    "red_lines": [
+     "Singapore will not accept an arrangement that leaves healthcare, construction, or other essential services unstaffed, because the loss of about a third of shift staff cannot be absorbed.",
+     "Singapore will not accept unscreened daily movement across the Causeway, because the public will not accept an uncontrolled crossing while DORSCON Orange is in force."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "shared_between_states"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   },
+   {
+    "country": "Malaysia",
+    "position": "Malaysia proposes that commuters who choose to stay in Singapore for the outbreak be housed there with support, that screened and prioritised cargo keep moving, and that every crossing be backed by real testing. The Movement Control Order runs from 18 to 31 March, a period of 14 days, and it bars Malaysians from travelling abroad. Roughly 300,000 people commuting daily across the Causeway is therefore not something either government can leave uncontrolled. Voluntary stays in Singapore, with accommodation arranged by employers, keep hospitals, construction sites and factories staffed for those 14 days without the daily crossing that would carry infection both ways. Malaysia cannot compel its citizens to relocate, so the arrangement must be an offer that workers want to take, and Malaysia is ready to help by arranging hotel and dormitory capacity and by running testing at the checkpoints. The strongest objection is that employers cannot absorb lodging costs for so many workers at short notice. Our answer is that the stay lasts only two weeks, that employers are the ones who lose output if their staff cannot work, and that Malaysia will co-ordinate its requisitioned hotel and dormitory capacity so that costs stay low. If Singapore accepts the stay arrangement and a testing-based regime for anyone who does cross, Malaysia can discuss sharing accommodation costs. On cargo, Malaysia wants fresh food and supplies to keep moving by road because Singapore draws a large share of its fresh food and eggs from us, and the Order itself keeps supermarkets and grocery stores open [S1]. We will not accept unscreened daily movement across the Causeway, and we will not accept any arrangement that leaves essential services unstaffed.",
+    "key_claims": [
+     {
+      "claim": "The Movement Control Order lasts 14 days, so a voluntary stay in Singapore is a short, bounded commitment rather than a permanent relocation.",
+      "evidence": "[S1] states that the nationwide order runs from 18 to 31 March 2020, so lodging and support need only cover about two weeks, which makes it affordable for employers."
+     },
+     {
+      "claim": "About 300,000 daily commuters is too large a flow to cross without screening during an outbreak, because every crossing is a chance to import infection.",
+      "evidence": "[Background] says roughly 300,000 Malaysians commute daily into Singapore, and [S1] shows Malaysia is barring its own citizens from travelling abroad, so an unscreened daily flow would contradict the Order."
+     },
+     {
+      "claim": "Essential services must stay staffed, and the Order itself treats health, transport and utilities as services that continue.",
+      "evidence": "[S1] exempts essential services such as utilities, health and transport from closure, and [Background] says commuters are concentrated in healthcare, construction, manufacturing and transport, so losing them would leave those sectors short."
+     },
+     {
+      "claim": "Food and supply flows should stay open because both countries depend on them and Malaysia's own Order keeps grocery supply running.",
+      "evidence": "[Background] says Singapore draws a large share of its fresh food and eggs from Malaysia by road, and [S1] keeps supermarkets and grocery stores open, so cutting cargo would hurt both sides."
+     }
+    ],
+    "concessions": [
+     "If Singapore accepts voluntary stays with support and testing-based screening, Malaysia will discuss sharing accommodation costs between the two states.",
+     "If screening at the checkpoints is agreed and run jointly, Malaysia can accept priority lanes for essential goods in place of fully open cargo."
+    ],
+    "red_lines": [
+     "No arrangement that leaves essential services unstaffed, because hospitals and construction sites cannot absorb the sudden loss of about a third of shift staff.",
+     "No unscreened daily movement across the Causeway, because the public will not accept uncontrolled crossings during an outbreak."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "employers_only"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "country": "Singapore",
+    "position": "We have moved toward Malaysia's package: we now accept employer-funded lodging in place of cost sharing, provided that stays are voluntary, cargo moves freely and every crossing is tested. Malaysia's strongest point is that it cannot compel its citizens to relocate, so the scheme must be an offer workers want to take. We agree, and we answer it with a figure: the Movement Control Order runs from 18 to 31 March 2020, about 14 days, and bars Malaysians from travelling abroad [S1], so a short paid stay is the only way the roughly 300,000 daily commuters [Background] can keep their jobs. Because Malaysia has said it will co-ordinate hotel and dormitory capacity and run testing at the checkpoints, we can drop our request for state cost sharing, which matters less to us than staffed hospitals, building sites and open food supply. In return, we ask Malaysia to confirm that fresh food and supply trucks keep moving without export limits, since Singapore draws a large share of its fresh food and eggs from Malaysia by road and Malaysia's own order keeps supermarkets and grocery stores open [S1]. Every remaining crossing, including drivers and any worker who cannot stay, must pass testing with quarantine where needed. We will not accept unscreened daily crossings or any arrangement that leaves essential services unstaffed.\n\nThe most damaging objection to this package is that small employers cannot fund lodging at short notice, and that workers with family or caregiving duties will not stay. We answer in three ways. First, Singapore will make requisitionable hotel and dormitory capacity available to employers, and the Ministry of Manpower can match it to employers by sector, with healthcare first. Second, workers who cannot stay will still be able to cross, but only through the testing lane, so no essential post is left empty and no one crosses unscreened. Third, if the Order is extended past 31 March, the two governments should meet again before that date to review lodging costs, and we would then expect Malaysia's offer to share costs to apply. Malaysia must also issue a travel exemption for workers and freight drivers under its own order, and we ask for that in return for our giving up cost sharing now.",
+    "key_claims": [
+     {
+      "claim": "A voluntary stay is a bounded, affordable commitment because the Malaysian order covers only about 14 days.",
+      "evidence": "[S1] states the Movement Control Order runs from 18 to 31 March 2020, so employers need to fund lodging for roughly two weeks, which is why we can accept an employer-funded arrangement."
+     },
+     {
+      "claim": "The daily commute of about 300,000 people cannot continue unscreened, so staying plus testing protects both staffing and public health.",
+      "evidence": "[Background] gives about 300,000 daily commuters in healthcare, construction, manufacturing and transport, and [S1] shows Malaysia bars its citizens from travelling abroad, so any crossing that remains needs a testing lane and a legal exemption."
+     },
+     {
+      "claim": "Unrestricted cargo is consistent with Malaysia's own rules and protects both countries' food supply.",
+      "evidence": "[S1] keeps supermarkets and grocery stores open and exempts utilities, health and transport, and [Background] says Singapore draws a large share of its fresh food and eggs from Malaysia by road."
+     },
+     {
+      "claim": "Testing at the checkpoints is justified by Singapore's heightened alert, and Singapore will run it so freight is not delayed.",
+      "evidence": "[Background] records DORSCON Orange since 7 February 2020 after local cases with no link to earlier cases or travel to China, so Singapore's checkpoint testing infrastructure should screen drivers and workers in a dedicated lane."
+     }
+    ],
+    "concessions": [
+     "If Malaysia confirms unrestricted cargo and testing at all crossings, Singapore will drop its request for cost sharing and accept employer-funded lodging.",
+     "If Malaysia grants travel exemptions to workers and freight drivers, Singapore will run the checkpoint testing lane at its own cost and make requisitionable hotel and dormitory capacity available to employers.",
+     "If the Order is extended past 31 March, Singapore will meet Malaysia to review lodging costs before the end date."
+    ],
+    "red_lines": [
+     "No arrangement that leaves healthcare, construction or other essential services unstaffed, because these sectors rely on Malaysian commuters concentrated in them [Background].",
+     "No unscreened daily movement across the Causeway, because the public will not accept uncontrolled crossings while DORSCON Orange is in force [Background]."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "employers_only"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   },
+   {
+    "country": "Malaysia",
+    "position": "We have moved since last round: Malaysia now accepts that the two states share the lodging bill, and we are fixing the gap in our last paper by stating one consistent package, with fully open cargo, checkpoint testing and voluntary stays in Singapore. Singapore's strongest point is that our own Movement Control Order bars Malaysians from travelling abroad from 18 to 31 March [S1], so the old daily commute cannot simply resume. We agree, and that is why voluntary stays are the right tool. The scale is large but bounded: if all of the roughly 300,000 daily commuters [Background] stayed for the 14 days of the Order [S1], that is at most about 4.2 million bed-nights, which is why costs must be split rather than loaded onto small employers who cannot fund lodging at short notice. In return for that move on cost, we ask Singapore to keep its offer to fund requisitioned hotel and dormitory capacity up front and to run the checkpoint testing at its own cost, as it offered. Malaysia will then use its own hotel and dormitory capacity to add beds and will pay its half from the Malaysian side.\\n\\nThe most damaging objection to this package is that many commuters will not or cannot stay, for example because of family or caregiving duties, and that testing every crosser could back up freight. We answer in two parts. First, the stay is an offer and not an order, because Malaysia cannot compel citizens to relocate, so anyone who declines still crosses only with a test and quarantine where needed, and never unscreened. Second, drivers and cargo should be tested in a separate fast lane, so that the food and eggs Singapore draws from Malaysia by road keep moving. Malaysia will also issue a written exemption from the travel ban for workers and freight drivers, so that no one is stopped at the border by our own Order. If the Order is extended past 31 March, we propose that both governments review lodging and testing arrangements within the first week of any extension. We will not accept any arrangement that leaves essential services unstaffed, and we will not accept unscreened daily movement across the Causeway.",
+    "key_claims": [
+     {
+      "claim": "The Order lasts 14 days, so shared lodging is a bounded cost of at most about 4.2 million bed-nights even if every commuter stayed.",
+      "evidence": "[S1] says the Movement Control Order runs from 18 to 31 March 2020 and [Background] gives roughly 300,000 daily commuters, so multiplying the two shows a ceiling that two governments can share, which is why splitting the cost protects small employers."
+     },
+     {
+      "claim": "Cargo can stay fully open because Malaysia's own Order keeps supermarkets and grocery stores running, provided drivers use a separate fast testing lane.",
+      "evidence": "[S1] exempts supermarkets, grocery stores and essential services such as health and transport, and [Background] says Singapore draws a large share of its fresh food and eggs from Malaysia by road, so delaying trucks would hurt both sides."
+     },
+     {
+      "claim": "Testing and quarantine at the checkpoints is the only screening level that fits our red line against unscreened crossing of the Causeway.",
+      "evidence": "[Background] records roughly 300,000 daily crossers and Singapore at DORSCON Orange since 7 February 2020, and [S1] shows Malaysia is already barring its own citizens from travelling abroad, so a mere self-declaration would contradict both governments' stance."
+     },
+     {
+      "claim": "Workers and freight drivers need a formal exemption from the ban on travel abroad, or the stay arrangement fails at the border.",
+      "evidence": "[S1] states that all Malaysians are barred from travelling abroad from 18 March, so a written exemption issued by Malaysia is needed for the commuters and drivers who will still cross."
+     }
+    ],
+    "concessions": [
+     "If Singapore keeps its offer to fund requisitioned lodging up front and to run checkpoint testing at its own cost, Malaysia will share the accommodation bill between the two states.",
+     "If Singapore agrees to a separate fast testing lane for freight drivers, Malaysia will accept fully open cargo and will not press for export controls or a cap on priority lanes.",
+     "If Singapore agrees to a joint review within one week of any extension of the Order, Malaysia will keep the same lodging arrangement in place after 31 March."
+    ],
+    "red_lines": [
+     "No arrangement that leaves essential services such as healthcare and construction unstaffed, because the sectors where commuters are concentrated cannot absorb a sudden loss of staff.",
+     "No unscreened daily movement across the Causeway, because the public will not accept uncontrolled crossings during an outbreak."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "shared_between_states"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "country": "Singapore",
+    "position": "We have moved again: Singapore now accepts that the two states share the lodging bill, because Malaysia has met our other three asks and a closed deal matters more to us than who pays for beds. Malaysia's strongest point is scale: if all of the roughly 300,000 daily commuters [Background] stayed for the 14 days of the Order [S1], that is up to about 4.2 million bed-nights, which small employers cannot fund at short notice. We accept that arithmetic, and it is why we drop employer-only funding. However, the figure is a ceiling and not a forecast, because staying is voluntary, so we ask that the shared bill be paid against beds actually used, and that Malaysia pay its half as it has offered. In return for our moving on cost, we ask Malaysia to keep its commitment to fully open cargo, with drivers in a separate fast testing lane run by Singapore's checkpoint authorities, because Singapore draws a large share of its fresh food and eggs from Malaysia by road [Background] and Malaysia's own Order keeps supermarkets and grocery stores open [S1].\\n\\nThe most damaging objection to our side is that testing every crosser may not be possible at volume. We answer by shrinking the number: a worker who stays is tested once on entry and then does not cross daily, so the daily lane is used only by drivers and by workers who cannot stay. Two gaps remain that neither side has settled. First, quarantine beds for anyone who tests positive are different from voluntary lodging, so we propose that Singapore requisition that capacity and that its cost fall inside the shared pool. Second, Malaysia must issue the written travel exemption [S1] as a named list by employer, which Singapore checks at the checkpoint, and any exempted worker turned back at the border keeps the right to take a paid stay instead. If the Order runs past 31 March, both governments review lodging and testing within the first week, and we will meet that. We will not accept unscreened crossing, and we will not accept any arrangement that leaves essential services unstaffed.",
+    "key_claims": [
+     {
+      "claim": "Sharing the lodging bill is workable because the Order is short and the ceiling is bounded at about 4.2 million bed-nights, which is only reached if every commuter stays.",
+      "evidence": "[S1] says the Movement Control Order runs from 18 to 31 March 2020, about 14 days, and [Background] gives roughly 300,000 daily commuters, so 300,000 times 14 gives the ceiling, and paying only for beds actually used keeps the real bill below it."
+     },
+     {
+      "claim": "Testing every crosser is feasible if the daily lane serves only drivers and workers who cannot stay, because stayers are tested once on entry.",
+      "evidence": "[Background] records about 300,000 daily commuters and DORSCON Orange since 7 February 2020, and every worker who accepts a stay is one fewer person in the daily lane, so the stay offer directly reduces checkpoint volume."
+     },
+     {
+      "claim": "Unrestricted cargo with a separate driver lane protects both countries' food supply.",
+      "evidence": "[S1] keeps supermarkets and grocery stores open in Malaysia, and [Background] says Singapore draws a large share of its fresh food and eggs from Malaysia by road, so delayed trucks would hurt both sides."
+     },
+     {
+      "claim": "The travel exemption must be a written, checkable list, because Malaysia's own Order would otherwise stop workers and drivers at its own border.",
+      "evidence": "[S1] states all Malaysians are barred from travelling abroad from 18 March 2020, so without an employer-named exemption list checked at the checkpoint, the stay arrangement fails on the first day."
+     }
+    ],
+    "concessions": [
+     "If Malaysia keeps fully open cargo with a separate driver testing lane, Singapore will accept that the two states share the lodging bill, paid against beds actually used.",
+     "If Malaysia issues a written exemption list for workers and drivers, Singapore will run the checkpoint testing lane at its own cost and requisition hotel and dormitory capacity.",
+     "If Malaysia agrees that quarantine beds for positive cases sit inside the shared pool, Singapore will requisition and operate that capacity.",
+     "If the Order is extended past 31 March, Singapore will join a review of lodging and testing within the first week."
+    ],
+    "red_lines": [
+     "No unscreened daily movement across the Causeway, because the public will not accept uncontrolled crossings while DORSCON Orange is in force [Background].",
+     "No arrangement that leaves healthcare, construction or other essential services unstaffed, because commuters are concentrated in those sectors [Background]."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "shared_between_states"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   },
+   {
+    "country": "Malaysia",
+    "position": "We have moved since last round: Malaysia now accepts Singapore's offer that employers fund the lodging, and in return we ask Singapore to fix three things in writing, which are the testing lane, the freight lane and the quarantine bed. Singapore's strongest point is that small employers cannot fund lodging at short notice, and that workers with family duties will not stay. We answer with a figure: the Movement Control Order runs only from 18 to 31 March 2020, about 14 days [S1], so the bill is bounded, and the roughly 300,000 daily commuters [Background] will not all stay, because the stay is voluntary and Malaysia cannot compel its citizens to relocate. Employer funding is workable because Singapore has said it will make requisitionable hotel and dormitory capacity available through its Ministry of Manpower, and Malaysia will add its own hotel and dormitory capacity on the Malaysian side. Singapore has also said it will drop cost sharing, so we take that offer and stop pressing for a split.\\n\\nThe gaps neither side has covered now matter most. First, quarantine beds for crossers who test positive or need quarantine are a different cost from voluntary lodging, and we propose that Singapore's health authorities bed them where they are tested, since Singapore is running the testing lane, while Malaysia receives any Malaysian who must return after treatment. Second, the travel exemption should be issued in writing by Malaysia's authorities under the Order [S1], checked at the checkpoint against an employer list, and any exempted worker turned back should be re-admitted on the Malaysian side without penalty. Third, because workers lose time with their families, employers should pay the lodging in advance and keep wages running, and if the Order is extended past 31 March, both governments should meet within one week to review lodging, testing and the end of stay quarantine. In return, we ask Singapore to confirm that freight drivers use a separate fast lane and that no export limits are applied to food, since Malaysia's own Order keeps supermarkets and grocery stores open [S1]. We will not accept an arrangement that leaves essential services unstaffed, and we will not accept unscreened daily crossing of the Causeway.",
+    "key_claims": [
+     {
+      "claim": "A 14 day Order makes employer funded lodging a bounded cost, so Malaysia can drop its request for cost sharing.",
+      "evidence": "[S1] states the Movement Control Order runs from 18 to 31 March 2020, so employers fund about two weeks of lodging for those who choose to stay out of roughly 300,000 daily commuters [Background], which is a ceiling and not an open ended bill."
+     },
+     {
+      "claim": "Every crosser must be tested, so Singapore should run the testing lane and bed those who need quarantine, while freight uses a separate fast lane.",
+      "evidence": "[Background] gives roughly 300,000 daily commuters and a large share of Singapore's fresh food and eggs arriving by road, and [S1] shows Malaysia is already restricting movement, so unscreened or delayed crossing would hurt both sides."
+     },
+     {
+      "claim": "Malaysia must issue a written travel exemption for workers and freight drivers, or the stay arrangement fails at the border.",
+      "evidence": "[S1] states all Malaysians are barred from travelling abroad from 18 March 2020, so commuters and drivers who still cross need a written exemption checked at the checkpoint."
+     },
+     {
+      "claim": "Cargo can stay fully open because Malaysia's own Order keeps food retail running.",
+      "evidence": "[S1] keeps supermarkets and grocery stores open and exempts health and transport, and [Background] says Singapore draws a large share of its fresh food and eggs from Malaysia by road, so export limits would cut supply to both sides."
+     }
+    ],
+    "concessions": [
+     "If Singapore confirms a separate fast testing lane for freight drivers and no export limits on food, Malaysia will accept employer funded lodging and drop its request for cost sharing.",
+     "If Singapore runs the checkpoint testing lane at its own cost and beds those who need quarantine, Malaysia will issue a written travel exemption for workers and drivers and offer its own hotel and dormitory capacity.",
+     "If the Order is extended past 31 March, Malaysia will meet Singapore within one week to review lodging, testing and end of stay re-entry."
+    ],
+    "red_lines": [
+     "No arrangement that leaves essential services such as healthcare and construction unstaffed, because those sectors cannot absorb a sudden loss of a third of shift staff.",
+     "No unscreened daily movement across the Causeway, because the public will not accept uncontrolled crossing during an outbreak."
+    ],
+    "proposed_package": [
+     {
+      "issue": "commuter_arrangement",
+      "option": "stay_in_singapore_with_support"
+     },
+     {
+      "issue": "accommodation_cost",
+      "option": "employers_only"
+     },
+     {
+      "issue": "goods_and_food_flow",
+      "option": "unrestricted_cargo"
+     },
+     {
+      "issue": "health_screening",
+      "option": "testing_and_quarantine"
+     }
+    ]
+   }
+  ]
+ ],
+ "judgments": [
+  {
+   "round_index": 1,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 2,
+       "justification": "It relies on voluntary lodging for a large share of about 300,000 commuters using requisitioned hotels and dormitories. It gives no capacity figures, no timeline before 18 March, and no testing throughput for the remaining crossings. Testing every crossing while freight keeps flowing is also unexplained."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It names the dates (18-31 March), the 300,000 figure, and the sectors. It commits to fund requisitioned capacity up front and to staff checkpoint screening at its own cost. It gives no cost split, no number of workers to be housed, and no quarantine terms."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 3,
+       "justification": "It admits that Singapore cannot compel relocation and that housing 300,000 people is costly, and it offers to pay its share. It says little about the burden on workers separated from their families or on Malaysia's checkpoint and freight inspection burden."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "The package matches the stated text: voluntary lodging, shared costs, free freight, and testing with quarantine. The red lines agree with the argument. The offer to fund requisitioned capacity up front slightly strains the 'ask Malaysia to share' framing, but it is conditional."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 3,
+       "justification": "This is round 1, so there is no opposing argument to answer. It does anticipate the strongest objection (compulsion and affordability) and ties its freight ask to Malaysia's own order keeping supermarkets open [S1]."
+      }
+     ],
+     "summary": "Singapore proposes voluntary lodging in Singapore for essential-sector Malaysian workers, with the two governments sharing the cost. Freight would move unrestricted, and every remaining crossing would be tested, with quarantine where needed. The argument is clear and firm on its red lines. The scale of 300,000 workers is not costed or capacity-checked. Its DORSCON Orange justification and its 'a third of shift staff' figure are not supported by the scenario or sources.",
+     "unsupported_claims": [
+      "Singapore has been at DORSCON Orange since 7 February 2020 (not in the scenario text or [S1])",
+      "Local cases appeared with no link to earlier cases or travel to China (no source)",
+      "Loss of about a third of shift staff cannot be absorbed (no source for 'a third')",
+      "Malaysia's exemptions for supermarkets and essential services show unrestricted cargo is consistent with its rules ([S1] covers shop and service openings, not cargo movement)",
+      "Cargo carries no commuter transmission risk (unsupported assertion; drivers still cross, as it later concedes)"
+     ]
+    },
+    {
+     "country": "Malaysia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "A two-week stay with employer-arranged lodging and Malaysia coordinating requisitioned hotels is plausible. But it does not show that employers, especially small ones, can pay on short notice, and it gives no testing capacity for the checkpoints."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It gives the 14-day duration and says Malaysia will arrange accommodation capacity and run checkpoint testing. The cost-sharing offer is only 'can discuss', and no amounts, worker numbers or lane details are given."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 3,
+       "justification": "It names the strongest objection, that employers cannot absorb lodging costs at short notice. Its answer is that the stay is short and employers lose output otherwise. It does not admit that Singapore bears the burden of hosting, or that workers bear personal and family costs."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 2,
+       "justification": "The text asks for 'screened and prioritised cargo' and offers priority lanes 'in place of fully open cargo', yet the package selects unrestricted cargo. It argues for employers paying while offering to discuss cost sharing. These internal contradictions are not explained."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 3,
+       "justification": "This is round 1, so there is no opposing argument to answer. It engages the shared problem and anticipates the cost objection. It links cargo to Singapore's dependence on Malaysian fresh food and eggs, and to the Order keeping groceries open [S1]."
+      }
+     ],
+     "summary": "Malaysia proposes voluntary stays in Singapore for the 14-day order, with lodging arranged by employers and checkpoint testing run by Malaysia. Food and supplies would keep moving by road. It offers to discuss cost sharing and priority lanes for essential goods as concessions. The argument is practical on duration, but the written position and the submitted package disagree on cargo and on who pays for lodging. The 'a third of shift staff' figure is not supported.",
+     "unsupported_claims": [
+      "Loss of about a third of shift staff cannot be absorbed (no source for 'a third')",
+      "An unscreened daily flow would contradict the Order ([S1] bars travel abroad but does not address screening)",
+      "Singapore draws a large share of its fresh food and eggs from Malaysia by road is supported by the scenario, but it is cited to [Background], not a listed source",
+      "Employers are the ones who lose output and can bear costs (assertion, no evidence)"
+     ]
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "Neither side shows that Singapore has enough housing for the numbers of workers who would stay, or says what happens to the many commuters who will not or cannot stay (family, caregiving duties).",
+    "Neither side addresses the impact on workers: separation from families, pay, living conditions, and consent to a 14-day stay.",
+    "Neither side plans for the order being extended past 31 March, which would raise the cost and strain of any lodging scheme.",
+    "Neither side explains how workers and freight drivers get a legal exemption from Malaysia's ban on travel abroad.",
+    "Neither side says who pays for checkpoint testing and quarantine for crossers, or whether testing capacity can handle the volume without causing freight delays.",
+    "Neither side considers the effect on Malaysia of losing its own workers and income at home, or the effect on small employers who cannot fund lodging."
+   ]
+  },
+  {
+   "round_index": 2,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "Requisitioned hotels and dorms, a Ministry of Manpower matching scheme, a dedicated testing lane at Singapore's cost and a Malaysian travel exemption are all plausible. But pushing lodging for up to 300,000 workers onto employers is what it admits small employers can't fund at short notice, and the answer is only a pointer to requisitioned capacity. No bed counts or capacity figures are given."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It gives the 18–31 March window (about 14 days), the 300,000 figure, a sector order (healthcare first), a dedicated testing lane, a named travel exemption and a pre-31 March review if the Order is extended. It gives no cost, bed or testing-throughput numbers, and 'before that date' is not a fixed meeting time."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "It names the 'most damaging objection': small employers can't fund lodging, and caregivers won't stay. It admits that dropping cost sharing is a concession and that workers who can't stay still need a testing lane. It does not say the shift puts cost on Malaysian employers or that testing delays could slow freight."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "It moves from shared costs to employer-only costs and says so ('We have moved toward Malaysia's package'), tying it to Malaysia's offer to co-ordinate capacity and run testing. Cargo, testing and the red lines are unchanged. It also hands back the cost-sharing point only for the 14 days, and expects Malaysia's cost-sharing offer to apply if the Order is extended."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 4,
+       "justification": "It takes up Malaysia's point that it cannot compel its citizens ('We agree') and Malaysia's offers to co-ordinate capacity and run testing. It does not answer Malaysia's priority-lane concession, and it does not recognise that Malaysia has already moved to cost sharing."
+      }
+     ],
+     "summary": "Singapore gives up its request for shared costs and accepts employer-funded lodging for voluntary stays. In return it asks for free-flowing cargo, testing of every crossing, and a written Malaysian travel exemption for workers and drivers. It offers to run the testing lane at its own cost and to make requisitioned hotel and dorm space available. It also proposes a joint review of lodging costs before any extension past 31 March. The argument is clear and consistent, but it has no cost or capacity numbers, and it leaves the cost burden on small employers largely unsolved.",
+     "unsupported_claims": [
+      "The Ministry of Manpower can match requisitioned capacity to employers by sector, with healthcare first (no source supports this role or process).",
+      "Singapore's DORSCON Orange followed local cases with no link to earlier cases or travel to China (the scenario text given does not state this)."
+     ]
+    },
+    {
+     "country": "Malaysia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "A written exemption, Malaysian beds and a split bill are within Malaysia's control. A separate fast lane for drivers is practical. But it assumes Singapore will pay lodging up front and fund all testing, and it gives no testing capacity for the many commuters who decline to stay."
+      },
+      {
+       "criterion": "specificity",
+       "score": 4,
+       "justification": "It sets out a 300,000 × 14 days = 4.2 million bed-night ceiling, a 50/50 split, a written exemption for workers and drivers, a separate freight lane and a review within the first week of any extension. It gives no per-night cost."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "It names the main objection (many commuters won't or can't stay, and testing may back up freight) and admits that costs cannot fall on small employers. It concedes that it will pay half the bill. It treats the 4.2 million as a ceiling but does not say that quarantine space and testing costs fall on Singapore."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "It shifts from employer-only to shared costs and says so ('We have moved since last round'), and fixes the earlier mismatch between priority lanes in the text and fully open cargo in the package. Screening, stays and the red lines are unchanged. The move away from priority lanes is explained, but it is weakly tied to anything Singapore said."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 4,
+       "justification": "It takes up Singapore's strongest point, the travel ban in [S1], and answers with the written exemption. It also builds on Singapore's offers to fund lodging up front and to run testing. It does not engage Singapore's new move to employers-only cost or its offer to match capacity by sector."
+      }
+     ],
+     "summary": "Malaysia moves to a shared lodging bill and sets out a single package: voluntary stays in Singapore, fully open cargo with a separate fast testing lane, and testing and quarantine at every crossing. It puts a ceiling on the cost (up to 4.2 million bed-nights over 14 days) and offers a written travel exemption for workers and drivers. It also offers a joint review within one week of any extension. The argument is specific and answers Singapore's travel-ban point well. It does not respond to Singapore's concession on cost, so the two sides now disagree on who pays.",
+     "unsupported_claims": [
+      "The 4.2 million bed-night figure is a ceiling that assumes all 300,000 commuters stay for all 14 days; the sources give no basis for that assumption, and 18–31 March is 13 nights, not 14.",
+      "A self-declaration regime would 'contradict both governments' stance' (no source records Singapore's position on this)."
+     ]
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "Neither side says who pays for quarantine accommodation, or where it is, for crossers who test positive or need quarantine, as distinct from voluntary lodging.",
+    "Neither says whether testing every crosser, including 300,000 who decline to stay, can be done at the volume and speed needed. Test supply and turnaround time are not discussed.",
+    "Neither addresses what the voluntary stay costs workers: weeks away from family, lost income if they cannot work, and who protects them if employers fail to pay.",
+    "Neither addresses what happens to workers after the stay, or how re-entry and any quarantine at the end of the Order would work.",
+    "Neither addresses the cost to Singapore of requisitioning hotels and dormitories, including displacement of other users and the effect on its own outbreak response.",
+    "Neither addresses the legal and practical process for the Malaysian travel exemption: who issues it, how it is checked at the border, and what happens if exempted workers are turned back."
+   ]
+  },
+  {
+   "round_index": 3,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 4,
+       "justification": "Shrinking the daily lane to drivers and non-stayers, paying for beds actually used, and an employer-named exemption list are workable. Whether Singapore can test every driver and non-stayer at volume is asserted rather than shown."
+      },
+      {
+       "criterion": "specificity",
+       "score": 4,
+       "justification": "It gives the 4.2 million bed-night ceiling, pay-per-bed-used, a named list by employer, quarantine beds inside the shared pool, and a one-week review. It gives no cost figures or lane capacity."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 3,
+       "justification": "It admits that scale burdens small employers, that quarantine beds are a separate cost and that testing may not be possible at volume. It does not say that pay-per-use leaves Malaysia and hotels with uncertain bills, or that Singapore running the lane may delay freight."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "It reverses last round's employers-only funding, but explains this as a concession in return for open cargo and as a response to Malaysia's scale point. Its red lines and the rest of its package are unchanged."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 4,
+       "justification": "It takes up Malaysia's 4.2 million bed-night arithmetic and the unresolved quarantine-bed and exemption gaps. It does not reply to Malaysia's request for re-admission without penalty."
+      }
+     ],
+     "summary": "Singapore now accepts that the two states share the lodging bill, paid against beds actually used. It asks Malaysia to keep cargo fully open with a separate driver testing lane. It proposes that quarantine beds for positive cases sit in the shared pool and that Malaysia issue a written exemption list by employer. It offers a joint review within a week if the Order is extended.",
+     "unsupported_claims": [
+      "DORSCON Orange since 7 February 2020 is cited to [Background], but the scenario text does not contain it.",
+      "The claim that stayers are tested once on entry and then do not cross daily is an assumption, not a sourced fact."
+     ]
+    },
+    {
+     "country": "Malaysia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "Employer-funded lodging was already shown to be hard for small employers at short notice. Malaysia's reply rests on the stay being voluntary and on a bounded cost, and it offers no funding mechanism for small employers."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It has useful details: a written exemption checked against an employer list, penalty-free re-admission, and a review within a week. It gives no new figures and leaves the stay-quarantine end vague."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 2,
+       "justification": "It admits quarantine beds are a separate cost, but it does not admit that employer-only funding burdens small employers and that Singapore bears the quarantine and testing costs."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 2,
+       "justification": "Last round Malaysia argued that costs must be split because small employers could not fund lodging. It now drops cost sharing and takes employer-only funding. It claims to be accepting Singapore's offer, but Singapore had already moved to sharing in this round, so the reversal is poorly explained."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 3,
+       "justification": "It answers Singapore's earlier objection on small employers and family duties and picks up the offer to drop cost sharing. It does not engage Singapore's current position, which moved to sharing."
+      }
+     ],
+     "summary": "Malaysia now accepts employer-funded lodging and drops its demand for cost sharing. It asks Singapore to run the testing lane, bed quarantine cases, keep freight in a separate fast lane and apply no export limits. It offers a written exemption checked against an employer list and a review within a week of any extension. Its stance has flipped from its previous round, and it responds to Singapore's last-round offer rather than the current one.",
+     "unsupported_claims": [
+      "It says workers would lose 'a third of shift staff', which no source supports.",
+      "It says Singapore has said it will make requisitionable capacity available through its Ministry of Manpower. The prior statement supports this, but no listed source does.",
+      "The legal basis of the exemption 'under the Order [S1]' is not stated in [S1], which only says Malaysians are barred from travelling abroad."
+     ]
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "Who pays for lost wages and the income of workers who stay away from their families for 14 days or longer, apart from lodging.",
+    "What happens to the lodging and testing arrangement if the Order extends well beyond the first review, including whether workers' stays can continue.",
+    "Whether freight drivers' testing and quarantine can be done without halting supply, and who is liable if a driver tests positive mid-route.",
+    "Whether Malaysia's hotels and dormitories and Singapore's requisitioned capacity can be used for quarantine without displacing existing healthcare or hospitality needs.",
+    "Rules for workers who are neither stayers nor on the exemption list, such as informal workers, and how disputes over list eligibility are settled."
+   ]
+  }
+ ],
+ "outcome_mirror": {
+  "utility_Singapore": 0.96,
+  "utility_Malaysia": 0.96,
+  "joint_utility": 1.92,
+  "joint_value_recovered": 0.96,
+  "is_pareto_optimal": 0.0,
+  "nash_ratio": 0.9216,
+  "inequality": 0.0,
+  "integrative_gain": 0.907,
+  "focus_country": "Singapore",
+  "focus_utility": 0.96,
+  "focus_utility_split": 0.57,
+  "focus_utility_best": 1.0,
+  "focus_gain_over_split": 0.39,
+  "focus_share_of_own_headroom": 0.907
+ }
+}

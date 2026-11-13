@@ -63,6 +63,9 @@ BackendFactory = Callable[[Scenario, str, int], Any]
 MAIN = [("B0", "B0", 3, False), ("B1", "B1", 3, False), ("B2", "B2", 3, False)]
 ROUNDS = [("B2 · 1 round", "B2", 1, False), ("B2 · 2 rounds", "B2", 2, False)]
 FULL_INFO = [("B2 · full information", "B2", 3, True)]
+#: Ablation added for the final report: B2 whose recommender is not shown the
+#: two final offers (judge assessments only), isolating what the offers carry.
+NO_OFFERS = [("B2 · no final offers", "B2", 3, False, True)]
 
 OUTCOME = ("joint_value_recovered", "integrative_gain", "focus_gain_over_split",
            "nash_ratio", "is_pareto_optimal")
@@ -281,11 +284,12 @@ def non_language_baselines(scenario: Scenario, *, samples: int = 200, seed: int 
 # One run, and its evaluation
 # ==========================================================================
 def _run_once(scenario: Scenario, backend, spec, conditions) -> Tuple[DebateRun, float]:
-    label, condition, rounds, full_info = spec
+    label, condition, rounds, full_info = spec[:4]
+    withhold = bool(spec[4]) if len(spec) > 4 else False
     started = time.time()
     run = pipeline.run(scenario, backend, condition=condition, rounds=rounds,
                        priorities=(pipeline.RQ_PRIORITY,), conditions=conditions,
-                       full_information=full_info)
+                       full_information=full_info, withhold_final_offers=withhold)
     return run, time.time() - started
 
 
@@ -477,7 +481,8 @@ def probes(scenario: Scenario, backend) -> Dict[str, Any]:
 # The whole study
 # ==========================================================================
 def specs(include_rounds: bool, include_full_info: bool) -> List[tuple]:
-    return MAIN + (ROUNDS if include_rounds else []) + (FULL_INFO if include_full_info else [])
+    return (MAIN + (ROUNDS if include_rounds else []) + (FULL_INFO if include_full_info else [])
+            + (NO_OFFERS if include_full_info else []))
 
 
 def planned_calls(scenario: Scenario, *, repeats: int, include_rounds: bool = True,
@@ -485,7 +490,7 @@ def planned_calls(scenario: Scenario, *, repeats: int, include_rounds: bool = Tr
                   include_probes: bool = True) -> Dict[str, int]:
     n = len(scenario.countries)
     per: Dict[str, int] = {}
-    for label, cond, rounds, _ in specs(include_rounds, include_full_info):
+    for label, cond, rounds, *_ in specs(include_rounds, include_full_info):
         if cond == "B0":
             calls = 1
         else:

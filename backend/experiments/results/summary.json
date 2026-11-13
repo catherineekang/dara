@@ -1,0 +1,3716 @@
+{
+ "haze_real": {
+  "files": 5,
+  "labels": {
+   "B0": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.783,
+     "sd": 0.026,
+     "min": 0.772,
+     "max": 0.831
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.052,
+     "sd": 0.115,
+     "min": 0.0,
+     "max": 0.258
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.038,
+     "sd": 0.086,
+     "min": 0.0,
+     "max": 0.193
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.605,
+     "sd": 0.018,
+     "min": 0.597,
+     "max": 0.637
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.44,
+     "sd": 0.329,
+     "min": 3.2,
+     "max": 4
+    },
+    "debater_overall": {
+     "n": 0
+    },
+    "calls": {
+     "n": 5,
+     "mean": 1,
+     "sd": 0.0,
+     "min": 1,
+     "max": 1
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 6142.0,
+     "sd": 321.0,
+     "min": 5969,
+     "max": 6714
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 1280.0,
+     "sd": 321.0,
+     "min": 1107,
+     "max": 1852
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 11.7,
+     "sd": 2.2,
+     "min": 9.4,
+     "max": 15.2
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.766,
+     "sd": 0.03,
+     "min": 0.752,
+     "max": 0.819
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.805,
+     "sd": 0.023,
+     "min": 0.795,
+     "max": 0.846
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.25,
+     "sd": 0.0,
+     "min": 0.25,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {},
+    "role_consistency_by_round": {},
+    "issues_moved": {
+     "n": 0
+    },
+    "novel_argument_rate": {
+     "n": 0
+    },
+    "false_consensus": 0,
+    "leaks": 0,
+    "packages": [
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.7716,
+     0.7716,
+     0.7716,
+     0.7716,
+     0.8306
+    ],
+    "focus_runs": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1925
+    ]
+   },
+   "B1": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.951,
+     "sd": 0.04,
+     "min": 0.91,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.787,
+     "sd": 0.176,
+     "min": 0.605,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.158,
+     "sd": 0.099,
+     "min": 0.072,
+     "max": 0.265
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.892,
+     "sd": 0.07,
+     "min": 0.829,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.36,
+     "sd": 0.261,
+     "min": 3,
+     "max": 3.6
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.3,
+     "sd": 0.097,
+     "min": 4.167,
+     "max": 4.433
+    },
+    "calls": {
+     "n": 5,
+     "mean": 7,
+     "sd": 0.0,
+     "min": 7,
+     "max": 7
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 70178.0,
+     "sd": 383.0,
+     "min": 69645,
+     "max": 70608
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 15614.0,
+     "sd": 295.0,
+     "min": 15349,
+     "max": 16117
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 124.5,
+     "sd": 2.3,
+     "min": 120.5,
+     "max": 126.1
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.935,
+     "sd": 0.049,
+     "min": 0.886,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.973,
+     "sd": 0.03,
+     "min": 0.941,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.05,
+     "sd": 0.112,
+     "min": 0.0,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.05,
+      "sd": 0.112,
+      "min": 0.0,
+      "max": 0.25
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.15,
+      "sd": 0.137,
+      "min": 0.0,
+      "max": 0.25
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.0,
+      "min": 0.5,
+      "max": 0.5
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 5,
+      "sd": 0.0,
+      "min": 5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.5,
+      "sd": 0.0,
+      "min": 4.5,
+      "max": 4.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.4,
+      "sd": 0.548,
+      "min": 3.5,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.7,
+     "sd": 0.209,
+     "min": 1.5,
+     "max": 2.0
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.474,
+     "sd": 0.08,
+     "min": 0.412,
+     "max": 0.611
+    },
+    "false_consensus": 0,
+    "leaks": 0,
+    "packages": [
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.9687,
+     1.0,
+     0.9687,
+     0.9098,
+     0.9098
+    ],
+    "focus_runs": [
+     0.265,
+     0.115,
+     0.265,
+     0.0725,
+     0.0725
+    ]
+   },
+   "B2": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.86,
+     "sd": 0.031,
+     "min": 0.829,
+     "max": 0.912
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.385,
+     "sd": 0.135,
+     "min": 0.25,
+     "max": 0.613
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.029,
+     "sd": 0.096,
+     "min": -0.04,
+     "max": 0.152
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.727,
+     "sd": 0.057,
+     "min": 0.675,
+     "max": 0.824
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.52,
+     "sd": 0.303,
+     "min": 3.2,
+     "max": 4
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.267,
+     "sd": 0.19,
+     "min": 3.933,
+     "max": 4.4
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 110873.0,
+     "sd": 6865.0,
+     "min": 102750,
+     "max": 118197
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 25818,
+     "sd": 1848.0,
+     "min": 24102,
+     "max": 28403
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 203.7,
+     "sd": 13.3,
+     "min": 190.6,
+     "max": 222.0
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.838,
+     "sd": 0.033,
+     "min": 0.808,
+     "max": 0.894
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.888,
+     "sd": 0.031,
+     "min": 0.851,
+     "max": 0.936
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.091,
+     "sd": 0.203,
+     "min": 0.0,
+     "max": 0.453
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.2,
+     "sd": 0.112,
+     "min": 0.0,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.05,
+      "sd": 0.112,
+      "min": 0.0,
+      "max": 0.25
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.3,
+      "sd": 0.112,
+      "min": 0.25,
+      "max": 0.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.177,
+      "min": 0.25,
+      "max": 0.75
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.3,
+      "sd": 0.274,
+      "min": 4,
+      "max": 4.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.5,
+      "sd": 0.354,
+      "min": 4,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.55,
+     "sd": 0.481,
+     "min": 0.75,
+     "max": 2.0
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.586,
+     "sd": 0.069,
+     "min": 0.5,
+     "max": 0.667
+    },
+    "false_consensus": 0,
+    "leaks": 1,
+    "packages": [
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.8287,
+     0.8527,
+     0.8527,
+     0.9116,
+     0.8527
+    ],
+    "focus_runs": [
+     0.1125,
+     -0.04,
+     -0.04,
+     0.1525,
+     -0.04
+    ]
+   },
+   "B2 · 1 round": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.772,
+     "sd": 0.0,
+     "min": 0.772,
+     "max": 0.772
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.597,
+     "sd": 0.0,
+     "min": 0.597,
+     "max": 0.597
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.48,
+     "sd": 0.11,
+     "min": 3.4,
+     "max": 3.6
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.26,
+     "sd": 0.134,
+     "min": 4.1,
+     "max": 4.4
+    },
+    "calls": {
+     "n": 5,
+     "mean": 4,
+     "sd": 0.0,
+     "min": 4,
+     "max": 4
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 30638.0,
+     "sd": 908.0,
+     "min": 29394,
+     "max": 31938
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 8860,
+     "sd": 676.0,
+     "min": 7857,
+     "max": 9747
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 72.0,
+     "sd": 5.4,
+     "min": 63.7,
+     "max": 78.9
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.752,
+     "sd": 0.0,
+     "min": 0.752,
+     "max": 0.752
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.795,
+     "sd": 0.0,
+     "min": 0.795,
+     "max": 0.795
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.25,
+     "sd": 0.0,
+     "min": 0.25,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 5,
+      "sd": 0.0,
+      "min": 5,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 0
+    },
+    "novel_argument_rate": {
+     "n": 0
+    },
+    "false_consensus": 0,
+    "leaks": 0,
+    "packages": [
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.7716,
+     0.7716,
+     0.7716,
+     0.7716,
+     0.7716
+    ],
+    "focus_runs": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "B2 · 2 rounds": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.924,
+     "sd": 0.057,
+     "min": 0.831,
+     "max": 0.969
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.666,
+     "sd": 0.252,
+     "min": 0.258,
+     "max": 0.863
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.144,
+     "sd": 0.146,
+     "min": -0.077,
+     "max": 0.265
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.815,
+     "sd": 0.108,
+     "min": 0.637,
+     "max": 0.9
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.24,
+     "sd": 0.261,
+     "min": 3,
+     "max": 3.6
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.18,
+     "sd": 0.148,
+     "min": 4.05,
+     "max": 4.4
+    },
+    "calls": {
+     "n": 5,
+     "mean": 7,
+     "sd": 0.0,
+     "min": 7,
+     "max": 7
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 66972.0,
+     "sd": 1506.0,
+     "min": 65583,
+     "max": 69280
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 16205.0,
+     "sd": 1214.0,
+     "min": 15331,
+     "max": 18281
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 130.6,
+     "sd": 9.0,
+     "min": 123.2,
+     "max": 145.6
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.908,
+     "sd": 0.057,
+     "min": 0.819,
+     "max": 0.953
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.944,
+     "sd": 0.06,
+     "min": 0.846,
+     "max": 0.992
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.1,
+     "sd": 0.137,
+     "min": 0.0,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.3,
+      "sd": 0.112,
+      "min": 0.25,
+      "max": 0.5
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.2,
+      "sd": 0.274,
+      "min": 4,
+      "max": 4.5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.9,
+     "sd": 0.418,
+     "min": 1.5,
+     "max": 2.5
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.732,
+     "sd": 0.062,
+     "min": 0.667,
+     "max": 0.8
+    },
+    "false_consensus": 0,
+    "leaks": 1,
+    "packages": [
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.9098,
+     0.8306,
+     0.9411,
+     0.9687,
+     0.9687
+    ],
+    "focus_runs": [
+     0.0725,
+     0.1925,
+     -0.0775,
+     0.265,
+     0.265
+    ]
+   },
+   "B2 · no final offers": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.851,
+     "sd": 0.067,
+     "min": 0.772,
+     "max": 0.943
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.347,
+     "sd": 0.295,
+     "min": 0.0,
+     "max": 0.75
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": -0.075,
+     "sd": 0.089,
+     "min": -0.19,
+     "max": 0.003
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.68,
+     "sd": 0.115,
+     "min": 0.587,
+     "max": 0.866
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.4,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.8,
+     "sd": 0.2,
+     "min": 3.6,
+     "max": 4
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.12,
+     "sd": 0.163,
+     "min": 3.933,
+     "max": 4.367
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 105710,
+     "sd": 3742.0,
+     "min": 101474,
+     "max": 111698
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 24735.0,
+     "sd": 903.0,
+     "min": 23889,
+     "max": 26180
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 196.9,
+     "sd": 6.8,
+     "min": 191.1,
+     "max": 207.9
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.834,
+     "sd": 0.075,
+     "min": 0.752,
+     "max": 0.939
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.869,
+     "sd": 0.061,
+     "min": 0.795,
+     "max": 0.948
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.4,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.4,
+     "sd": 0.137,
+     "min": 0.25,
+     "max": 0.5
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.05,
+      "sd": 0.112,
+      "min": 0.0,
+      "max": 0.25
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.25,
+      "sd": 0.177,
+      "min": 0.0,
+      "max": 0.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.55,
+      "sd": 0.209,
+      "min": 0.25,
+      "max": 0.75
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.6,
+      "sd": 0.418,
+      "min": 4,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 3.7,
+      "sd": 0.447,
+      "min": 3,
+      "max": 4
+     },
+     "3": {
+      "n": 5,
+      "mean": 3.8,
+      "sd": 0.57,
+      "min": 3,
+      "max": 4.5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.8,
+     "sd": 0.209,
+     "min": 1.5,
+     "max": 2.0
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.637,
+     "sd": 0.103,
+     "min": 0.562,
+     "max": 0.812
+    },
+    "false_consensus": 2,
+    "leaks": 0,
+    "packages": [
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "partial_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "partial_exemptions",
+      "transition_funding": "full_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     0.8029,
+     0.884,
+     0.9429,
+     0.7716,
+     0.8527
+    ],
+    "focus_runs": [
+     -0.15,
+     -0.19,
+     0.0025,
+     0.0,
+     -0.04
+    ]
+   },
+   "B2 · full information": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.928,
+     "sd": 0.04,
+     "min": 0.91,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.684,
+     "sd": 0.177,
+     "min": 0.605,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.081,
+     "sd": 0.019,
+     "min": 0.072,
+     "max": 0.115
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.863,
+     "sd": 0.076,
+     "min": 0.829,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.2,
+     "sd": 0.447,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.68,
+     "sd": 0.268,
+     "min": 3.4,
+     "max": 4
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.2,
+     "sd": 0.145,
+     "min": 3.967,
+     "max": 4.333
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 112173.0,
+     "sd": 5698.0,
+     "min": 105685,
+     "max": 117543
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 24621,
+     "sd": 1002.0,
+     "min": 22923,
+     "max": 25546
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 196.6,
+     "sd": 8.6,
+     "min": 182.1,
+     "max": 204.1
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.908,
+     "sd": 0.051,
+     "min": 0.886,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.953,
+     "sd": 0.026,
+     "min": 0.941,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.2,
+     "sd": 0.447,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.05,
+     "sd": 0.112,
+     "min": 0.0,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.25,
+      "sd": 0.0,
+      "min": 0.25,
+      "max": 0.25
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.7,
+      "sd": 0.209,
+      "min": 0.5,
+      "max": 1.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.7,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.1,
+      "sd": 0.224,
+      "min": 4,
+      "max": 4.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.4,
+      "sd": 0.224,
+      "min": 4,
+      "max": 4.5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.45,
+     "sd": 0.209,
+     "min": 1.25,
+     "max": 1.75
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.616,
+     "sd": 0.091,
+     "min": 0.5,
+     "max": 0.75
+    },
+    "false_consensus": 2,
+    "leaks": 0,
+    "packages": [
+     {
+      "concession_maps": "full_to_asean_hms",
+      "enforcement": "indonesian_courts_only",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     },
+     {
+      "concession_maps": "aggregated_by_district",
+      "enforcement": "joint_asean_panel",
+      "peatland_moratorium": "full_no_exemptions",
+      "transition_funding": "full_donor_fund"
+     }
+    ],
+    "jvr_runs": [
+     1.0,
+     0.9098,
+     0.9098,
+     0.9098,
+     0.9098
+    ],
+    "focus_runs": [
+     0.115,
+     0.0725,
+     0.0725,
+     0.0725,
+     0.0725
+    ]
+   }
+  },
+  "comparisons": {
+   "B2 - B0 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.076,
+    "sd": 0.043,
+    "min": 0.022,
+    "max": 0.14,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B2 - B0 · focus_gain_over_split": {
+    "n": 5,
+    "mean": -0.01,
+    "sd": 0.152,
+    "min": -0.233,
+    "max": 0.152,
+    "a_better": 2,
+    "ties": 0
+   },
+   "B2 - B1 · joint_value_recovered": {
+    "n": 5,
+    "mean": -0.092,
+    "sd": 0.063,
+    "min": -0.147,
+    "max": 0.002,
+    "a_better": 1,
+    "ties": 0
+   },
+   "B2 - B1 · focus_gain_over_split": {
+    "n": 5,
+    "mean": -0.129,
+    "sd": 0.138,
+    "min": -0.305,
+    "max": 0.08,
+    "a_better": 1,
+    "ties": 0
+   },
+   "B1 - B0 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.168,
+    "sd": 0.059,
+    "min": 0.079,
+    "max": 0.228,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B1 - B0 · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.12,
+    "sd": 0.16,
+    "min": -0.12,
+    "max": 0.265,
+    "a_better": 4,
+    "ties": 0
+   },
+   "B2 - B2 · no final offers · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.009,
+    "sd": 0.085,
+    "min": -0.09,
+    "max": 0.14,
+    "a_better": 2,
+    "ties": 1
+   },
+   "B2 - B2 · no final offers · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.104,
+    "sd": 0.124,
+    "min": -0.043,
+    "max": 0.263,
+    "a_better": 3,
+    "ties": 1
+   },
+   "B2 · full information - B2 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.068,
+    "sd": 0.063,
+    "min": -0.002,
+    "max": 0.171,
+    "a_better": 4,
+    "ties": 0
+   },
+   "B2 · full information - B2 · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.052,
+    "sd": 0.088,
+    "min": -0.08,
+    "max": 0.112,
+    "a_better": 4,
+    "ties": 0
+   }
+  },
+  "judge": {
+   "repeat_mad": {
+    "n": 50,
+    "mean": 0.142,
+    "sd": 0.209,
+    "min": 0,
+    "max": 0.444
+   },
+   "repeat_exact_agreement": {
+    "n": 50,
+    "mean": 0.893,
+    "sd": 0.157,
+    "min": 0.667,
+    "max": 1.0
+   },
+   "order_swap_abs": {
+    "n": 50,
+    "mean": 0.42,
+    "sd": 0.499,
+    "min": 0,
+    "max": 1
+   },
+   "order_swap_nonzero": 21,
+   "order_swap_n": 50,
+   "order_swap_signed": {
+    "n": 50,
+    "mean": -0.1,
+    "sd": 0.647,
+    "min": -1,
+    "max": 1
+   },
+   "label_swap_mean_abs_diff": {
+    "n": 5,
+    "mean": 0.72,
+    "sd": 0.303,
+    "min": 0.3,
+    "max": 1.1
+   },
+   "validity_joint": {
+    "n": 30,
+    "spearman_rho": 0.0277,
+    "judge_score_mean": 17.7333,
+    "objective_mean": 1.2024,
+    "reads_as": "no relationship"
+   },
+   "validity_own": {
+    "n": 30,
+    "spearman_rho": -0.4166,
+    "judge_score_mean": 17.7333,
+    "objective_mean": 0.7777,
+    "reads_as": "weak"
+   },
+   "fact_check": {
+    "tp": 59,
+    "fp": 342,
+    "fn": 68,
+    "precision": 0.147,
+    "recall": 0.465
+   }
+  },
+  "probes": [
+   {
+    "P1_free_recall": {
+     "recalls_post_cutoff_events": true,
+     "markers": [
+      "Peatland Restoration Agency (BRG)",
+      "Presidential Regulation 1/2016",
+      "Indonesian peatland moratorium announcement",
+      "post-cutoff year references"
+     ],
+     "answer": "From memory, with varying confidence. I haven't verified any of this against sources.\n\n**Singapore**\n- **Enforcement jurisdiction:** The Transboundary Haze Pollution Act (THPA) was passed in 2014 and applies extraterritorially to conduct outside Singapore that causes haze in Singapore. In 2015 the National Environment Agency (NEA) used it. On 25 Sept 2015 it served notices under s.10 on five Indonesian companies, requiring them to give information on their concessions and to take steps to put out fires. The firms I recall were APP/Sinar Mas-linked PT Bumi Sriwijaya Sentosa, PT Rimba Hutani Mas"
+    },
+    "P3_discrimination": {
+     "correct": true,
+     "confidence": 0.9,
+     "reads_as": "recall (picks the real outcome confidently)"
+    }
+   }
+  ],
+  "baselines": {
+   "oracle (needs both true tables)": {
+    "single": {
+     "joint_value_recovered": 1.0,
+     "integrative_gain": 1.0,
+     "focus_gain_over_split": 0.115,
+     "nash_ratio": 1.0,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "split the difference": {
+    "single": {
+     "joint_value_recovered": 0.7716,
+     "integrative_gain": 0.0,
+     "focus_gain_over_split": 0.0,
+     "nash_ratio": 0.5968,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   },
+   "demand everything": {
+    "single": {
+     "joint_value_recovered": 0.7827,
+     "integrative_gain": 0.0484,
+     "focus_gain_over_split": 0.47,
+     "nash_ratio": 0.136,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "calculator, ±20% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.115,
+      "sd": 0.0,
+      "min": 0.115,
+      "max": 0.115,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, ±40% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 0.9988,
+      "sd": 0.0094,
+      "min": 0.8821,
+      "max": 1.0,
+      "cv": 0.0094
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 0.9947,
+      "sd": 0.0411,
+      "min": 0.4839,
+      "max": 1.0,
+      "cv": 0.0413
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.1184,
+      "sd": 0.0217,
+      "min": 0.115,
+      "max": 0.265,
+      "cv": 0.1833
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 0.9967,
+      "sd": 0.0227,
+      "min": 0.7468,
+      "max": 1.0,
+      "cv": 0.0227
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 0.995,
+      "sd": 0.0707,
+      "min": 0.0,
+      "max": 1.0,
+      "cv": 0.0711
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, their priorities unknown (random order)": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 0.9176,
+      "sd": 0.0822,
+      "min": 0.8306,
+      "max": 1.0,
+      "cv": 0.0895
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 0.6392,
+      "sd": 0.3599,
+      "min": 0.2581,
+      "max": 1.0,
+      "cv": 0.563
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.1239,
+      "sd": 0.0369,
+      "min": 0.04,
+      "max": 0.16,
+      "cv": 0.298
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 0.8361,
+      "sd": 0.1645,
+      "min": 0.6569,
+      "max": 1.0,
+      "cv": 0.1968
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 0.495,
+      "sd": 0.5012,
+      "min": 0.0,
+      "max": 1.0,
+      "cv": 1.0126
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, assumes they want the opposite of you": {
+    "single": {
+     "joint_value_recovered": 0.8582,
+     "integrative_gain": 0.379,
+     "focus_gain_over_split": 0.04,
+     "nash_ratio": 0.738,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   }
+  },
+  "side_usage": [
+   {
+    "calls": 20,
+    "input": 186545,
+    "output": 45201
+   },
+   {
+    "calls": 18,
+    "input": 199198,
+    "output": 40488
+   },
+   {
+    "calls": 18,
+    "input": 186855,
+    "output": 33500
+   },
+   {
+    "calls": 18,
+    "input": 214812,
+    "output": 48591
+   },
+   {
+    "calls": 18,
+    "input": 197423,
+    "output": 43556
+   }
+  ],
+  "wall_seconds": [
+   1303.4,
+   1271.3,
+   1189.4,
+   1305.7,
+   1300.2
+  ],
+  "mirror": {
+   "runs": 3,
+   "package_agreement_by_round": {
+    "1": {
+     "n": 3,
+     "mean": 0.833,
+     "sd": 0.144,
+     "min": 0.75,
+     "max": 1.0
+    },
+    "2": {
+     "n": 3,
+     "mean": 0.917,
+     "sd": 0.144,
+     "min": 0.75,
+     "max": 1.0
+    },
+    "3": {
+     "n": 3,
+     "mean": 0.917,
+     "sd": 0.144,
+     "min": 0.75,
+     "max": 1.0
+    }
+   },
+   "issues_moved": {
+    "n": 3,
+    "mean": 0.417,
+    "sd": 0.52,
+    "min": 0.0,
+    "max": 1.0
+   },
+   "text_similarity": {
+    "n": 9,
+    "mean": 0.701,
+    "sd": 0.055,
+    "min": 0.599,
+    "max": 0.787
+   },
+   "illegal": 0,
+   "normal_text_similarity": {
+    "n": 15,
+    "mean": 0.636,
+    "sd": 0.069,
+    "min": 0.534,
+    "max": 0.759
+   }
+  }
+ },
+ "covid_my_2020": {
+  "files": 5,
+  "labels": {
+   "B0": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.749,
+     "sd": 0.0,
+     "min": 0.749,
+     "max": 0.749
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.449,
+     "sd": 0.0,
+     "min": 0.449,
+     "max": 0.449
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.158,
+     "sd": 0.0,
+     "min": 0.158,
+     "max": 0.158
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.554,
+     "sd": 0.0,
+     "min": 0.554,
+     "max": 0.554
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.44,
+     "sd": 0.329,
+     "min": 3.2,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 0
+    },
+    "calls": {
+     "n": 5,
+     "mean": 1,
+     "sd": 0.0,
+     "min": 1,
+     "max": 1
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 5774,
+     "sd": 390.0,
+     "min": 5579,
+     "max": 6472
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 1307.0,
+     "sd": 391.0,
+     "min": 1111,
+     "max": 2005
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 11.2,
+     "sd": 3.1,
+     "min": 9.2,
+     "max": 16.8
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.739,
+     "sd": 0.0,
+     "min": 0.739,
+     "max": 0.739
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.761,
+     "sd": 0.0,
+     "min": 0.761,
+     "max": 0.761
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5
+    },
+    "package_agreement_by_round": {},
+    "role_consistency_by_round": {},
+    "issues_moved": {
+     "n": 0
+    },
+    "novel_argument_rate": {
+     "n": 0
+    },
+    "false_consensus": 0,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "temperature_and_declaration"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "temperature_and_declaration"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "temperature_and_declaration"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "temperature_and_declaration"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "temperature_and_declaration"
+     }
+    ],
+    "jvr_runs": [
+     0.7485,
+     0.7485,
+     0.7485,
+     0.7485,
+     0.7485
+    ],
+    "focus_runs": [
+     0.1575,
+     0.1575,
+     0.1575,
+     0.1575,
+     0.1575
+    ]
+   },
+   "B1": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.954,
+     "sd": 0.035,
+     "min": 0.901,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.899,
+     "sd": 0.077,
+     "min": 0.783,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.27,
+     "sd": 0.052,
+     "min": 0.24,
+     "max": 0.36
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.915,
+     "sd": 0.067,
+     "min": 0.812,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.8,
+     "sd": 0.447,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.76,
+     "sd": 0.089,
+     "min": 3.6,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.187,
+     "sd": 0.143,
+     "min": 4.067,
+     "max": 4.4
+    },
+    "calls": {
+     "n": 5,
+     "mean": 7,
+     "sd": 0.0,
+     "min": 7,
+     "max": 7
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 66604.0,
+     "sd": 6675.0,
+     "min": 61128,
+     "max": 76536
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 13265.0,
+     "sd": 794.0,
+     "min": 12120,
+     "max": 14245
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 105.0,
+     "sd": 7.2,
+     "min": 94.1,
+     "max": 113.2
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.95,
+     "sd": 0.039,
+     "min": 0.889,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.96,
+     "sd": 0.03,
+     "min": 0.915,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.8,
+     "sd": 0.447,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.5,
+     "sd": 0.177,
+     "min": 0.25,
+     "max": 0.75
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.45,
+      "sd": 0.112,
+      "min": 0.25,
+      "max": 0.5
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.75,
+      "sd": 0.177,
+      "min": 0.5,
+      "max": 1.0
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.75,
+      "sd": 0.0,
+      "min": 0.75,
+      "max": 0.75
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 3.8,
+      "sd": 0.274,
+      "min": 3.5,
+      "max": 4
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.3,
+      "sd": 0.274,
+      "min": 4,
+      "max": 4.5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.2,
+     "sd": 0.274,
+     "min": 0.75,
+     "max": 1.5
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.415,
+     "sd": 0.056,
+     "min": 0.357,
+     "max": 0.5
+    },
+    "false_consensus": 4,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9012,
+     1.0,
+     0.9564,
+     0.9564,
+     0.9564
+    ],
+    "focus_runs": [
+     0.27,
+     0.36,
+     0.24,
+     0.24,
+     0.24
+    ]
+   },
+   "B2": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.943,
+     "sd": 0.042,
+     "min": 0.901,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.875,
+     "sd": 0.092,
+     "min": 0.783,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.276,
+     "sd": 0.049,
+     "min": 0.24,
+     "max": 0.36
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.893,
+     "sd": 0.081,
+     "min": 0.812,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.6,
+     "sd": 0.2,
+     "min": 3.4,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.167,
+     "sd": 0.172,
+     "min": 4,
+     "max": 4.367
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 97490.0,
+     "sd": 8464.0,
+     "min": 90467,
+     "max": 110888
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 20851.0,
+     "sd": 1306.0,
+     "min": 19002,
+     "max": 22010
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 166.4,
+     "sd": 8.6,
+     "min": 155.3,
+     "max": 173.0
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.937,
+     "sd": 0.047,
+     "min": 0.889,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.951,
+     "sd": 0.036,
+     "min": 0.915,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.45,
+     "sd": 0.209,
+     "min": 0.25,
+     "max": 0.75
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.177,
+      "min": 0.25,
+      "max": 0.75
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.8,
+      "sd": 0.209,
+      "min": 0.5,
+      "max": 1.0
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.85,
+      "sd": 0.137,
+      "min": 0.75,
+      "max": 1.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.7,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.3,
+      "sd": 0.447,
+      "min": 4,
+      "max": 5
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.1,
+      "sd": 0.548,
+      "min": 3.5,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 0.95,
+     "sd": 0.326,
+     "min": 0.5,
+     "max": 1.25
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.489,
+     "sd": 0.084,
+     "min": 0.4,
+     "max": 0.6
+    },
+    "false_consensus": 3,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9564,
+     0.9012,
+     1.0,
+     0.9564,
+     0.9012
+    ],
+    "focus_runs": [
+     0.24,
+     0.27,
+     0.36,
+     0.24,
+     0.27
+    ]
+   },
+   "B2 · 1 round": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.901,
+     "sd": 0.0,
+     "min": 0.901,
+     "max": 0.901
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.783,
+     "sd": 0.0,
+     "min": 0.783,
+     "max": 0.783
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.27,
+     "sd": 0.0,
+     "min": 0.27,
+     "max": 0.27
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.812,
+     "sd": 0.0,
+     "min": 0.812,
+     "max": 0.812
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.52,
+     "sd": 0.303,
+     "min": 3,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.16,
+     "sd": 0.114,
+     "min": 4,
+     "max": 4.3
+    },
+    "calls": {
+     "n": 5,
+     "mean": 4,
+     "sd": 0.0,
+     "min": 4,
+     "max": 4
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 32203.0,
+     "sd": 4986.0,
+     "min": 26755,
+     "max": 37101
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 7681.0,
+     "sd": 922.0,
+     "min": 6792,
+     "max": 8953
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 60.7,
+     "sd": 5.4,
+     "min": 56.0,
+     "max": 68.1
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.889,
+     "sd": 0.0,
+     "min": 0.889,
+     "max": 0.889
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.915,
+     "sd": 0.0,
+     "min": 0.915,
+     "max": 0.915
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.0,
+     "sd": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.25,
+     "sd": 0.0,
+     "min": 0.25,
+     "max": 0.25
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.0,
+      "min": 0.5,
+      "max": 0.5
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 0
+    },
+    "novel_argument_rate": {
+     "n": 0
+    },
+    "false_consensus": 0,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9012,
+     0.9012,
+     0.9012,
+     0.9012,
+     0.9012
+    ],
+    "focus_runs": [
+     0.27,
+     0.27,
+     0.27,
+     0.27,
+     0.27
+    ]
+   },
+   "B2 · 2 rounds": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.941,
+     "sd": 0.054,
+     "min": 0.901,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.87,
+     "sd": 0.119,
+     "min": 0.783,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.306,
+     "sd": 0.049,
+     "min": 0.27,
+     "max": 0.36
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.887,
+     "sd": 0.103,
+     "min": 0.812,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.4,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.52,
+     "sd": 0.228,
+     "min": 3.2,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.22,
+     "sd": 0.11,
+     "min": 4.05,
+     "max": 4.35
+    },
+    "calls": {
+     "n": 5,
+     "mean": 7,
+     "sd": 0.0,
+     "min": 7,
+     "max": 7
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 64699.0,
+     "sd": 10178.0,
+     "min": 57289,
+     "max": 80803
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 14254.0,
+     "sd": 1288.0,
+     "min": 13172,
+     "max": 16377
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 112.8,
+     "sd": 6.6,
+     "min": 108.0,
+     "max": 124.1
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.934,
+     "sd": 0.061,
+     "min": 0.889,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.949,
+     "sd": 0.046,
+     "min": 0.915,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.4,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.45,
+     "sd": 0.274,
+     "min": 0.25,
+     "max": 0.75
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.177,
+      "min": 0.25,
+      "max": 0.75
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.8,
+      "sd": 0.209,
+      "min": 0.5,
+      "max": 1.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.3,
+      "sd": 0.447,
+      "min": 4,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.2,
+     "sd": 0.447,
+     "min": 1.0,
+     "max": 2.0
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.549,
+     "sd": 0.046,
+     "min": 0.5,
+     "max": 0.6
+    },
+    "false_consensus": 3,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9012,
+     1.0,
+     0.9012,
+     1.0,
+     0.9012
+    ],
+    "focus_runs": [
+     0.27,
+     0.36,
+     0.27,
+     0.36,
+     0.27
+    ]
+   },
+   "B2 · no final offers": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.943,
+     "sd": 0.042,
+     "min": 0.901,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.875,
+     "sd": 0.092,
+     "min": 0.783,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.276,
+     "sd": 0.049,
+     "min": 0.24,
+     "max": 0.36
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.893,
+     "sd": 0.081,
+     "min": 0.812,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.52,
+     "sd": 0.335,
+     "min": 3,
+     "max": 3.8
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.1,
+     "sd": 0.17,
+     "min": 3.933,
+     "max": 4.333
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 100674.0,
+     "sd": 7211.0,
+     "min": 93222,
+     "max": 110708
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 21061.0,
+     "sd": 521.0,
+     "min": 20365,
+     "max": 21550
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 168.2,
+     "sd": 3.2,
+     "min": 163.5,
+     "max": 171.6
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.937,
+     "sd": 0.047,
+     "min": 0.889,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.951,
+     "sd": 0.036,
+     "min": 0.915,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 0.6,
+     "sd": 0.548,
+     "min": 0.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.45,
+     "sd": 0.209,
+     "min": 0.25,
+     "max": 0.75
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.5,
+      "sd": 0.177,
+      "min": 0.25,
+      "max": 0.75
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.75,
+      "sd": 0.25,
+      "min": 0.5,
+      "max": 1.0
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.7,
+      "sd": 0.209,
+      "min": 0.5,
+      "max": 1.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.8,
+      "sd": 0.274,
+      "min": 4.5,
+      "max": 5
+     },
+     "2": {
+      "n": 5,
+      "mean": 4.0,
+      "sd": 0.354,
+      "min": 3.5,
+      "max": 4.5
+     },
+     "3": {
+      "n": 5,
+      "mean": 4.4,
+      "sd": 0.548,
+      "min": 4,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 1.2,
+     "sd": 0.447,
+     "min": 0.75,
+     "max": 1.75
+    },
+    "novel_argument_rate": {
+     "n": 5,
+     "mean": 0.604,
+     "sd": 0.115,
+     "min": 0.5,
+     "max": 0.75
+    },
+    "false_consensus": 1,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "shared_between_states",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9012,
+     0.9564,
+     0.9012,
+     1.0,
+     0.9564
+    ],
+    "focus_runs": [
+     0.27,
+     0.24,
+     0.27,
+     0.36,
+     0.24
+    ]
+   },
+   "B2 · full information": {
+    "runs": 5,
+    "failed": 0,
+    "illegal": 0,
+    "joint_value_recovered": {
+     "n": 5,
+     "mean": 0.965,
+     "sd": 0.019,
+     "min": 0.956,
+     "max": 1.0
+    },
+    "integrative_gain": {
+     "n": 5,
+     "mean": 0.924,
+     "sd": 0.043,
+     "min": 0.904,
+     "max": 1.0
+    },
+    "focus_gain_over_split": {
+     "n": 5,
+     "mean": 0.264,
+     "sd": 0.054,
+     "min": 0.24,
+     "max": 0.36
+    },
+    "nash_ratio": {
+     "n": 5,
+     "mean": 0.936,
+     "sd": 0.036,
+     "min": 0.921,
+     "max": 1.0
+    },
+    "is_pareto_optimal": {
+     "n": 5,
+     "mean": 1.0,
+     "sd": 0.0,
+     "min": 1.0,
+     "max": 1.0
+    },
+    "recommender_overall": {
+     "n": 5,
+     "mean": 3.72,
+     "sd": 0.228,
+     "min": 3.4,
+     "max": 4
+    },
+    "debater_overall": {
+     "n": 5,
+     "mean": 4.113,
+     "sd": 0.256,
+     "min": 3.7,
+     "max": 4.4
+    },
+    "calls": {
+     "n": 5,
+     "mean": 10,
+     "sd": 0.0,
+     "min": 10,
+     "max": 10
+    },
+    "tokens": {
+     "n": 5,
+     "mean": 102184.0,
+     "sd": 7031.0,
+     "min": 93672,
+     "max": 108322
+    },
+    "tokens_out": {
+     "n": 5,
+     "mean": 21674.0,
+     "sd": 675.0,
+     "min": 20756,
+     "max": 22416
+    },
+    "seconds": {
+     "n": 5,
+     "mean": 171.7,
+     "sd": 4.0,
+     "min": 166.3,
+     "max": 176.7
+    },
+    "stress_lo": {
+     "n": 5,
+     "mean": 0.962,
+     "sd": 0.021,
+     "min": 0.953,
+     "max": 1.0
+    },
+    "stress_hi": {
+     "n": 5,
+     "mean": 0.969,
+     "sd": 0.017,
+     "min": 0.961,
+     "max": 1.0
+    },
+    "stress_pareto_rate": {
+     "n": 5,
+     "mean": 1.0,
+     "sd": 0.0,
+     "min": 1.0,
+     "max": 1.0
+    },
+    "history_agreement": {
+     "n": 5,
+     "mean": 0.55,
+     "sd": 0.112,
+     "min": 0.5,
+     "max": 0.75
+    },
+    "package_agreement_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 0.7,
+      "sd": 0.112,
+      "min": 0.5,
+      "max": 0.75
+     },
+     "2": {
+      "n": 5,
+      "mean": 0.95,
+      "sd": 0.112,
+      "min": 0.75,
+      "max": 1.0
+     },
+     "3": {
+      "n": 5,
+      "mean": 0.95,
+      "sd": 0.112,
+      "min": 0.75,
+      "max": 1.0
+     }
+    },
+    "role_consistency_by_round": {
+     "1": {
+      "n": 5,
+      "mean": 4.6,
+      "sd": 0.652,
+      "min": 3.5,
+      "max": 5
+     },
+     "2": {
+      "n": 4,
+      "mean": 4.5,
+      "sd": 0.408,
+      "min": 4,
+      "max": 5
+     },
+     "3": {
+      "n": 4,
+      "mean": 4.5,
+      "sd": 0.408,
+      "min": 4,
+      "max": 5
+     }
+    },
+    "issues_moved": {
+     "n": 5,
+     "mean": 0.45,
+     "sd": 0.326,
+     "min": 0.25,
+     "max": 1.0
+    },
+    "novel_argument_rate": {
+     "n": 4,
+     "mean": 0.5,
+     "sd": 0.088,
+     "min": 0.375,
+     "max": 0.562
+    },
+    "false_consensus": 2,
+    "leaks": 0,
+    "packages": [
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "unrestricted_cargo",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     },
+     {
+      "commuter_arrangement": "stay_in_singapore_with_support",
+      "accommodation_cost": "singapore_subsidised",
+      "goods_and_food_flow": "prioritised_essentials",
+      "health_screening": "testing_and_quarantine"
+     }
+    ],
+    "jvr_runs": [
+     0.9564,
+     0.9564,
+     1.0,
+     0.9564,
+     0.9564
+    ],
+    "focus_runs": [
+     0.24,
+     0.24,
+     0.36,
+     0.24,
+     0.24
+    ]
+   }
+  },
+  "comparisons": {
+   "B2 - B0 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.195,
+    "sd": 0.042,
+    "min": 0.153,
+    "max": 0.251,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B2 - B0 · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.118,
+    "sd": 0.049,
+    "min": 0.082,
+    "max": 0.202,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B2 - B1 · joint_value_recovered": {
+    "n": 5,
+    "mean": -0.011,
+    "sd": 0.065,
+    "min": -0.099,
+    "max": 0.055,
+    "a_better": 2,
+    "ties": 1
+   },
+   "B2 - B1 · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.006,
+    "sd": 0.078,
+    "min": -0.09,
+    "max": 0.12,
+    "a_better": 2,
+    "ties": 1
+   },
+   "B1 - B0 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.206,
+    "sd": 0.035,
+    "min": 0.153,
+    "max": 0.251,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B1 - B0 · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.112,
+    "sd": 0.052,
+    "min": 0.082,
+    "max": 0.202,
+    "a_better": 5,
+    "ties": 0
+   },
+   "B2 - B2 · no final offers · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.0,
+    "sd": 0.072,
+    "min": -0.055,
+    "max": 0.099,
+    "a_better": 2,
+    "ties": 0
+   },
+   "B2 - B2 · no final offers · focus_gain_over_split": {
+    "n": 5,
+    "mean": 0.0,
+    "sd": 0.079,
+    "min": -0.12,
+    "max": 0.09,
+    "a_better": 3,
+    "ties": 0
+   },
+   "B2 · full information - B2 · joint_value_recovered": {
+    "n": 5,
+    "mean": 0.022,
+    "sd": 0.03,
+    "min": 0.0,
+    "max": 0.055,
+    "a_better": 2,
+    "ties": 3
+   },
+   "B2 · full information - B2 · focus_gain_over_split": {
+    "n": 5,
+    "mean": -0.012,
+    "sd": 0.016,
+    "min": -0.03,
+    "max": 0.0,
+    "a_better": 0,
+    "ties": 3
+   }
+  },
+  "judge": {
+   "repeat_mad": {
+    "n": 50,
+    "mean": 0.124,
+    "sd": 0.202,
+    "min": 0,
+    "max": 0.444
+   },
+   "repeat_exact_agreement": {
+    "n": 50,
+    "mean": 0.907,
+    "sd": 0.151,
+    "min": 0.667,
+    "max": 1.0
+   },
+   "order_swap_abs": {
+    "n": 50,
+    "mean": 0.32,
+    "sd": 0.471,
+    "min": 0,
+    "max": 1
+   },
+   "order_swap_nonzero": 16,
+   "order_swap_n": 50,
+   "order_swap_signed": {
+    "n": 50,
+    "mean": -0.04,
+    "sd": 0.57,
+    "min": -1,
+    "max": 1
+   },
+   "label_swap_mean_abs_diff": {
+    "n": 5,
+    "mean": 0.54,
+    "sd": 0.114,
+    "min": 0.4,
+    "max": 0.7
+   },
+   "validity_joint": {
+    "n": 30,
+    "spearman_rho": 0.4607,
+    "judge_score_mean": 17.7333,
+    "objective_mean": 1.6238,
+    "reads_as": "weak"
+   },
+   "validity_own": {
+    "n": 30,
+    "spearman_rho": -0.4343,
+    "judge_score_mean": 17.7333,
+    "objective_mean": 0.8463,
+    "reads_as": "weak"
+   },
+   "fact_check": {
+    "tp": 73,
+    "fp": 327,
+    "fn": 70,
+    "precision": 0.182,
+    "recall": 0.51
+   }
+  },
+  "probes": [
+   {
+    "P1_free_recall": {
+     "recalls_post_cutoff_events": true,
+     "markers": [
+      "Periodic Commuting Arrangement",
+      "Reciprocal Green Lane"
+     ],
+     "answer": "Here is what I recall, with uncertainty flagged.\n\n**Background:** Malaysia's Movement Control Order (MCO) took effect on 18 March 2020. It was announced by PM Muhyiddin Yassin on 16 March. It barred Malaysians from leaving the country and barred foreigners from entering. That threatened the roughly 300,000 Malaysians who commuted daily or weekly into Singapore.\n\n**Cross-border workers:**\n- Singapore and Malaysia did not agree to keep the daily commute running. Workers had to choose between staying in Singapore for the duration or staying in Malaysia.\n- Many workers rushed across the Causeway a"
+    },
+    "P3_discrimination": {
+     "correct": true,
+     "confidence": 0.93,
+     "reads_as": "recall (picks the real outcome confidently)"
+    }
+   }
+  ],
+  "baselines": {
+   "oracle (needs both true tables)": {
+    "single": {
+     "joint_value_recovered": 1.0,
+     "integrative_gain": 1.0,
+     "focus_gain_over_split": 0.36,
+     "nash_ratio": 1.0,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "split the difference": {
+    "single": {
+     "joint_value_recovered": 0.5436,
+     "integrative_gain": 0.0,
+     "focus_gain_over_split": 0.0,
+     "nash_ratio": 0.2832,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   },
+   "demand everything": {
+    "single": {
+     "joint_value_recovered": 0.9244,
+     "integrative_gain": 0.8344,
+     "focus_gain_over_split": 0.43,
+     "nash_ratio": 0.803,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "calculator, ±20% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, ±40% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, their priorities unknown (random order)": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, assumes they want the opposite of you": {
+    "single": {
+     "joint_value_recovered": 0.6512,
+     "integrative_gain": 0.2357,
+     "focus_gain_over_split": 0.015,
+     "nash_ratio": 0.426,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   }
+  },
+  "side_usage": [
+   {
+    "calls": 20,
+    "input": 164845,
+    "output": 34416
+   },
+   {
+    "calls": 18,
+    "input": 166090,
+    "output": 34056
+   },
+   {
+    "calls": 18,
+    "input": 162716,
+    "output": 31467
+   },
+   {
+    "calls": 18,
+    "input": 162156,
+    "output": 31953
+   },
+   {
+    "calls": 18,
+    "input": 162312,
+    "output": 32748
+   }
+  ],
+  "wall_seconds": [
+   1067.4,
+   1074.4,
+   1046.7,
+   1072.9,
+   1062.9
+  ],
+  "mirror": {
+   "runs": 3,
+   "package_agreement_by_round": {
+    "1": {
+     "n": 3,
+     "mean": 0.833,
+     "sd": 0.144,
+     "min": 0.75,
+     "max": 1.0
+    },
+    "2": {
+     "n": 3,
+     "mean": 0.75,
+     "sd": 0.0,
+     "min": 0.75,
+     "max": 0.75
+    },
+    "3": {
+     "n": 3,
+     "mean": 0.75,
+     "sd": 0.0,
+     "min": 0.75,
+     "max": 0.75
+    }
+   },
+   "issues_moved": {
+    "n": 3,
+    "mean": 0.917,
+    "sd": 0.144,
+    "min": 0.75,
+    "max": 1.0
+   },
+   "text_similarity": {
+    "n": 9,
+    "mean": 0.737,
+    "sd": 0.043,
+    "min": 0.681,
+    "max": 0.798
+   },
+   "illegal": 0,
+   "normal_text_similarity": {
+    "n": 15,
+    "mean": 0.723,
+    "sd": 0.067,
+    "min": 0.598,
+    "max": 0.826
+   }
+  }
+ }
+}

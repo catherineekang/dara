@@ -202,6 +202,7 @@ def run(
     conditions: Optional[ConditionsSnapshot] = None,
     review: Optional[JudgeReview] = None,
     full_information: bool = False,
+    withhold_final_offers: bool = False,
 ) -> DebateRun:
     """Run one condition end to end.
 
@@ -289,8 +290,10 @@ def run(
             rec = recommender.recommend(scenario, judgments,
                                         audience=audience, priority=priority,
                                         reviewer_note="\n".join(notes),
+                                        # ablation: withhold_final_offers=True gives the
+                                        # recommender the judge's assessments only
                                         final_offers={a.country: a.package() for a in all_args[-1]}
-                                        if all_args else None)
+                                        if (all_args and not withhold_final_offers) else None)
         else:
             rec = recommender.recommend_from_transcript(scenario, all_args,
                                                         audience=audience, priority=priority)

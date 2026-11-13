@@ -1,0 +1,652 @@
+{
+ "haze_real": {
+  "payoff": {
+   "packages": 81,
+   "pareto": 14,
+   "max_joint": 1.3575,
+   "split_joint": 1.0475,
+   "split_recovered": 0.7716,
+   "focus_split": 0.53,
+   "focus_best": 1.0,
+   "history": {
+    "utility_Singapore": 0.2675,
+    "utility_Indonesia": 0.66,
+    "joint_utility": 0.9275,
+    "joint_value_recovered": 0.6832,
+    "is_pareto_optimal": 0.0,
+    "nash_ratio": 0.3842,
+    "inequality": 0.3925,
+    "integrative_gain": -0.3871,
+    "focus_country": "Singapore",
+    "focus_utility": 0.2675,
+    "focus_utility_split": 0.53,
+    "focus_utility_best": 1.0,
+    "focus_gain_over_split": -0.2625,
+    "focus_share_of_own_headroom": -0.5585
+   },
+   "history_package": {
+    "concession_maps": "withheld",
+    "enforcement": "indonesian_courts_only",
+    "peatland_moratorium": "partial_exemptions",
+    "transition_funding": "none"
+   }
+  },
+  "baselines": {
+   "oracle (needs both true tables)": {
+    "single": {
+     "joint_value_recovered": 1.0,
+     "integrative_gain": 1.0,
+     "focus_gain_over_split": 0.115,
+     "nash_ratio": 1.0,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "split the difference": {
+    "single": {
+     "joint_value_recovered": 0.7716,
+     "integrative_gain": 0.0,
+     "focus_gain_over_split": 0.0,
+     "nash_ratio": 0.5968,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   },
+   "demand everything": {
+    "single": {
+     "joint_value_recovered": 0.7827,
+     "integrative_gain": 0.0484,
+     "focus_gain_over_split": 0.47,
+     "nash_ratio": 0.136,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "calculator, ±20% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.115,
+      "sd": 0.0,
+      "min": 0.115,
+      "max": 0.115,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, ±40% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 0.9988,
+      "sd": 0.0094,
+      "min": 0.8821,
+      "max": 1.0,
+      "cv": 0.0094
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 0.9947,
+      "sd": 0.0411,
+      "min": 0.4839,
+      "max": 1.0,
+      "cv": 0.0413
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.1184,
+      "sd": 0.0217,
+      "min": 0.115,
+      "max": 0.265,
+      "cv": 0.1833
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 0.9967,
+      "sd": 0.0227,
+      "min": 0.7468,
+      "max": 1.0,
+      "cv": 0.0227
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 0.995,
+      "sd": 0.0707,
+      "min": 0.0,
+      "max": 1.0,
+      "cv": 0.0711
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, their priorities unknown (random order)": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 0.9176,
+      "sd": 0.0822,
+      "min": 0.8306,
+      "max": 1.0,
+      "cv": 0.0895
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 0.6392,
+      "sd": 0.3599,
+      "min": 0.2581,
+      "max": 1.0,
+      "cv": 0.563
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.1239,
+      "sd": 0.0369,
+      "min": 0.04,
+      "max": 0.16,
+      "cv": 0.298
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 0.8361,
+      "sd": 0.1645,
+      "min": 0.6569,
+      "max": 1.0,
+      "cv": 0.1968
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 0.495,
+      "sd": 0.5012,
+      "min": 0.0,
+      "max": 1.0,
+      "cv": 1.0126
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, assumes they want the opposite of you": {
+    "single": {
+     "joint_value_recovered": 0.8582,
+     "integrative_gain": 0.379,
+     "focus_gain_over_split": 0.04,
+     "nash_ratio": 0.738,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   }
+  },
+  "world_count": {
+   "reference_worlds": 2048,
+   "seeds": 30,
+   "rows": [
+    {
+     "worlds": 1,
+     "agree_with_reference": 0.4667,
+     "modal_share": 0.5,
+     "distinct_picks": 3
+    },
+    {
+     "worlds": 2,
+     "agree_with_reference": 0.7667,
+     "modal_share": 0.7667,
+     "distinct_picks": 3
+    },
+    {
+     "worlds": 4,
+     "agree_with_reference": 0.7667,
+     "modal_share": 0.7667,
+     "distinct_picks": 4
+    },
+    {
+     "worlds": 8,
+     "agree_with_reference": 0.9,
+     "modal_share": 0.9,
+     "distinct_picks": 3
+    },
+    {
+     "worlds": 16,
+     "agree_with_reference": 0.9,
+     "modal_share": 0.9,
+     "distinct_picks": 3
+    },
+    {
+     "worlds": 32,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 64,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 128,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 256,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    }
+   ],
+   "reference_opening": {
+    "concession_maps": "full_to_asean_hms",
+    "enforcement": "joint_asean_panel",
+    "peatland_moratorium": "full_no_exemptions",
+    "transition_funding": "full_donor_fund"
+   }
+  },
+  "guess_robustness": {
+   "rows": [
+    {
+     "guess": "±0% weight error",
+     "true_share_mean": 0.795,
+     "true_share_min": 0.795,
+     "true_joint_mean": 0.9687
+    },
+    {
+     "guess": "±20% weight error",
+     "true_share_mean": 0.7868,
+     "true_share_min": 0.685,
+     "true_joint_mean": 0.965
+    },
+    {
+     "guess": "±40% weight error",
+     "true_share_mean": 0.7709,
+     "true_share_min": 0.645,
+     "true_joint_mean": 0.9626
+    },
+    {
+     "guess": "±60% weight error",
+     "true_share_mean": 0.7422,
+     "true_share_min": 0.6025,
+     "true_joint_mean": 0.9554
+    },
+    {
+     "guess": "priority order unknown (shuffled)",
+     "true_share_mean": 0.6773,
+     "true_share_min": 0.57,
+     "true_joint_mean": 0.9222
+    }
+   ],
+   "references": {
+    "ask for everything": {
+     "true_share": 0.645,
+     "true_joint": 1.0
+    },
+    "split the difference": {
+     "true_share": 0.53,
+     "true_joint": 0.7716
+    }
+   },
+   "draws": 40,
+   "focus_best": 1.0
+  }
+ },
+ "covid_my_2020": {
+  "payoff": {
+   "packages": 81,
+   "pareto": 7,
+   "max_joint": 1.72,
+   "split_joint": 0.935,
+   "split_recovered": 0.5436,
+   "focus_split": 0.57,
+   "focus_best": 1.0,
+   "history": {
+    "utility_Singapore": 0.8175,
+    "utility_Malaysia": 0.64,
+    "joint_utility": 1.4575,
+    "joint_value_recovered": 0.8474,
+    "is_pareto_optimal": 0.0,
+    "nash_ratio": 0.7121,
+    "inequality": 0.1775,
+    "integrative_gain": 0.6656,
+    "focus_country": "Singapore",
+    "focus_utility": 0.8175,
+    "focus_utility_split": 0.57,
+    "focus_utility_best": 1.0,
+    "focus_gain_over_split": 0.2475,
+    "focus_share_of_own_headroom": 0.5756
+   },
+   "history_package": {
+    "commuter_arrangement": "stay_in_singapore_with_support",
+    "accommodation_cost": "singapore_subsidised",
+    "goods_and_food_flow": "unrestricted_cargo",
+    "health_screening": "temperature_and_declaration"
+   }
+  },
+  "baselines": {
+   "oracle (needs both true tables)": {
+    "single": {
+     "joint_value_recovered": 1.0,
+     "integrative_gain": 1.0,
+     "focus_gain_over_split": 0.36,
+     "nash_ratio": 1.0,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "split the difference": {
+    "single": {
+     "joint_value_recovered": 0.5436,
+     "integrative_gain": 0.0,
+     "focus_gain_over_split": 0.0,
+     "nash_ratio": 0.2832,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   },
+   "demand everything": {
+    "single": {
+     "joint_value_recovered": 0.9244,
+     "integrative_gain": 0.8344,
+     "focus_gain_over_split": 0.43,
+     "nash_ratio": 0.803,
+     "is_pareto_optimal": 1.0
+    },
+    "calls": 0
+   },
+   "calculator, ±20% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, ±40% guess of their weights": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, their priorities unknown (random order)": {
+    "summary": {
+     "joint_value_recovered": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "integrative_gain": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "focus_gain_over_split": {
+      "n": 200,
+      "mean": 0.36,
+      "sd": 0.0,
+      "min": 0.36,
+      "max": 0.36,
+      "cv": 0.0
+     },
+     "nash_ratio": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     },
+     "is_pareto_optimal": {
+      "n": 200,
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "cv": 0.0
+     }
+    },
+    "samples": 200,
+    "calls": 0
+   },
+   "calculator, assumes they want the opposite of you": {
+    "single": {
+     "joint_value_recovered": 0.6512,
+     "integrative_gain": 0.2357,
+     "focus_gain_over_split": 0.015,
+     "nash_ratio": 0.426,
+     "is_pareto_optimal": 0.0
+    },
+    "calls": 0
+   }
+  },
+  "world_count": {
+   "reference_worlds": 2048,
+   "seeds": 30,
+   "rows": [
+    {
+     "worlds": 1,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 2,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 4,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 8,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 16,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 32,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 64,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 128,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    },
+    {
+     "worlds": 256,
+     "agree_with_reference": 1.0,
+     "modal_share": 1.0,
+     "distinct_picks": 1
+    }
+   ],
+   "reference_opening": {
+    "commuter_arrangement": "stay_in_singapore_with_support",
+    "accommodation_cost": "employers_only",
+    "goods_and_food_flow": "unrestricted_cargo",
+    "health_screening": "testing_and_quarantine"
+   }
+  },
+  "guess_robustness": {
+   "rows": [
+    {
+     "guess": "±0% weight error",
+     "true_share_mean": 1.0,
+     "true_share_min": 1.0,
+     "true_joint_mean": 0.9244
+    },
+    {
+     "guess": "±20% weight error",
+     "true_share_mean": 1.0,
+     "true_share_min": 1.0,
+     "true_joint_mean": 0.9244
+    },
+    {
+     "guess": "±40% weight error",
+     "true_share_mean": 1.0,
+     "true_share_min": 1.0,
+     "true_joint_mean": 0.9244
+    },
+    {
+     "guess": "±60% weight error",
+     "true_share_mean": 1.0,
+     "true_share_min": 1.0,
+     "true_joint_mean": 0.9244
+    },
+    {
+     "guess": "priority order unknown (shuffled)",
+     "true_share_mean": 1.0,
+     "true_share_min": 1.0,
+     "true_joint_mean": 0.9244
+    }
+   ],
+   "references": {
+    "ask for everything": {
+     "true_share": 1.0,
+     "true_joint": 0.9244
+    },
+    "split the difference": {
+     "true_share": 0.7275,
+     "true_joint": 0.7485
+    }
+   },
+   "draws": 40,
+   "focus_best": 1.0
+  }
+ }
+}

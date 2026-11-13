@@ -1,0 +1,627 @@
+{
+ "case": "haze_real",
+ "repeat": 0,
+ "label": "B2 · mirrored briefs",
+ "seconds": 172.4,
+ "usage": {
+  "input": 88035,
+  "output": 21789,
+  "calls": 10,
+  "cost_microusd": 433646,
+  "ms": 172353
+ },
+ "model": "claude-sonnet-5-5",
+ "illegal": [],
+ "package": {
+  "concession_maps": "full_to_asean_hms",
+  "enforcement": "joint_asean_panel",
+  "peatland_moratorium": "full_no_exemptions",
+  "transition_funding": "partial_donor_fund"
+ },
+ "dynamics": {
+  "position_similarity_between_rounds": {
+   "n": 4,
+   "mean": 0.6409,
+   "sd": 0.0988,
+   "min": 0.5318,
+   "max": 0.7331,
+   "cv": 0.1541
+  },
+  "issues_moved_between_rounds": {
+   "n": 4,
+   "mean": 0.25,
+   "sd": 0.5,
+   "min": 0.0,
+   "max": 1.0,
+   "cv": 2.0
+  },
+  "cross_agent_text_similarity_by_round": [
+   0.6526,
+   0.7305,
+   0.5994
+  ],
+  "package_agreement_by_round": [
+   0.75,
+   1.0,
+   1.0
+  ]
+ },
+ "transcript": [
+  [
+   {
+    "country": "Singapore",
+    "position": "Singapore asks for a settlement that ends the yearly dry-season cycle and can be enforced after this episode is forgotten. The 2015 haze pushed our 24-hour PSI past 300, closed schools and cost the region tens of billions of dollars [Background], so another round of consultation without tools is not acceptable. The ASEAN haze agreement already obliges each party to send fire and haze data to the ASEAN Co-ordinating Centre (Article 8(1)) and not to damage other states (Article 3(1)), yet it has no court or tribunal (Article 27). Therefore we propose that Indonesia's ministries release full concession maps to the ASEAN Haze Monitoring System, that our Transboundary Haze Pollution Act apply to companies that cause haze in Singapore, and that the peatland moratorium cover all peatland with no exemptions. Without maps, nobody can show which company's land is burning, and that is the gap that keeps the cycle going.\n\nWe expect Indonesia to object that this breaches sovereignty and domestic data law. Our answer is that the Act targets companies, not the Indonesian state, and that its own fine cap is modest: the maximum is S$2 million in total, which is reached after only 20 days at S$100,000 per day. That is a deterrent sized for a company, not a tool of coercion against a government. We also recognise that we cannot compel enforcement inside Indonesia. In return for full maps shared under ASEAN data-handling rules, we can discuss moving enforcement toward a joint ASEAN panel, and we can fund a donor-backed transition. However, any funding is conditional on measurable reductions in hotspots, so we offer partial donor funding that is released in tranches against verified results, and we will not fund a transition with no measurable reductions. We will not accept a deal that leaves no way to attribute fires to their owners.",
+    "key_claims": [
+     {
+      "claim": "The 2015 haze was severe enough to justify binding attribution tools: PSI passed 300 and regional losses ran into the tens of billions of dollars.",
+      "evidence": "[Background] The scenario records a 24-hour PSI above 300, school closures and regional economic losses in the tens of billions of dollars between June and October 2015."
+     },
+     {
+      "claim": "The existing ASEAN agreement has no enforcement route, so voluntary consultation cannot be the whole settlement.",
+      "evidence": "[S1] Article 27 says disputes are settled by consultation or negotiation and provides no court or tribunal, even though Article 8(1) already requires fire and haze data to be sent to the ASEAN Co-ordinating Centre."
+     },
+     {
+      "claim": "Our Act is proportionate to companies: its penalties are capped, so it deters firms without coercing Indonesia.",
+      "evidence": "[S2] Section 5(2)(a) sets fines up to S$100,000 per day and section 5(5) caps the total at S$2 million, which is reached after 20 days of haze."
+     },
+     {
+      "claim": "Concession maps are the missing link for attribution, and the Act already tells us how to use them.",
+      "evidence": "[S2] Section 8 presumes that the owner or occupier of land where a fire burns caused the haze, and allows ownership to be proved from maps supplied by a foreign government; Indonesia declined to release such maps to the monitoring system [Background]."
+     },
+     {
+      "claim": "Giving the maps to a regional body respects Indonesia's treaty commitments and sovereign right to use its resources.",
+      "evidence": "[S1] Article 3(1) keeps each party's sovereign right to exploit resources but pairs it with a duty not to cause environmental damage to other states, and Article 9 requires parties to control open burning and prevent land clearing by fire."
+     }
+    ],
+    "concessions": [
+     "If Indonesia releases full concession maps to the ASEAN Haze Monitoring System, Singapore can move from applying its own Act to a joint ASEAN panel for enforcement.",
+     "If the moratorium covers all peatland, Singapore will contribute to a donor-backed transition fund, released in tranches against verified hotspot reductions.",
+     "Singapore accepts that it cannot compel enforcement inside Indonesian territory and will use its satellite monitoring to support, not replace, Indonesian action."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism: without it, fires cannot be linked to owners and the dry-season cycle repeats.",
+     "No transition funding without measurable reductions: unconditional money would pay for a programme with no proof it lowers PSI in Singapore."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "singapore_act_applied"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   },
+   {
+    "country": "Indonesia",
+    "position": "Indonesia proposes a settlement built on one idea: a shared, verifiable record of who burns, run by ASEAN rather than by any single state. We will give the ASEAN Haze Monitoring System full plantation concession maps, because without them nobody can attribute fires to specific companies, and a settlement with no attribution mechanism would leave us facing the same cycle in 2016. El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter, so the next dry season is already a threat. In return, enforcement should run through a joint ASEAN panel, not through Singapore's 2014 Act. That Act reaches conduct abroad, but its fines are capped at S$2 million in aggregate even though the daily rate is up to S$100,000, so it cannot deter a large listed parent, and its extraterritorial reach is legally untested. The ASEAN Agreement has no court or tribunal at all, since Article 27 only offers consultation, so a panel fills a real gap. It also lets us hold corporate actors accountable without surrendering sovereignty over Indonesian courts.\n\nWe also offer a full peatland moratorium with no exemptions, administered by the new Peatland Restoration Agency set up in January 2016, because peatland fires are the source of the 2015 haze, when Singapore's PSI passed 300 and schools closed. We know the most damaging objection is that our own agribusiness lobby will resist concession-level liability and that we cannot compel enforcement on the ground. Our answer is that district-level monitoring with open maps makes enforcement cheaper and gives every government the same evidence. On money, we will accept a partial donor fund for transition, but only if it is released against measurable reductions in hotspots and PSI exposure. We will not finance transition without such reductions. If Singapore accepts full maps and a joint panel, we can move on the pace and phasing of the moratorium and on the fund's size.",
+    "key_claims": [
+     {
+      "claim": "A joint ASEAN panel fills the enforcement gap that the 2002 Agreement left open, so it is a better venue than any single state's courts.",
+      "evidence": "[S1] Article 27 says disputes are settled by consultation or negotiation and provides no court or tribunal, so the region currently has no binding body to rule on corporate responsibility."
+     },
+     {
+      "claim": "Singapore's Act is too weak a deterrent to be the main tool, so a shared attribution system is needed.",
+      "evidence": "[S2] section 5(5) caps the aggregate fine at S$2 million, while section 5(2)(a) sets up to S$100,000 per day, so the cap is reached after 20 days of haze, which is trivial for a large listed plantation parent."
+     },
+     {
+      "claim": "Full concession maps are the foundation of attribution, and Indonesia is willing to provide them through ASEAN.",
+      "evidence": "[S2] section 8 presumes the landowner caused the haze and allows ownership to be proved from maps supplied by a foreign government, and [S1] Article 8(1) already requires fire and haze data to flow to the ASEAN Co-ordinating Centre, so sharing maps through ASEAN is consistent with existing duties."
+     },
+     {
+      "claim": "A full moratorium on peatland, backed by the Peatland Restoration Agency, targets the root cause of the crisis.",
+      "evidence": "[Background] The June to October 2015 peatland fires pushed Singapore's 24-hour PSI past 300 and caused regional losses in the tens of billions of dollars, and Indonesia announced a moratorium in late 2015 and created the agency in January 2016 under Presidential Regulation 1/2016."
+     },
+     {
+      "claim": "Transition money must be tied to measured results, because the El Nino risk makes wasted funds costly.",
+      "evidence": "[Background] El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter (ENSO Diagnostic Discussion, 13 August 2015), so funds must buy measurable hotspot reductions before the next dry season."
+     }
+    ],
+    "concessions": [
+     "We will release full concession maps to the ASEAN Haze Monitoring System, conditional on enforcement running through a joint ASEAN panel and not through direct application of Singapore's Act.",
+     "We will accept a partial donor fund, not full funding, conditional on disbursement against measurable reductions.",
+     "We can discuss the phasing of the moratorium if Singapore accepts full map sharing and the joint panel."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism, because without it the dry-season haze cycle repeats and no company can be held to account.",
+     "No funding of transition without measurable reductions, because money released with no results would repeat the 2015 failure at public cost."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "joint_asean_panel"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "country": "Singapore",
+    "position": "We have moved since last round: Singapore now accepts a joint ASEAN panel for enforcement, because Indonesia's offer of full concession maps through the ASEAN Haze Monitoring System is the attribution mechanism we most need. Indonesia's strongest point is that our Act's fines are capped at S$2 million in aggregate, reached after only 20 days at S$100,000 a day, so the Act alone cannot deter a large listed parent [S2 s5(2)(a), s5(5)]. We accept that a panel adds something the Act cannot, because the ASEAN Agreement has no court or tribunal [S1 Art. 27]. However, a panel with no maps would repeat that gap. Therefore our acceptance is conditional on full maps being released, and on the panel's findings being usable as ownership evidence under section 8 of our Act, which already allows ownership to be proved from maps supplied by a foreign government [S2 s8]. Our Act and the civil right to sue under section 6 would stay in force as a fallback and not be suspended. This answers a gap neither side has addressed, namely what happens to the Act once a panel exists, and it costs Indonesia nothing unless the panel fails.\n\nWe also accept the full peatland moratorium Indonesia offered, and we will fund transition only in part and only in tranches released against verified reductions in hotspots and PSI. The most damaging objection is that a full moratorium with no exemptions hurts smallholders and communities who live on peatland, and costs palm oil and pulp revenue. Our answer is that the first tranche should pay for smallholder livelihoods through the Peatland Restoration Agency, with the amount fixed by a joint costing because our sources give no figure for it. In return for the maps and the panel, we will not insist on direct application of our Act, and if Indonesia accepts independent verification using satellite data, we can move on the pace of the moratorium. We will not fund transition without measurable reductions, and because El Nino has a greater than 90% chance of lasting through the 2015-16 winter [Background], verification should compare hotspot counts with the El Nino-adjusted baseline, not raw PSI alone.",
+    "key_claims": [
+     {
+      "claim": "Indonesia's own offer of full maps through ASEAN is consistent with existing duties, so we can trade our direct Act for a joint panel.",
+      "evidence": "[S1] Article 8(1) already requires fire and haze data to flow to the ASEAN Co-ordinating Centre, so sharing maps through ASEAN extends an existing duty rather than creating a new one."
+     },
+     {
+      "claim": "The Act's cap makes it a weak sole tool, so a panel is a fair main venue provided it has maps and the Act stays as a fallback.",
+      "evidence": "[S2] section 5(5) caps aggregate fines at S$2 million while section 5(2)(a) allows S$100,000 per day, so the cap is reached after 20 days; section 6 still gives injured people in Singapore a civil right to sue."
+     },
+     {
+      "claim": "Attribution that survives this episode needs maps usable as legal evidence, not just data for monitoring.",
+      "evidence": "[S2] section 8 presumes the owner or occupier of burning land caused the haze and allows ownership to be proved from maps supplied by a foreign government."
+     },
+     {
+      "claim": "A full moratorium needs a livelihood component for peatland smallholders, or it will not hold.",
+      "evidence": "[Background] Indonesia announced a moratorium in late 2015 and created the Peatland Restoration Agency in January 2016 under Presidential Regulation 1/2016, so the agency is the natural channel for a first tranche aimed at smallholders."
+     },
+     {
+      "claim": "Funding must be tied to verified results adjusted for El Nino, so that a bad dry season does not unfairly cut funds or hide failure.",
+      "evidence": "[Background] El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter (ENSO Diagnostic Discussion, 13 August 2015)."
+     }
+    ],
+    "concessions": [
+     "If full concession maps go to the ASEAN Haze Monitoring System, Singapore drops direct application of its Act as the main enforcement route and accepts a joint ASEAN panel.",
+     "If Indonesia accepts independent satellite verification of hotspots, Singapore can be flexible on the phasing of the moratorium.",
+     "Singapore accepts only partial donor funding, with the first tranche aimed at smallholder livelihoods through the Peatland Restoration Agency."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism: without full maps, fires cannot be linked to owners and the dry-season cycle repeats.",
+     "No transition funding without measurable reductions: unconditional money would pay for a programme with no proof it lowers PSI in Singapore."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "joint_asean_panel"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   },
+   {
+    "country": "Indonesia",
+    "position": "We are holding our package, because Singapore's own offers now meet ours: it said it would move from its Act to a joint ASEAN panel if we release full maps, and it would fund a transition if the moratorium covers all peatland, and we accept both trades. Singapore's strongest point is that consultation without tools cannot end the yearly cycle, and that its fines are sized for companies and not for governments. We agree on the first half and answer the second with a figure: the Act's total fine is capped at S$2 million, reached after 20 days at S$100,000 a day, against regional losses in the tens of billions of dollars, so the cap cannot be the main deterrent. That is why attribution, the shared map record, matters more than the size of any one fine. Therefore Indonesia will have its ministries release full concession maps to the ASEAN Haze Monitoring System, a joint ASEAN panel will rule on corporate responsibility because Article 27 of the 2002 Agreement leaves the region with no tribunal, and we accept the full moratorium run by the Peatland Restoration Agency.\\n\\nThis round we fill in the gaps the judge found. First, the panel: ASEAN members fund it through the ASEAN Co-ordinating Centre, it uses map and hotspot evidence to name the owner, and its findings go to the Indonesian courts for enforcement on Indonesian soil, which is honest about our limit that we cannot compel enforcement without our own courts. Singapore's civil right to sue under section 6 of its Act stays available as a fallback if the panel fails to rule within an agreed period, so Singapore loses nothing. Second, map data: maps go to ASEAN under data-handling rules that bar commercial use and competitor access, which answers our own domestic data-law concern. Third, the full moratorium falls hardest on smallholders and on palm oil and pulp jobs, so the partial donor fund should pay first for smallholder livelihood support and be released in tranches against hotspot reductions verified by satellite data from both Indonesia's and Singapore's monitoring, with a clause that an El Nino-driven bad 2016 season does not cancel a tranche if the trend in company-attributed fires still falls. We will not fund transition without measurable reductions. If Singapore accepts this, we can discuss the phasing of the moratorium.",
+    "key_claims": [
+     {
+      "claim": "Fines under Singapore's Act are too small to be the main deterrent, so a shared attribution record plus a panel is the stronger tool.",
+      "evidence": "[S2] section 5(2)(a) sets fines up to S$100,000 per day and section 5(5) caps the total at S$2 million, reached after 20 days, which is tiny next to the tens of billions of dollars of 2015 regional losses [Background]."
+     },
+     {
+      "claim": "A joint ASEAN panel fills the enforcement gap and Singapore has already said it can accept one in return for maps.",
+      "evidence": "[S1] Article 27 provides only consultation or negotiation and no court or tribunal, and Singapore's stated concession was to move to a joint panel if full maps are released [Background]."
+     },
+     {
+      "claim": "Sharing full maps through ASEAN fits existing duties and makes ownership provable.",
+      "evidence": "[S1] Article 8(1) already requires fire and haze data to go to the ASEAN Co-ordinating Centre, and [S2] section 8 allows ownership to be proved from maps supplied by a foreign government."
+     },
+     {
+      "claim": "Keeping Singapore's civil right to sue as a fallback gives Singapore a backstop without applying the Act directly.",
+      "evidence": "[S2] section 6 lets anyone in Singapore who suffers injury, property damage or economic loss sue, so it can remain as a fallback if the panel does not rule in time."
+     },
+     {
+      "claim": "Transition funding must follow verified results and allow for El Nino, or it will be wasted or cut unfairly.",
+      "evidence": "[Background] El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter (ENSO Diagnostic Discussion, 13 August 2015), so tranches should be judged on the trend in company-attributed hotspots, not on raw haze alone."
+     }
+    ],
+    "concessions": [
+     "We release full concession maps to the ASEAN Haze Monitoring System, on condition that enforcement runs through a joint ASEAN panel and not direct application of Singapore's Act.",
+     "We accept Singapore's civil right to sue under section 6 as a fallback if the panel fails to rule within an agreed period.",
+     "We accept a full moratorium with no exemptions, on condition that the partial donor fund pays for smallholder livelihood support in tranches.",
+     "We can discuss the phasing of the moratorium if Singapore accepts the panel and the data-handling rules."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism, because without owner-level maps the 2015 cycle repeats in the next dry season.",
+     "No transition funding without measurable reductions, because money released with no verified fall in hotspots wastes public funds under El Nino risk."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "joint_asean_panel"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   }
+  ],
+  [
+   {
+    "country": "Singapore",
+    "position": "We have moved since last round: we now accept Indonesia's tranche design and its ban on commercial use of map data, and we add three terms that close gaps the judge found, so that the shared package can be signed. Indonesia's strongest point is that fines under our Act are too small to deter, because the total is capped at S$2 million and reached after 20 days at S$100,000 a day [S2 s5(2)(a), s5(5)]. We agree, and that is why we gave up direct application of the Act. However, a panel that only names owners, with no penalty, would be just as weak as the cap. Therefore we ask that the panel's findings carry a defined consequence: Indonesian courts act on them within an agreed period, and if they decline or do not act in that period, our section 6 civil right to sue becomes available as a fallback, because section 6 lets anyone in Singapore who suffers injury, property damage or economic loss sue [S2 s6]. This extends Indonesia's own fallback, which covered only a panel that fails to rule, to a panel whose rulings go unenforced, and it costs Indonesia nothing if its courts act.\\n\\nOn the panel's legal basis, Article 27 offers only consultation and no tribunal [S1 Art. 27], so the panel needs a short protocol under the 2002 Agreement, in force since 2003 [S1]. We propose that ASEAN members, through the ASEAN Co-ordinating Centre, draft it, that Indonesia and Singapore each name members with a neutral chair, and that the panel can rule on map and hotspot evidence in the meantime on an interim basis. On map protection, we accept the bar on commercial use and competitor access, and we ask that the Co-ordinating Centre log every access and that any leak be a ground for Indonesia to suspend further releases, so Indonesia is not left exposed if the rules prove weaker than promised. On funding, we cannot state a figure because our sources give none, so a joint costing by the Peatland Restoration Agency and Singapore should set the size before the first tranche, and the later tranches follow hotspot trends in company-attributed fires, as Indonesia proposed, with El Nino allowance. We hold our red lines: no deal without an attribution mechanism, and no funding without measurable reductions. In return for the panel terms above, we will agree to phase the moratorium if satellite verification from both countries is accepted.",
+    "key_claims": [
+     {
+      "claim": "A panel naming owners needs a consequence, so unenforced rulings should reopen Singapore's civil right to sue.",
+      "evidence": "[S2] section 6 lets anyone in Singapore who suffering injury, property damage or economic loss sue, and [S2] section 5(5) caps fines at S$2 million, so without a fallback a ruling that is not acted on would carry no real cost for a large owner."
+     }
+    ],
+    "concessions": [
+     "We accept Indonesia's tranche design and its data-handling rules barring commercial use and competitor access.",
+     "If Indonesian courts act on panel findings within an agreed period, we do not use the section 6 fallback.",
+     "If Indonesia accepts joint satellite verification, we will agree to phase the moratorium."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism, because without owner-level maps fires cannot be linked to owners and the dry-season cycle repeats.",
+     "No transition funding without measurable reductions, because money released without a verified fall in hotspots would not lower PSI in Singapore."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "joint_asean_panel"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   },
+   {
+    "country": "Indonesia",
+    "position": "We are holding our package, because Singapore has now accepted every element of it, and we move only to close the gaps the judge found: we now agree that panel findings may be used as ownership evidence under section 8 of Singapore's Act, in return for tighter map-protection rules and a fund that pays only against verified results. Singapore's strongest point is that a full moratorium hurts smallholders and costs palm oil and pulp revenue, and that attribution must be usable as legal evidence. We answer the first by agreeing that the first tranche goes to smallholder livelihoods through the Peatland Restoration Agency, with its size fixed by a joint costing within an agreed period, because our sources give no figure and we will not invent one. We answer the second by agreeing that panel findings built on our maps may be offered as ownership evidence, since section 8 already allows ownership to be proved from maps supplied by a foreign government. This is a real concession, and we make it because the Act's fines are capped at S$2 million in total, reached after only 20 days at S$100,000 a day, so evidence and attribution matter far more than fine size.\\n\\nOn the gaps neither side has filled: the panel needs a legal basis, because Article 27 of the 2002 Agreement offers only consultation and no tribunal. We propose that ASEAN parties create it by a protocol under the Agreement, run through the ASEAN Co-ordinating Centre, and that its membership, voting rules and timetable be fixed before maps are released. How long that takes is not established by any source, so we propose a fixed negotiating deadline. If Indonesian courts decline to act on a finding within an agreed period, Singapore's section 6 right to sue applies, not only when the panel fails to rule. Revenue loss from the moratorium falls first on concession holders, who bear their own compliance costs, while the donor fund covers only smallholders. Maps are released under rules that bar commercial use, log every access, and let Indonesia suspend updates if ASEAN handling proves weaker than promised. In return, we ask Singapore to accept independent satellite verification from both countries, with hotspot counts adjusted for El Nino, which has a greater than 90% chance of lasting through the 2015-16 winter. We will not fund transition without measurable reductions.",
+    "key_claims": [
+     {
+      "claim": "Singapore's fines cannot be the main deterrent, so evidence-grade attribution through a panel is the stronger tool, and we will let panel findings serve as ownership evidence.",
+      "evidence": "[S2] section 5(2)(a) allows S$100,000 per day and section 5(5) caps the aggregate at S$2 million, reached after 20 days, while section 8 allows ownership to be proved from maps supplied by a foreign government, so shared maps do more than any single fine."
+     },
+     {
+      "claim": "A panel needs a legal basis and a back-stop for unenforced rulings, so we offer a protocol under the 2002 Agreement and extend the section 6 fallback to rulings our courts do not act on.",
+      "evidence": "[S1] Article 27 provides only consultation or negotiation and no court or tribunal, and [S2] section 6 lets anyone in Singapore who suffers injury, property damage or economic loss sue."
+     },
+     {
+      "claim": "Releasing maps extends an existing duty, and we will protect the data so companies are not exposed to commercial leaks.",
+      "evidence": "[S1] Article 8(1) already requires fire and haze data to go to the ASEAN Co-ordinating Centre, so sharing maps extends that duty, and we add access logs and a bar on commercial use."
+     },
+     {
+      "claim": "Transition money must follow verified reductions adjusted for El Nino, or a bad season will cut funds unfairly or hide failure.",
+      "evidence": "[Background] El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter (ENSO Diagnostic Discussion, 13 August 2015), so tranches should be judged on the trend in company-attributed hotspots."
+     },
+     {
+      "claim": "The full moratorium is workable only if the donor fund first covers smallholders and companies bear their own costs, with the size set by a joint costing.",
+      "evidence": "[Background] Indonesia created the Peatland Restoration Agency in January 2016 under Presidential Regulation 1/2016, so it is the channel for the first tranche, and no source gives a fund size, so a joint costing must establish it."
+     }
+    ],
+    "concessions": [
+     "We accept that panel findings can be used as ownership evidence under section 8 of Singapore's Act, on condition that Singapore does not apply its Act directly as the main route.",
+     "We extend Singapore's section 6 fallback to cases where Indonesian courts do not act on a finding within an agreed period, on condition that the panel is the first venue.",
+     "We accept a full moratorium with no exemptions, on condition that the partial donor fund pays first for smallholder livelihoods in tranches.",
+     "We accept independent satellite verification from both countries, on condition that hotspot counts are adjusted for El Nino."
+    ],
+    "red_lines": [
+     "No settlement without an attribution mechanism, because without owner-level maps the next dry season repeats the 2015 episode, when Singapore's PSI passed 300 and regional losses ran into the tens of billions of dollars.",
+     "No transition funding without measurable reductions, because money released without a verified fall in hotspots wastes public funds while El Nino raises fire risk."
+    ],
+    "proposed_package": [
+     {
+      "issue": "concession_maps",
+      "option": "full_to_asean_hms"
+     },
+     {
+      "issue": "enforcement",
+      "option": "joint_asean_panel"
+     },
+     {
+      "issue": "peatland_moratorium",
+      "option": "full_no_exemptions"
+     },
+     {
+      "issue": "transition_funding",
+      "option": "partial_donor_fund"
+     }
+    ]
+   }
+  ]
+ ],
+ "judgments": [
+  {
+   "round_index": 1,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "Tranche-based funding tied to verified hotspot cuts is workable, and it admits it cannot compel enforcement inside Indonesia. But the package asks Indonesia to accept the Singapore Act, which Indonesia has objected to on extraterritorial grounds. It also asks for full maps and a moratorium with no exemptions, with no phasing."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It gives concrete figures: S$100,000 a day, the S$2 million cap, and 20 days to reach it. The funding is only 'partial', with no size, tranche schedule or hotspot target. The moratorium has no timeline."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 3,
+       "justification": "It admits it cannot compel enforcement inside Indonesia and expects the sovereignty objection. It does not admit that full maps and the moratorium cost Indonesia, such as the agribusiness lobby, lost revenue and the political cost of exposing concession holders. It also does not say what it costs itself to fund the transition."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 3,
+       "justification": "The package is consistent with its own text, but the text is internally split. It proposes applying the Act while offering to move to a joint ASEAN panel in return for maps. The offered concession is that same swap, yet the stated package is the Act, so the stance is conditional and unresolved."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 3,
+       "justification": "This is round 1, so it responds to anticipated Indonesian objections: sovereignty, data law and the fine cap. It could not engage Indonesia's actual argument. Its claim that the Act is proportionate to companies partly misses that the cap is a weak deterrent."
+      }
+     ],
+     "summary": "Singapore proposes full concession maps given to the regional haze monitoring system, its own 2014 Act applied to companies that cause haze, a moratorium on all peatland with no exemptions, and partial donor funding released against verified hotspot reductions. The case is well grounded in the statute and treaty. It offers to move to a joint panel if Indonesia releases the maps. That offer sits awkwardly beside its stated package. The costs to Indonesia go largely unacknowledged.",
+     "unsupported_claims": [
+      "The scenario says Singapore's Act was passed in 2014 and the source gives the fine figures, but the claim that the Act 'targets companies, not the Indonesian state' is an interpretation. The cited sections do not state it.",
+      "The claim that giving maps to a regional body 'respects Indonesia's treaty commitments' is cited to Articles 3(1) and 9. Neither article says anything about sharing maps. Only Article 8(1), which covers fire and haze data, is relevant, and it is not cited for this claim."
+     ]
+    },
+    {
+     "country": "Indonesia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 3,
+       "justification": "A joint panel and open maps are plausible, and the Peatland Restoration Agency exists. But the panel has no stated mandate, membership or legal basis, and Indonesia admits the agribusiness lobby will resist and that it cannot compel enforcement on the ground. A full moratorium with no exemptions is also hard to carry out."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "It cites the S$2 million cap against S$100,000 a day and the El Nino probability above 90%. It names the Peatland Restoration Agency and January 2016. The panel, the fund size, the hotspot targets and the moratorium timeline are all missing."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "It names the most damaging objection: the agribusiness lobby will resist concession-level liability, and it cannot compel enforcement on the ground. It also concedes the full map release and full moratorium. It says little about what the panel costs Singapore, which loses the Act."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "Its package matches its argument. It reverses its known public stance by offering full maps, but this is framed as a trade for a joint panel and so reads as a conditional concession. The reversal is not explained beyond attribution being needed."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 3,
+       "justification": "It engages Singapore's Act directly: the cap, the extraterritorial reach and the Article 27 gap. It does not engage Singapore's argument that the Act targets companies, and it does not answer how a panel would be given binding power."
+      }
+     ],
+     "summary": "Indonesia proposes releasing full concession maps to the regional monitoring system in exchange for enforcement through a joint ASEAN panel instead of Singapore's Act. It also offers a full peatland moratorium run by its restoration agency and partial donor funding tied to measured hotspot reductions. It admits that its agribusiness lobby will resist and that it cannot compel enforcement on the ground. The panel is left undefined, and the offer to share maps is conditional on getting it.",
+     "unsupported_claims": [
+      "Singapore's Act's extraterritorial reach is 'legally untested': neither the scenario nor the sources say this. Section 4 only states that the Act extends beyond Singapore.",
+      "Peatland fires are 'the source of the 2015 haze': the Background says fires on peatland produced it, but it gives no basis for treating peatland as the sole source.",
+      "El Nino conditions have a greater than 90% chance of lasting through the 2015-16 northern winter: this is cited in the argument to the ENSO Diagnostic Discussion of 13 August 2015, which is not in the listed sources or the scenario text.",
+      "Article 8(1) is cited to show that sharing maps is consistent with existing duties, but it covers fire and haze data, not concession maps."
+     ]
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "Neither side addresses how smallholders and communities on peatland who depend on it for a living would be affected by a full moratorium with no exemptions, or how they would be compensated.",
+    "Neither side says who sets up and pays for the joint panel, how its decisions would bind companies, or what it would do about companies incorporated in third countries.",
+    "Neither side addresses the data-law and privacy risk of releasing full concession maps, such as commercial confidentiality, competitor access and land-rights disputes.",
+    "Neither side says what happens to Singapore's Act and its civil right to sue if a joint panel is agreed. They do not address whether the Act would be suspended or kept as a fallback.",
+    "Neither side sets out how hotspot and PSI reductions would be measured and verified, who verifies them, or what happens to funding if the 2016 dry season is worse because of El Nino regardless of policy.",
+    "Neither side addresses the cost to Indonesia's palm oil and pulp export revenue and jobs from a full moratorium."
+   ]
+  },
+  {
+   "round_index": 2,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 4,
+       "justification": "Package is workable: panel with maps, Act kept as fallback, first tranche through the Peatland Restoration Agency. It leaves the tranche amount to a 'joint costing' and does not say who funds or staffs the panel."
+      },
+      {
+       "criterion": "specificity",
+       "score": 3,
+       "justification": "Gives concrete mechanisms (panel findings usable as section 8 evidence, section 6 kept, El Nino-adjusted baseline, tranches). But no funding amount, no deadline for the panel, and no definition of the baseline."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "Names the harm to smallholders and palm oil and pulp revenue from a full moratorium. Says the Act fallback 'costs Indonesia nothing unless the panel fails', which understates the burden on Indonesia."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 5,
+       "justification": "Moves from applying its own Act to a joint panel, and explains the move as a response to Indonesia's offer of maps. The conditions it states match its round 1 concessions. Red lines are unchanged."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 5,
+       "justification": "Names Indonesia's strongest point, the S$2 million cap reached in 20 days, and concedes it. Also answers Indonesia's panel proposal directly."
+      }
+     ],
+     "summary": "Singapore accepts a joint ASEAN panel in return for full maps, and wants panel findings usable as ownership evidence under its Act, with the Act and civil suits kept as a fallback. It accepts the full moratorium and partial donor funding in tranches tied to verified, El Nino-adjusted hotspot reductions, with the first tranche for smallholders. It is clear about the cost to smallholders but gives no figures for funding.",
+     "unsupported_claims": [
+      "The claim that the panel's findings could be used as section 8 evidence is Singapore's own proposal. Section 8 refers only to maps supplied by a foreign government, not panel findings.",
+      "The 'El Nino-adjusted baseline' is not in the sources, and the scenario gives no method for it."
+     ]
+    },
+    {
+     "country": "Indonesia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 4,
+       "justification": "Concrete institutional design: ASEAN members fund the panel through the Co-ordinating Centre, findings go to Indonesian courts, data-handling rules bar commercial use. Whether ASEAN members would agree to fund a panel, and whether Indonesian courts would act on its findings, is not shown."
+      },
+      {
+       "criterion": "specificity",
+       "score": 4,
+       "justification": "Gives the panel's funding source, its path to enforcement, data-use limits, a dual-satellite verification clause and an El Nino clause on tranches. Still gives no fund size or panel deadline ('agreed period')."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "Admits it cannot compel enforcement without its own courts. Names the burden on smallholders and on palm oil and pulp jobs. Does not address the cost to Singapore of losing direct application of its Act, beyond saying Singapore 'loses nothing'."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 5,
+       "justification": "Holds the same package and red lines as round 1. Its new details (section 6 fallback, data rules) are explained as responses to gaps."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 5,
+       "justification": "Takes up Singapore's strongest point, its concessions, and the gaps the judge raised. It states that it accepts Singapore's conditional trades."
+      }
+     ],
+     "summary": "Indonesia holds its package and fills in the details: ASEAN members fund the panel, its findings go to Indonesian courts, and Singapore's section 6 right to sue stays as a fallback. It also adds data-handling rules for the maps, and tranches that go first to smallholders, are verified by both countries' satellites and are protected from an El Nino bad year. Its design is specific and responsive. It says nothing on fund size or on the panel's timeline.",
+     "unsupported_claims": [
+      "Singapore 'said it would fund a transition if the moratorium covers all peatland' is accurate only in part. Singapore's offer was partial funding in tranches against verified results.",
+      "Singapore's 'loses nothing' by moving to a panel is an assertion. The sources do not show it.",
+      "The claim that data-handling rules 'answer' Indonesia's domestic data-law concern is unsupported. No source on that law is cited."
+     ]
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "The panel's membership, voting rules and legal basis are not defined. Article 27 provides no tribunal, so a binding panel would need a new instrument or an amendment, and neither side says how it would be created or how long that would take.",
+    "Neither side states how much a partial fund would be, who pays what share, or what happens if the first tranche is not enough to cover smallholder livelihoods.",
+    "Panel findings go to Indonesian courts, but nobody says what happens if those courts decline to act. Singapore's section 6 fallback covers only a panel that fails to rule, not one whose rulings go unenforced.",
+    "Singapore's section 5 fines are capped at S$2 million in total, yet both sides say the panel names owners without saying what penalties it can impose.",
+    "The moratorium cuts revenue and jobs on peatland. Neither side says who bears that cost beyond the smallholder tranche, such as large concession holders or provincial governments.",
+    "Releasing full concession maps exposes companies, and nobody addresses how the data are protected from leaks, or what Indonesia loses if ASEAN rules on map access prove weaker than promised."
+   ]
+  },
+  {
+   "round_index": 3,
+   "judgments": [
+    {
+     "country": "Singapore",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 4,
+       "justification": "Proposes a protocol under the 2002 Agreement drafted via the ASEAN Co-ordinating Centre, with a neutral chair and an interim basis for the panel, plus a joint costing before the first tranche. This is workable, though no timeline is given for the protocol."
+      },
+      {
+       "criterion": "specificity",
+       "score": 4,
+       "justification": "Gives concrete mechanics: access logging, suspension of releases on any leak, a section 6 fallback if courts do not act within an agreed period, and a panel with a neutral chair. The period and the fund size are left open, though it says why no figure exists."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 3,
+       "justification": "Says the fallback 'costs Indonesia nothing if its courts act', which understates the cost to Indonesia of the section 6 exposure and of the court-pressure. It does concede that a leak would leave Indonesia exposed, and accepts the data limits."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 5,
+       "justification": "It says it has moved, and explains the change: it accepts Indonesia's tranche design and map rules. Red lines and the package are unchanged, and the panel-for-maps trade follows from Round 2."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 5,
+       "justification": "Takes up Indonesia's fines-cap point, its tranche design, its data-handling rules and its fallback for a panel that fails to rule, and extends each one."
+      }
+     ],
+     "summary": "Singapore accepts Indonesia's tranche design and map-protection rules. It asks that panel findings have a consequence: if Indonesian courts do not act within an agreed period, its civil right to sue becomes available. It proposes a protocol under the 2002 Agreement, with an interim panel and a neutral chair, access logging with a right for Indonesia to suspend releases on a leak, and a joint costing of the fund. In return it will agree to phase the moratorium if both countries' satellite verification is accepted.",
+     "unsupported_claims": [
+      "The claim evidence has a typo ('suffering') but no unsupported fact. No other unsupported claims; the 'in force since 2003' fact is supported by S1."
+     ]
+    },
+    {
+     "country": "Indonesia",
+     "scores": [
+      {
+       "criterion": "feasibility",
+       "score": 4,
+       "justification": "Offers a protocol under the Agreement through the ASEAN Co-ordinating Centre with a fixed negotiating deadline, and says membership and voting rules are set before maps are released. Honestly says no source gives the timeline."
+      },
+      {
+       "criterion": "specificity",
+       "score": 4,
+       "justification": "Specific on sequencing (rules fixed before release), access logs, a suspension right, the smallholder-first tranche, and companies bearing their own compliance costs. The deadline, the period and the fund size remain unquantified."
+      },
+      {
+       "criterion": "tradeoff_acknowledgement",
+       "score": 4,
+       "justification": "Calls the use of panel findings as section 8 evidence 'a real concession'. It also says the moratorium's revenue loss falls on concession holders and smallholders. It says little about the delay that setting up the protocol first imposes on Singapore."
+      },
+      {
+       "criterion": "position_consistency",
+       "score": 4,
+       "justification": "Holds the same package and red lines. The new concessions (section 8 use, extending the fallback to unenforced rulings) are flagged as moves. Making map release depend on the protocol rules being fixed first adds a new sequencing condition."
+      },
+      {
+       "criterion": "responsiveness",
+       "score": 5,
+       "justification": "Answers Singapore's smallholder-cost and legal-evidence points directly, and adopts its fallback idea, its section 8 use and its request for access logs."
+      }
+     ],
+     "summary": "Indonesia keeps its package and agrees that panel findings can be used as ownership evidence under section 8 of Singapore's Act. It extends Singapore's right to sue to cases where Indonesian courts do not act on a finding. It proposes a protocol with membership, voting and timetable fixed before maps are released, a first tranche for smallholders sized by a joint costing, and maps released with logging and a right to suspend. In return it asks for joint satellite verification adjusted for El Nino.",
+     "unsupported_claims": []
+    }
+   ],
+   "unaddressed_tradeoffs": [
+    "Who pays for the panel and its secretariat is not settled, and whether non-party ASEAN members would accept the cost and the protocol is not addressed.",
+    "Companies named by the panel have no stated right of appeal or due process, and whether a panel finding can be challenged in Indonesian courts or in Singapore is not addressed.",
+    "Neither side says how maps are kept current, or what happens to ongoing monitoring if Indonesia suspends releases after a leak.",
+    "The gap between protocol negotiation and the dry season is not addressed: maps are released only after the rules are fixed, so attribution may be absent in the next fire season.",
+    "Who the donors are and whether they will give is not addressed; the fund relies on donors who are not at the table, and the tranche release rules leave unclear who decides when a tranche is earned if the two countries' satellite data disagree.",
+    "The lost revenue and jobs from the full moratorium for companies and non-smallholder workers are left unaddressed beyond saying companies bear their own costs."
+   ]
+  }
+ ],
+ "outcome_mirror": {
+  "utility_Singapore": 0.835,
+  "utility_Indonesia": 0.835,
+  "joint_utility": 1.67,
+  "joint_value_recovered": 0.835,
+  "is_pareto_optimal": 0.0,
+  "nash_ratio": 0.6972,
+  "inequality": 0.0,
+  "integrative_gain": 0.6489,
+  "focus_country": "Singapore",
+  "focus_utility": 0.835,
+  "focus_utility_split": 0.53,
+  "focus_utility_best": 1.0,
+  "focus_gain_over_split": 0.305,
+  "focus_share_of_own_headroom": 0.6489
+ }
+}
